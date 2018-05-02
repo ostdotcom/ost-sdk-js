@@ -12,7 +12,7 @@ const rootPrefix = "../../.."
 
 describe('services/v0/transaction_kind/create', function () {
 
-  it('test', async function () {
+  it('test ENV variables', async function () {
     assert.equal(process.env.OST_KIT_HELLO_WORLD_VAR, 'hello world');
   });
 
