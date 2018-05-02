@@ -10,10 +10,10 @@ const rootPrefix = "../../.."
   , OSTSDK = require(rootPrefix + '/index')
 ;
 
-describe('services/balance/branded_token', function () {
+describe('services/v0/transaction_kind/create', function () {
 
-  it('test for env variables', async function () {
-    assert.typeOf(response, 'Promise');
+  it('test', async function () {
+    assert.equal(true, true);
   });
 
 
