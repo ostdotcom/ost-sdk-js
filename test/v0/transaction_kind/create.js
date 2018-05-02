@@ -12,7 +12,7 @@ const rootPrefix = "../../.."
 
 describe('services/v0/transaction_kind/create', function () {
 
-  it('test .', async function () {
+  it('test', async function () {
     assert.equal(true, true);
   });
 
