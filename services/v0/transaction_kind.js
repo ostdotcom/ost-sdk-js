@@ -1,9 +1,9 @@
 "use strict";
 
 /**
- * Transaction Type Service
+ * Transaction Kind Service
  *
- * @module services/v0/transaction_type
+ * @module services/v0/transaction_kind
  */
 const rootPrefix = "../.."
 ;
@@ -12,11 +12,11 @@ const rootPrefix = "../.."
 var _requestObj = null;
 
 /**
- * Transaction Type Service constructor
+ * Transaction Kind Service constructor
  *
  * @constructor
  */
-const transactionType = function (requestObj) {
+const transactionKind = function (requestObj) {
   const oThis = this;
 
   // Assign request object
@@ -28,7 +28,7 @@ const transactionType = function (requestObj) {
   return oThis;
 };
 
-transactionType.prototype = {
+transactionKind.prototype = {
 
   /**
    * Create
@@ -102,4 +102,4 @@ transactionType.prototype = {
 
 };
 
-module.exports = transactionType;
+module.exports = transactionKind;

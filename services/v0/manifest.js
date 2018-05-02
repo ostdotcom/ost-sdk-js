@@ -8,7 +8,7 @@
 const rootPrefix = "../.."
   , requestKlass = require(rootPrefix + '/lib/request')
   , userKlass = require(rootPrefix + '/services/v0/user')
-  , transactionTypeKlass = require(rootPrefix + '/services/v0/transaction_type')
+  , transactionKindKlass = require(rootPrefix + '/services/v0/transaction_kind')
 ;
 
 // hide request object
@@ -27,7 +27,7 @@ const manifest = function (params) {
 
   // Define services available in V0
   oThis.user = new userKlass(_requestObj);
-  oThis.transactionType = new transactionTypeKlass(_requestObj);
+  oThis.transactionKind = new transactionKindKlass(_requestObj);
 
   return oThis;
 };
@@ -38,7 +38,7 @@ manifest.prototype = {
   user: null,
 
   // Services at /transaction-types endpoint
-  transactionType: null
+  transactionKind: null
 };
 
 module.exports = manifest;

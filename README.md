@@ -34,50 +34,50 @@ Initialize the SDK object:
 const ostObj = new OSTSDK({apiKey: <api_key>, apiSecret: <api_secret>, apiEndpoint: <api_endpoint>});
 ```
 
-### Transaction Type Module 
+### Transaction Kind Module 
 
-Initialize a `TransactionType` object to perform transaction-related actions:
+Initialize a `TransactionKind` object to perform transaction-related actions:
 
 ```node.js
-var transactionTypeObj = ostObj.services.transactionType;
+const transactionKindService = ostObj.services.transactionKind;
 ```
 
 Create new transaction types:
 
 ```node.js
-transactionTypeObj.create({name: 'Like', kind: 'user_to_user', currency_type: 'usd', currency_value: '1.25', commission_percent: '12'});
+transactionKindService.create({name: 'Like', kind: 'user_to_user', currency_type: 'usd', currency_value: '1.25', commission_percent: '12'});
 ```
 
 ```node.js
-transactionTypeObj.create({name: 'Grant', kind: 'company_to_user', currency_type: 'bt', currency_value: '12', commission_percent: '0'});
+transactionKindService.create({name: 'Grant', kind: 'company_to_user', currency_type: 'bt', currency_value: '12', commission_percent: '0'});
 ```
 
 ```node.js
-transactionTypeObj.create({name: 'Buy', kind: 'user_to_company', currency_type: 'bt', currency_value: '100', commission_percent: '0'});
+transactionKindService.create({name: 'Buy', kind: 'user_to_company', currency_type: 'bt', currency_value: '100', commission_percent: '0'});
 ```
 
 Get a list of existing transaction kinds and other data:
 
 ```node.js
-transactionTypeObj.list();
+transactionKindService.list();
 ```
 
 Edit an existing transaction kind:
 
 ```node.js
-transactionTypeObj.edit({client_transaction_id: '12', name: 'New Transaction Kind'});
+transactionKindService.edit({client_transaction_id: '12', name: 'New Transaction Kind'});
 ```
 
 Execute a branded token transfer by transaction kind:
 
 ```node.js
-transactionTypeObj.execute({from_uuid: '1234-1928-1081dsds-djhksjd', to_uuid: '1234-1928-1081-1223232', transaction_kind: 'Purchase'});
+transactionKindService.execute({from_uuid: '1234-1928-1081dsds-djhksjd', to_uuid: '1234-1928-1081-1223232', transaction_kind: 'Purchase'});
 ```
 
 Get the status of an executed transaction:
 
 ```node.js
-transactionTypeObj.status({transaction_uuids: ['5f79063f-e22a-4d28-99d7-dd095f02c72e']});
+transactionKindService.status({transaction_uuids: ['5f79063f-e22a-4d28-99d7-dd095f02c72e']});
 ```
 
 ### User Module
@@ -85,35 +85,35 @@ transactionTypeObj.status({transaction_uuids: ['5f79063f-e22a-4d28-99d7-dd095f02
 Initialize a `User` object to perform user specific actions:
 
 ```node.js
-const ostUserObject = ostObj.services.user;
+const userService = ostObj.services.user;
 ```
 
 Create a new user:
 
 ```node.js
-ostUserObject.create({name: 'Alice'});
+userService.create({name: 'Alice'});
 ```
 
 Get a list of users and other data:
 
 ```node.js
-ostUserObject.list();
+userService.list();
 ```
 
 Edit an existing user:
 
 ```node.js
-ostUserObject.edit({uuid: '1234-1928-1081dsds-djhksjd', name: 'Bob'});
+userService.edit({uuid: '1234-1928-1081dsds-djhksjd', name: 'Bob'});
 ```
 
 Airdrop branded tokens to users:
 
 ```node.js
-ostUserObject.airdropTokens({amount: 100, list_type: 'all'});
+userService.airdropTokens({amount: 1, list_type: 'all'});
 ```
 
 As airdropping tokens is an asynchronous task, you can check the airdrop's status:
 
 ```node.js
-ostUserObject.airdropStatus({airdrop_uuid: '1234-1928-1081dsds-djhksjd'});
+userService.airdropStatus({airdrop_uuid: 'd8303e01-5ce0-401f-8ae4-d6a0bcdb2e24'});
 ```
