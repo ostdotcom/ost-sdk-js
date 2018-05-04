@@ -42,7 +42,7 @@ user.prototype = {
     const oThis = this;
     params = params || {};
 
-    _requestObj.post(oThis.urlPrefix + "/create", params);
+    return _requestObj.post(oThis.urlPrefix + "/create", params);
   },
 
   /**
@@ -56,7 +56,7 @@ user.prototype = {
     const oThis = this;
     params = params || {};
 
-    _requestObj.post(oThis.urlPrefix + "/edit", params);
+    return _requestObj.post(oThis.urlPrefix + "/edit", params);
   },
 
   /**
@@ -70,7 +70,7 @@ user.prototype = {
     const oThis = this;
     params = params || {};
 
-    _requestObj.get(oThis.urlPrefix + "/list", params);
+    return _requestObj.get(oThis.urlPrefix + "/list", params);
   },
 
   /**
@@ -84,7 +84,7 @@ user.prototype = {
     const oThis = this;
     params = params || {};
 
-    _requestObj.post(oThis.urlPrefix + "/airdrop/drop", params);
+    return _requestObj.post(oThis.urlPrefix + "/airdrop/drop", params);
   },
 
   /**
@@ -98,7 +98,7 @@ user.prototype = {
     const oThis = this;
     params = params || {};
 
-    _requestObj.get(oThis.urlPrefix + "/airdrop/status", params);
+    return _requestObj.get(oThis.urlPrefix + "/airdrop/status", params);
   }
 
 };

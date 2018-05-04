@@ -41,7 +41,7 @@ transactionKind.prototype = {
     const oThis = this;
     params = params || {};
 
-    _requestObj.post(oThis.urlPrefix + "/create", params);
+    return _requestObj.post(oThis.urlPrefix + "/create", params);
   },
 
   /**
@@ -55,7 +55,7 @@ transactionKind.prototype = {
     const oThis = this;
     params = params || {};
 
-    _requestObj.post(oThis.urlPrefix + "/edit", params);
+    return _requestObj.post(oThis.urlPrefix + "/edit", params);
   },
 
   /**
@@ -69,7 +69,7 @@ transactionKind.prototype = {
     const oThis = this;
     params = params || {};
 
-    _requestObj.get(oThis.urlPrefix + "/list", params);
+    return _requestObj.get(oThis.urlPrefix + "/list", params);
   },
 
   /**
@@ -83,7 +83,7 @@ transactionKind.prototype = {
     const oThis = this;
     params = params || {};
 
-    _requestObj.post(oThis.urlPrefix + "/execute", params);
+    return _requestObj.post(oThis.urlPrefix + "/execute", params);
   },
 
   /**
@@ -97,7 +97,7 @@ transactionKind.prototype = {
     const oThis = this;
     params = params || {};
 
-    _requestObj.post(oThis.urlPrefix + "/status", params);
+    return _requestObj.post(oThis.urlPrefix + "/status", params);
   }
 
 };
