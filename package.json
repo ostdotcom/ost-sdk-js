@@ -1,5 +1,5 @@
 {
-  "name": "@ostdotcom/ost-sdk",
+  "name": "@ostdotcom/ost-sdk-js",
   "version": "0.0.1-beta.1",
   "description": "The official OST Javascript SDK",
   "main": "index.js",
