@@ -1,5 +1,5 @@
-# OST Javascript SDK
-The official [OST Javascript SDK](https://dev.ost.com/).
+# OST JavaScript SDK
+The official [OST JavaScript SDK](https://dev.ost.com/).
 
 ## Requirements
 
@@ -14,10 +14,10 @@ To use this node module, developers will need to:
 
 ## Installation
 
-Install OST Javascript SDK
+Install OST JavaScript SDK
 
 ```bash
-> npm install @ostdotcom/ost-sdk
+> npm install @ostdotcom/ost-sdk-js
 ```
 
 ## Example Usage
@@ -25,12 +25,13 @@ Install OST Javascript SDK
 Require the SDK:
 
 ```node.js
-const OSTSDK = require('@ostdotcom/ost-sdk');
+const OSTSDK = require('@ostdotcom/ost-sdk-js');
 ```
 
 Initialize the SDK object:
 
 ```node.js
+// the currently valid API endpoint is "https://playgroundapi.ost.com", this may change in the future
 const ostObj = new OSTSDK({apiKey: <api_key>, apiSecret: <api_secret>, apiEndpoint: <api_endpoint>});
 ```
 
