@@ -52,12 +52,24 @@ helperKlass.prototype = {
 
     if ( errorCode ) {
       //3. code should be errorCode.
-      assert.strictEqual(response.err.code, errorCode, "err.code is not " + errorCode);      
+      assert.strictEqual(response.err.code, errorCode, "err.code is not " + errorCode);
     }
 
     //4. error_data should be an array.
     if ( response.err.hasOwnProperty('error_data') ) {
-      assert.isArray(response.err.error_data, "err.error_data is not an Array.");
+      let error_data = response.err.error_data;
+      assert.isArray(error_data, "err.error_data is not an Array.");
+
+      //4.1. Check all error_data
+      let len = error_data.length
+        , cnt
+        , errObj
+      ;
+
+      for( cnt = 0; cnt < len; cnt++ ) {
+        errObj = error_data[ cnt ];
+        assert.deepEqual( this.responseKeys( errObj ).sort(), ['parameter', 'msg'].sort());
+      }
     }
 
     //5. msg should be a String.
@@ -70,9 +82,13 @@ helperKlass.prototype = {
 
     //7. Should not include data 
     assert.notProperty(response, "data", "response.data property is present.");
+
+    //8. Should not include any extra keys in err.
+    assert.deepEqual( this.responseKeys(response.err).sort(), ['code', 'error_data', 'msg', 'internal_id'].sort());
   },
 
-  validateSuccessResponse: function ( response, resultType ) {
+  validateSuccessResponse: function ( response, resultType, isResultTypeArray ) {
+    
     //1. success flag should be true.
     assert.strictEqual(response.success, true, "response.success is not true");
 
@@ -87,7 +103,13 @@ helperKlass.prototype = {
       assert.strictEqual(response.data.result_type, resultType, "data.result_type is not '" + resultType + "'");
 
       let results = response.data[ resultType ];
-      assert.isArray(results, "data." + resultType + " is not an Array.");
+      isResultTypeArray = isResultTypeArray || false;
+      if ( isResultTypeArray ) {
+        assert.isArray(results, "data." + resultType + " is not an Array.");  
+      } else {
+        assert.isOk( Object.keys( results ).length, "data." + resultType + " does not contain any keys" );
+      }
+      
     }
 
   },
