@@ -36,3 +36,4 @@ node_modules
 # Debug log from npm
 npm-debug.log
 .vscode
+set_env_vars.sh
