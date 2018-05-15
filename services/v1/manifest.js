@@ -8,6 +8,12 @@
 
 const rootPrefix = "../.."
   , requestKlass = require(rootPrefix + '/lib/request')
+  , actionsKlass = require(rootPrefix + '/services/v1/actions')
+  , airdropsKlass = require(rootPrefix + '/services/v1/airdrops')
+  , tokenKlass = require(rootPrefix + '/services/v1/token')
+  , transactionsKlass = require(rootPrefix + '/services/v1/transactions')
+  , transfersKlass = require(rootPrefix + '/services/v1/transfers')
+  , usersKlass = require(rootPrefix + '/services/v1/users')
 ;
 
 // hide request object
@@ -24,10 +30,37 @@ const manifest = function (params) {
   // Create request object
   _requestObj = new requestKlass(params);
 
+  // Define services available in V1
+  oThis.actions = new actionsKlass(_requestObj);
+  oThis.airdrops = new airdropsKlass(_requestObj);
+  oThis.token = new tokenKlass(_requestObj);
+  oThis.transactions = new transactionsKlass(_requestObj);
+  oThis.transfers = new transfersKlass(_requestObj);
+  oThis.users = new usersKlass(_requestObj);
+
   return oThis;
 };
 
 manifest.prototype = {
+
+  // Services at /actions endpoint
+  actions: null,
+
+  // Services at /airdrops endpoint
+  airdrops: null,
+
+  // Services at /token endpoint
+  token: null,
+
+  // Services at /transactions endpoint
+  transactions: null,
+
+  // Services at /transfers endpoint
+  transfers: null,
+
+  // Services at /users endpoint
+  users: null
+
 };
 
 module.exports = manifest;
