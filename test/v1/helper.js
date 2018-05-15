@@ -4,6 +4,12 @@
  * OST v1 Test Helper and config
  */
 
+ // Load external packages
+const chai = require('chai')
+  , assert = chai.assert
+;
+
+
 const rootPrefix = "../../.."
 ;
 
@@ -35,6 +41,55 @@ helperKlass.prototype = {
       errorFields = errorFields.concat(errorData[i].parameter);
     }
     return errorFields;
+  },
+
+  validateErrorResponse: function ( response, errorCode ) {
+    //1. success flag should be false.
+    assert.strictEqual(response.success, false, "response.success is not false");
+
+    //2. err Object should be present.
+    assert.typeOf( response.err, 'object', "response.err is not an Object");
+
+    if ( errorCode ) {
+      //3. code should be errorCode.
+      assert.strictEqual(response.err.code, errorCode, "err.code is not " + errorCode);      
+    }
+
+    //4. error_data should be an array.
+    if ( response.err.hasOwnProperty('error_data') ) {
+      assert.isArray(response.err.error_data, "err.error_data is not an Array.");
+    }
+
+    //5. msg should be a String.
+    if ( response.err.hasOwnProperty('msg') ) {
+      assert.isString(response.err.msg, "err.msg is not a String");  
+    }
+    
+    //6. internal_id should be a String.
+    assert.isString(response.err.internal_id, "err.internal_id is not a String");
+
+    //7. Should not include data 
+    assert.notProperty(response, "data", "response.data property is present.");
+  },
+
+  validateSuccessResponse: function ( response, resultType ) {
+    //1. success flag should be true.
+    assert.strictEqual(response.success, true, "response.success is not true");
+
+    //2. data should be an object.
+    assert.typeOf(response.data, 'object', "response.data is not an Object");
+
+    //3. Should not include err
+    assert.notProperty(response, "err", "response.err property is present.");
+
+    //4. Validate resultType
+    if ( resultType ) {
+      assert.strictEqual(response.data.result_type, resultType, "data.result_type is not '" + resultType + "'");
+
+      let results = response.data[ resultType ];
+      assert.isArray(results, "data." + resultType + " is not an Array.");
+    }
+
   },
 
 };
