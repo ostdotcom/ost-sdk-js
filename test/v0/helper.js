@@ -32,7 +32,7 @@ helperKlass.prototype = {
     var errorFields = []
       , errorData = errorResponse.err.error_data;
     for (var i=0; i < errorData.length; i++) {
-      errorFields = errorFields.concat(Object.keys(errorData[i]));
+      errorFields = errorFields.concat(errorData[i].parameter);
     }
     return errorFields;
   },

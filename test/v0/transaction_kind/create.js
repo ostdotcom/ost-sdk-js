@@ -25,7 +25,7 @@ describe('services/v0/transaction_kind/create', function () {
     assert.deepEqual(helper.responseKeys(response).sort(), ['success', 'data'].sort());
     assert.equal(response.data.result_type, "transactions");
     assert.equal(response.data.transactions.length, 1);
-    assert.deepEqual(Object.keys(response.data.transactions[0]).sort(), ['id', 'client_id', 'name', 'kind', 'currency_type', 'currency_value', 'commission_percent', 'status', 'uts'].sort());
+    assert.deepEqual(Object.keys(response.data.transactions[0]).sort(), ['id', 'client_transaction_id', 'name', 'kind', 'currency_type', 'currency_value', 'commission_percent', 'uts'].sort());
   });
 
   it('should return promise', async function() {
@@ -39,7 +39,7 @@ describe('services/v0/transaction_kind/create', function () {
     const dupData = undefined;
     const response = await transactionKindService.create(dupData).catch(function(e) {return e});
     assert.equal(response.success, false);
-    assert.deepEqual(helper.errorFields(response).sort(), ['name', 'kind', 'commission_percent', 'currency_type'].sort());
+    assert.deepEqual(helper.errorFields(response).sort(), ['name', 'kind', 'currency_value', 'currency_type'].sort());
   });
 
   it('should fail when name is undefined', async function() {
@@ -66,6 +66,15 @@ describe('services/v0/transaction_kind/create', function () {
     assert.deepEqual(helper.errorFields(response).sort(), ['name'].sort());
   });
 
+  it('should fail when kind is undefined', async function() {
+    const dupData = JSON.parse(JSON.stringify(userToUserValidData));
+    dupData.name = dupData.name + ' ' + Math.round((new Date()).getTime() / 1000);
+    dupData.kind = undefined;
+    const response = await transactionKindService.create(dupData).catch(function(e) {return e});
+    assert.equal(response.success, false);
+    assert.deepEqual(helper.errorFields(response).sort(), ['kind'].sort());
+  });
+
   it('should fail when kind is invalid', async function() {
     const dupData = JSON.parse(JSON.stringify(userToUserValidData));
     dupData.name = dupData.name + ' ' + Math.round((new Date()).getTime() / 1000);
@@ -75,6 +84,15 @@ describe('services/v0/transaction_kind/create', function () {
     assert.deepEqual(helper.errorFields(response).sort(), ['kind', 'commission_percent'].sort());
   });
 
+  it('should fail when currency type is undefined', async function() {
+    const dupData = JSON.parse(JSON.stringify(userToUserValidData));
+    dupData.name = dupData.name + ' ' + Math.round((new Date()).getTime() / 1000);
+    dupData.currency_type = undefined;
+    const response = await transactionKindService.create(dupData).catch(function(e) {return e});
+    assert.equal(response.success, false);
+    assert.deepEqual(helper.errorFields(response).sort(), ['currency_type'].sort());
+  });
+
   it('should fail when currency type is invalid', async function() {
     const dupData = JSON.parse(JSON.stringify(userToUserValidData));
     dupData.name = dupData.name + ' ' + Math.round((new Date()).getTime() / 1000);
@@ -82,6 +100,15 @@ describe('services/v0/transaction_kind/create', function () {
     const response = await transactionKindService.create(dupData).catch(function(e) {return e});
     assert.equal(response.success, false);
     assert.deepEqual(helper.errorFields(response).sort(), ['currency_type'].sort());
+  });
+
+  it('should fail when currency value (USD) is undefined', async function() {
+    const dupData = JSON.parse(JSON.stringify(userToUserValidData));
+    dupData.name = dupData.name + ' ' + Math.round((new Date()).getTime() / 1000);
+    dupData.currency_value = undefined;
+    const response = await transactionKindService.create(dupData).catch(function(e) {return e});
+    assert.equal(response.success, false);
+    assert.deepEqual(helper.errorFields(response).sort(), ['currency_value'].sort());
   });
 
   it('should fail when currency value (USD) is less than 0.01', async function() {
@@ -97,6 +124,16 @@ describe('services/v0/transaction_kind/create', function () {
     const dupData = JSON.parse(JSON.stringify(userToUserValidData));
     dupData.name = dupData.name + ' ' + Math.round((new Date()).getTime() / 1000);
     dupData.currency_value = 100.01;
+    const response = await transactionKindService.create(dupData).catch(function(e) {return e});
+    assert.equal(response.success, false);
+    assert.deepEqual(helper.errorFields(response).sort(), ['currency_value'].sort());
+  });
+
+  it('should fail when currency value (BT) is undefined', async function() {
+    const dupData = JSON.parse(JSON.stringify(userToUserValidData));
+    dupData.name = dupData.name + ' ' + Math.round((new Date()).getTime() / 1000);
+    dupData.currency_value = undefined;
+    dupData.currency_type = 'bt';
     const response = await transactionKindService.create(dupData).catch(function(e) {return e});
     assert.equal(response.success, false);
     assert.deepEqual(helper.errorFields(response).sort(), ['currency_value'].sort());
@@ -143,6 +180,7 @@ describe('services/v0/transaction_kind/create', function () {
   it('U2U: should pass when data is correct', async function() {
     const dupData = JSON.parse(JSON.stringify(userToUserValidData));
     dupData.name = dupData.name + ' ' + Math.round((new Date()).getTime() / 1000);
+    dupData.commission_percent = 0;
     const response = await transactionKindService.create(dupData).catch(function(e) {return e});
     assert.equal(response.success, true);
   });
@@ -159,6 +197,7 @@ describe('services/v0/transaction_kind/create', function () {
   it('C2U: should pass when data is correct', async function() {
     const dupData = JSON.parse(JSON.stringify(companyToUserValidData));
     dupData.name = dupData.name + ' ' + Math.round((new Date()).getTime() / 1000);
+    dupData.commission_percent = undefined;
     const response = await transactionKindService.create(dupData).catch(function(e) {return e});
     assert.equal(response.success, true);
   });
@@ -175,6 +214,7 @@ describe('services/v0/transaction_kind/create', function () {
   it('U2C: should pass when data is correct', async function() {
     const dupData = JSON.parse(JSON.stringify(userToCompanyValidData));
     dupData.name = dupData.name + ' ' + Math.round((new Date()).getTime() / 1000);
+    dupData.commission_percent = undefined;
     const response = await transactionKindService.create(dupData).catch(function(e) {return e});
     assert.equal(response.success, true);
   });
