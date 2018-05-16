@@ -14,23 +14,14 @@ const rootPrefix = "../../.."
 
 const transactionData = {
   from_user_id: helper.OST_KIT_TRANSFER_FROM_UUID, to_user_id: helper.OST_KIT_TRANSFER_TO_UUID, action_id: '',
-  amount: 0.01};
+  commission_percent: 0.01};
 
-describe('services/v1/transactions/execute (ARBITRARY AMOUNT)', function () {
+describe('services/v1/transactions/execute (ARBITRARY COMMISSION PERCENT)', function () {
 
   it('FIRST PREPARE DATA FOR TRANSACTIONS', async function() {
-    var actionData = {page_no: 1, limit: 100, order_by: 'created', order: 'desc', arbitrary_amount: true, arbitrary_commission: false};
+    var actionData = {page_no: 1, limit: 100, order_by: 'created', order: 'desc', kind: 'user_to_user', arbitrary_amount: false, arbitrary_commission: true};
     const response = await actionService.list(actionData).catch(function(e) {return e});
     transactionData.action_id = response.data.actions[0].id;
-  });
-
-  it('Should fail when amount is not sent', async function() {
-    const dupData = JSON.parse(JSON.stringify(transactionData));
-    delete dupData.amount;
-    const response = await transactionService.execute(dupData).catch(function(e) {return e});
-    assert.equal(response.success, false);
-    assert.equal(response.err.code, 'BAD_REQUEST');
-    assert.deepEqual(helper.errorFields(response).sort(), ['amount'].sort());
   });
 
   it('Should fail when amount is less than 0', async function() {
@@ -51,11 +42,13 @@ describe('services/v1/transactions/execute (ARBITRARY AMOUNT)', function () {
     assert.deepEqual(helper.errorFields(response).sort(), ['amount'].sort());
   });
 
-  it('Should pass when amount is 0', async function() {
+  it('Should fail when amount is 0', async function() {
     const dupData = JSON.parse(JSON.stringify(transactionData));
     dupData.amount = 0;
     const response = await transactionService.execute(dupData).catch(function(e) {return e});
-    assert.equal(response.success, true);
+    assert.equal(response.success, false);
+    assert.equal(response.err.code, 'BAD_REQUEST');
+    assert.deepEqual(helper.errorFields(response).sort(), ['amount'].sort());
   });
 
   it('Should fail when amount is blank string', async function() {
@@ -76,18 +69,18 @@ describe('services/v1/transactions/execute (ARBITRARY AMOUNT)', function () {
     assert.deepEqual(helper.errorFields(response).sort(), ['amount'].sort());
   });
 
-
-
-  // commission percent
-  it('Should fail when positive commission percent is passed', async function() {
+  it('Should fail when valid amount is passed', async function() {
     const dupData = JSON.parse(JSON.stringify(transactionData));
-    dupData.commission_percent = 1;
+    dupData.amount = 1;
     const response = await transactionService.execute(dupData).catch(function(e) {return e});
     assert.equal(response.success, false);
     assert.equal(response.err.code, 'BAD_REQUEST');
-    assert.deepEqual(helper.errorFields(response).sort(), ['commission_percent'].sort());
+    assert.deepEqual(helper.errorFields(response).sort(), ['amount'].sort());
   });
 
+
+
+  // commission percent
   it('Should fail when negative commission percent is passed', async function() {
     const dupData = JSON.parse(JSON.stringify(transactionData));
     dupData.commission_percent = -1;
@@ -133,10 +126,16 @@ describe('services/v1/transactions/execute (ARBITRARY AMOUNT)', function () {
     assert.deepEqual(helper.errorFields(response).sort(), ['commission_percent'].sort());
   });
 
+  it('Should pass when 0 commission percent is passed', async function() {
+    const dupData = JSON.parse(JSON.stringify(transactionData));
+    dupData.commission_percent = 0;
+    const response = await transactionService.execute(dupData).catch(function(e) {return e});
+    assert.equal(response.success, true);
+  });
 
 
   // final
-  it('Should pass when valid amount is passed', async function() {
+  it('Should pass when valid commission percent is passed', async function() {
     const dupData = JSON.parse(JSON.stringify(transactionData));
     const response = await transactionService.execute(dupData).catch(function(e) {return e});
     assert.equal(response.success, true);

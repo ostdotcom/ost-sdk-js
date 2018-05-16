@@ -25,7 +25,9 @@ describe('services/v1/token/get', function () {
     assert.deepEqual(helper.responseKeys(response).sort(), ['success', 'data'].sort());
     assert.deepEqual(helper.responseKeys(response.data).sort(), ['result_type', 'token', 'price_points'].sort());
     assert.equal(response.data.result_type, "token");
-    assert.deepEqual(Object.keys(response.data.token).sort(), ["company_uuid","name","symbol","symbol_icon","conversion_factor","token_erc20_address","simple_stake_contract_address","total_supply","ost_utility_balance"].sort());
+    assert.deepEqual(Object.keys(response.data.token).sort(), ["company_uuid","name","symbol","symbol_icon",
+      "conversion_factor","token_erc20_address","simple_stake_contract_address", "airdrop_contract_address",
+      "total_supply","ost_utility_balance"].sort());
 
     assert.exists(response.data.token.company_uuid);
     assert.exists(response.data.token.name);
