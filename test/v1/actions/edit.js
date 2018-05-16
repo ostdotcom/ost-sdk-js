@@ -439,7 +439,6 @@ let createdActionIds  = {}
 ;
 const getActionIdForKind = async function ( actionKind ) {
   if ( createdActionIds.hasOwnProperty( actionKind ) ) {
-    console.log("---- Editing ActionId", createdActionIds[ actionKind ]);
     return createdActionIds[ actionKind ];
   }
 
@@ -484,8 +483,7 @@ const getActionIdForKind = async function ( actionKind ) {
   if ( actionId && actionId.length ) {
     createdActionIds[ actionKind ] = actionId;
   }
-  console.log("---- Editing ActionId", createdActionIds[ actionKind ]);
   return actionId;
-}
+};
 
 describe('services/v1/actions/edit', describeMethod );
