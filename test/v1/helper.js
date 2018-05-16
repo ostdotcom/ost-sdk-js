@@ -24,6 +24,7 @@ helperKlass.prototype = {
   OST_KIT_TRANSFER_FROM_UUID: process.env.OST_KIT_TRANSFER_FROM_UUID,
   OST_KIT_TRANSFER_TO_UUID: process.env.OST_KIT_TRANSFER_TO_UUID,
   OST_KIT_TRANSFER_KIND: process.env.OST_KIT_TRANSFER_KIND,
+  DEBUG: ( "true" === process.env.OST_SDK_JS_DEBUG ),
 
   // helper functions
   responseKeys: function (response) {
