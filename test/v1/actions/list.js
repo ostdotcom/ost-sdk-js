@@ -95,7 +95,7 @@ const listActionTestCases = function () {
     const params = Object.assign({}, listParams);
     params.limit = 0;
     const response = await actionsService.list(params).catch(function(e) {return e});
-    validateErrorResponse(response, 'BAD_REQUEST');
+    helper.validateErrorResponse(response, 'BAD_REQUEST');
     assert.deepEqual(helper.errorFields(response).sort(), ['limit'].sort());
   });
 
@@ -103,7 +103,7 @@ const listActionTestCases = function () {
     const params = Object.assign({}, listParams);
     params.limit = -1;
     const response = await actionsService.list(params).catch(function(e) {return e});
-    validateErrorResponse(response, 'BAD_REQUEST');
+    helper.validateErrorResponse(response, 'BAD_REQUEST');
     assert.deepEqual(helper.errorFields(response).sort(), ['limit'].sort());
   });
 
@@ -111,7 +111,7 @@ const listActionTestCases = function () {
     const params = Object.assign({}, listParams);
     params.limit = 101;
     const response = await actionsService.list(params).catch(function(e) {return e});
-    validateErrorResponse(response, 'BAD_REQUEST');
+    helper.validateErrorResponse(response, 'BAD_REQUEST');
     assert.deepEqual(helper.errorFields(response).sort(), ['limit'].sort());
   });
 
@@ -119,7 +119,7 @@ const listActionTestCases = function () {
     const params = Object.assign({}, listParams);
     params.limit = 'ABC';
     const response = await actionsService.list(params).catch(function(e) {return e});
-    validateErrorResponse(response, 'BAD_REQUEST');
+    helper.validateErrorResponse(response, 'BAD_REQUEST');
     assert.deepEqual(helper.errorFields(response).sort(), ['limit'].sort());
   });
 
@@ -127,7 +127,7 @@ const listActionTestCases = function () {
     const params = Object.assign({}, listParams);
     params.limit = '';
     const response = await actionsService.list(params).catch(function(e) {return e});
-    validateErrorResponse(response, 'BAD_REQUEST');
+    helper.validateErrorResponse(response, 'BAD_REQUEST');
     assert.deepEqual(helper.errorFields(response).sort(), ['limit'].sort());
   });
 
@@ -142,7 +142,7 @@ const listActionTestCases = function () {
     const params = Object.assign({}, listParams);
     params.order = 'abc';
     const response = await actionsService.list(params).catch(function(e) {return e});
-    validateErrorResponse(response, 'BAD_REQUEST');
+    helper.validateErrorResponse(response, 'BAD_REQUEST');
     assert.deepEqual(helper.errorFields(response).sort(), ['order'].sort());
   });
 
@@ -154,7 +154,7 @@ const listActionTestCases = function () {
     const params = Object.assign({}, listParams);
     params.page_no = 0;
     const response = await actionsService.list(params).catch(function(e) {return e});
-    validateErrorResponse(response, 'BAD_REQUEST');
+    helper.validateErrorResponse(response, 'BAD_REQUEST');
     assert.deepEqual(helper.errorFields(response).sort(), ['page_no'].sort());
   });
 
@@ -162,7 +162,7 @@ const listActionTestCases = function () {
     const params = Object.assign({}, listParams);
     params.page_no = -1;
     const response = await actionsService.list(params).catch(function(e) {return e});
-    validateErrorResponse(response, 'BAD_REQUEST');
+    helper.validateErrorResponse(response, 'BAD_REQUEST');
     assert.deepEqual(helper.errorFields(response).sort(), ['page_no'].sort());
   });
 
@@ -170,7 +170,7 @@ const listActionTestCases = function () {
     const params = Object.assign({}, listParams);
     params.page_no = 'ABC';
     const response = await actionsService.list(params).catch(function(e) {return e});
-    validateErrorResponse(response, 'BAD_REQUEST');
+    helper.validateErrorResponse(response, 'BAD_REQUEST');
     assert.deepEqual(helper.errorFields(response).sort(), ['page_no'].sort());
   });
 
@@ -178,7 +178,7 @@ const listActionTestCases = function () {
     const params = Object.assign({}, listParams);
     params.page_no = '';
     const response = await actionsService.list(params).catch(function(e) {return e});
-    validateErrorResponse(response, 'BAD_REQUEST');
+    helper.validateErrorResponse(response, 'BAD_REQUEST');
     assert.deepEqual(helper.errorFields(response).sort(), ['page_no'].sort());
   });
 
