@@ -192,10 +192,8 @@ const listActionTestCases = function () {
 
   testListActionFilter( "kind", ["user_to_user", "company_to_user", "user_to_company"] );
   testListActionFilter( "currency", ["USD", "BT"] );
-  testListActionFilter( "arbitrary_amount", [true] );
-  testListActionFilter( "arbitrary_amount", [false] );
-  testListActionFilter( "arbitrary_commission", [true] );
-  testListActionFilter( "arbitrary_commission", [false] );
+  testListActionFilter( "arbitrary_amount", [true, false] );
+  testListActionFilter( "arbitrary_commission", [true, false] );
   
 };
 
@@ -288,12 +286,20 @@ const testListActionFilter = function ( filterKey, validValues, invalidValue ) {
   }
 
   if ( validValues.length > 1 ) {
-    it('Should pass when ' + filterKey + ' has all valid (' + validValues + ') values.', generateValidator( validValues, true ) );
+    if (    validValues.length === 2 
+        &&  typeof validValues[0] === "boolean"
+        &&  typeof validValues[1] === "boolean"
+    )  {
+      it('Should fail when ' + filterKey + ' has all valid boolean (' + validValues + ') values.', generateValidator( validValues, false ) );
+    } 
+    else {
+      it('Should pass when ' + filterKey + ' has all valid (' + validValues + ') values.', generateValidator( validValues, true ) );
+    }
   }
 
   if ( validValues.length > 2 ) {
     let fewValid = [ validValues[0], validValues[ 1 ] ];
-    it('Should pass when ' + filterKey + ' has few valid (' + fewValid + ') values.', generateValidator( validValues, true ) );
+    it('Should pass when ' + filterKey + ' has few valid (' + fewValid + ') values.', generateValidator( fewValid, true ) );
   }
 
 
