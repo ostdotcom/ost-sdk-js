@@ -258,21 +258,21 @@ describe('services/v1/airdrops/list', function () {
   it('Should fail when page_no is blank', async function() {
     const dupData = JSON.parse(JSON.stringify(airdropData));
     dupData.page_no = '';
+    console.log(JSON.stringify(dupData));
     const response = await airdropService.list(dupData).catch(function(e) {return e});
+    console.log(JSON.stringify(response));
     assert.equal(response.success, false);
     assert.equal(response.err.code, 'BAD_REQUEST');
     assert.deepEqual(helper.errorFields(response).sort(), ['page_no'].sort());
   });
 
-  it('Should pass when page_no is big number, but with empty data', async function() {
+  it('Should fail when page_no is too big number', async function() {
     const dupData = JSON.parse(JSON.stringify(airdropData));
     dupData.page_no = 1000000000000000000;
     const response = await airdropService.list(dupData).catch(function(e) {return e});
-    assert.equal(response.success, true);
-    assert.deepEqual(helper.responseKeys(response).sort(), ['success', 'data'].sort());
-    assert.deepEqual(helper.responseKeys(response.data).sort(), ['result_type', 'airdrops', 'meta'].sort());
-    assert.equal(response.data.airdrops.length, 0);
-    assert.deepEqual(helper.responseKeys(response.data.meta.next_page_payload).sort(), [].sort());
+    assert.equal(response.success, false);
+    assert.equal(response.err.code, 'BAD_REQUEST');
+    assert.deepEqual(helper.errorFields(response).sort(), ['page_no'].sort());
   });
 
   it('Should pass when page_no is not sent', async function() {

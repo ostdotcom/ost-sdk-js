@@ -13,7 +13,7 @@ const rootPrefix = "../../.."
 
 const userValidData = {name: 'Alice'};
 
-describe('services/v1/user/edit', function () {
+describe('services/v1/users/edit', function () {
 
   it('FIRST PREPARE DATA FOR EDIT', async function() {
     const response = await userService.list().catch(function(e) {return e});

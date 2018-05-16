@@ -75,7 +75,7 @@ describe('services/v1/airdrops/get', function () {
 
   it('Should pass when id is valid', async function() {
     const airdropResponse = await airdropService.execute({amount: 0.00001}).catch(function(e) {return e});
-    console.log(JSON.stringify(airdropResponse));
+    //console.log(JSON.stringify(airdropResponse));
 
     const dupData = JSON.parse(JSON.stringify(airdropData));
     dupData.id = airdropResponse.data.airdrop.id;
@@ -84,7 +84,6 @@ describe('services/v1/airdrops/get', function () {
     assert.deepEqual(helper.responseKeys(response).sort(), ['success', 'data'].sort());
     assert.deepEqual(helper.responseKeys(response.data).sort(), ['result_type', 'airdrop'].sort());
     assert.deepEqual(helper.responseKeys(response.data.airdrop).sort(), ['id', 'current_status', 'steps_complete'].sort());
-    assert.isAbove(response.data.airdrop.steps_complete.length, 0);
   });
 
 });

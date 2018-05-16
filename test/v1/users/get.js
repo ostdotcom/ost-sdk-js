@@ -58,9 +58,7 @@ describe('services/v1/users/get', function () {
   it('Should fail when id belongs to someone else', async function() {
     const dupData = JSON.parse(JSON.stringify(userData));
     dupData.id = '4a090517-c16a-4f1a-bbca-6987059da51c';
-    console.log(JSON.stringify(dupData));
     const response = await userService.get(dupData).catch(function(e) {return e});
-    console.log(JSON.stringify(response));
     assert.equal(response.success, false);
     assert.equal(response.err.code, 'BAD_REQUEST');
     assert.deepEqual(helper.errorFields(response).sort(), ['id'].sort());
@@ -77,7 +75,6 @@ describe('services/v1/users/get', function () {
 
   it('Should pass when id is valid', async function() {
     const userResponse = await userService.create({name: 'ABC'}).catch(function(e) {return e});
-    console.log(JSON.stringify(userResponse));
 
     const dupData = JSON.parse(JSON.stringify(userData));
     dupData.id = userResponse.data.user.id;

@@ -13,7 +13,7 @@ const rootPrefix = "../../.."
 
 const userData = {airdropped: 'true', limit: '10', order: 'asc', order_by: 'created', page_no: '1'};
 
-describe('services/v1/user/list', function () {
+describe('services/v1/users/list', function () {
 
   it('should return promise', async function() {
     const response = userService.list().catch(function(e) {return e});
@@ -278,15 +278,13 @@ describe('services/v1/user/list', function () {
     assert.deepEqual(helper.errorFields(response).sort(), ['page_no'].sort());
   });
 
-  it('Should pass when page_no is big number, but with empty data', async function() {
+  it('Should fail when page_no is too big number', async function() {
     const dupData = JSON.parse(JSON.stringify(userData));
     dupData.page_no = 1000000000000000000;
     const response = await userService.list(dupData).catch(function(e) {return e});
-    assert.equal(response.success, true);
-    assert.deepEqual(helper.responseKeys(response).sort(), ['success', 'data'].sort());
-    assert.deepEqual(helper.responseKeys(response.data).sort(), ['result_type', 'users', 'meta'].sort());
-    assert.equal(response.data.users.length, 0);
-    assert.deepEqual(helper.responseKeys(response.data.meta.next_page_payload).sort(), [].sort());
+    assert.equal(response.success, false);
+    assert.equal(response.err.code, 'BAD_REQUEST');
+    assert.deepEqual(helper.errorFields(response).sort(), ['page_no'].sort());
   });
 
   it('Should pass when page_no is not sent', async function() {

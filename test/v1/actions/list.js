@@ -23,7 +23,7 @@ const OTHER_ACTION_ID = "123456"
 ;
 
 
-const mainMethod = async function () { 
+const mainMethod = async function () {
   // Execute list Action Test-Cases.
   listActionTestCases();
 };
@@ -272,7 +272,7 @@ const testListActionFilter = function ( filterKey, validValues, invalidValue ) {
   };
 
   it('Should fail when ' + filterKey + ' is invalid (' + invalidValue + ')', generateValidator([invalidValue], false) );
-  
+
   if ( validValues.length < 1 ) {
     return;
   }
@@ -288,7 +288,7 @@ const testListActionFilter = function ( filterKey, validValues, invalidValue ) {
     it('Should pass when ' + filterKey + ' is valid (' + validVal + ') value.', generateValidator( [validVal], true ) );
   }
 
-  if ( validValues.length > 1 ) { 
+  if ( validValues.length > 1 ) {
     it('Should pass when ' + filterKey + ' has all valid (' + validValues + ') values.', generateValidator( validValues, true ) );
   }
 
@@ -296,7 +296,7 @@ const testListActionFilter = function ( filterKey, validValues, invalidValue ) {
     let fewValid = [ validValues[0], validValues[ 1 ] ];
     it('Should pass when ' + filterKey + ' has few valid (' + fewValid + ') values.', generateValidator( fewInvalid, true ) );
   }
-  
+
 
 
 }
@@ -315,7 +315,7 @@ const createAction = async function ( params ) {
     throw "Failed to create action for testing actions/list.";
   }
 
-  
+
 };
 
 const ActionKinds = {
@@ -352,7 +352,7 @@ const validateAction = function ( action, expectedAction ) {
   assert.include( ActionKindsArray, action.kind, "Invalid action.kind " + action.kind );
 
   //6. Validate currency
-  assert.include( ActionCurrenciesArray, action.currency, "Invalid action.currency " + action.currency );  
+  assert.include( ActionCurrenciesArray, action.currency, "Invalid action.currency " + action.currency );
 
   //7. Validate amount
   if ( action.arbitrary_amount ) {
@@ -404,21 +404,21 @@ const validateAction = function ( action, expectedAction ) {
       if ( !expectedAction.hasOwnProperty( expectedKey ) ) {
         continue;
       }
-      
+
       actionVal   = action[expectedKey];
       expectedVal = expectedAction[ expectedKey ];
       if ( bnKeys.indexOf( expectedKey ) < 0 ) {
-        assert.equal( expectedVal, actionVal, "action." + expectedKey + " is not equal to expected value." );  
+        assert.equal( expectedVal, actionVal, "action." + expectedKey + " is not equal to expected value." );
       } else {
         actionVal   = new BigNumber( actionVal );
         expectedVal = new BigNumber( expectedVal );
         assert.isOk( actionVal.isEqualTo( expectedVal ), "action." + expectedKey + " is not equal to expected value. action." + expectedKey + " = " + actionVal.toString( 10 ) + ". expected Value = " + expectedVal.toString( 10 )  );
       }
 
-      
+
     }
   }
 };
 
-// Execute the mainMethod. 
+// Execute the mainMethod.
 describe('services/v1/actions/list', mainMethod );
