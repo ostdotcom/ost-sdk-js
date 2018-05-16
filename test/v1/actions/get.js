@@ -64,16 +64,14 @@ describe('services/v1/actions/get', function () {
     const params = Object.assign({}, defaultParams);
     params.id = '86268074-18d7-4118-942f-fc9c8fd1429d111';
     const response = await actionsService.get(params).catch(function(e) {return e});
-    helper.validateErrorResponse(response, "BAD_REQUEST");
-    assert.deepEqual(helper.errorFields(response).sort(), ['id'].sort());
+    helper.validateErrorResponse(response, "NOT_FOUND");
   });
 
   it('Should fail when id belongs to someone else', async function() {
     const params = Object.assign({}, defaultParams);
     params.id = '123456';
     const response = await actionsService.get(params).catch(function(e) {return e});
-    helper.validateErrorResponse(response, "BAD_REQUEST");
-    assert.deepEqual(helper.errorFields(response).sort(), ['id'].sort());
+    helper.validateErrorResponse(response, "NOT_FOUND");
   });
 
   it('Should pass when id is valid', async function() {
@@ -111,8 +109,7 @@ describe('services/v1/actions/get', function () {
     const params = Object.assign({}, defaultParams);
     params.id = actionIds.join(",");
     const response = await actionsService.get(params).catch(function(e) {return e});
-    helper.validateErrorResponse(response, "BAD_REQUEST");
-    assert.deepEqual(helper.errorFields(response).sort(), ['id'].sort());
+    helper.validateErrorResponse(response, "NOT_FOUND");
   });
 
 });
