@@ -15,7 +15,7 @@ const rootPrefix    = "../../.."
     }
   , ostObj          = new OSTSDK( sdkConfig )
   , actionsService  = ostObj.services.actions
-  , logMe           = false
+  , logMe           = helper.DEBUG
 ;
 
 const OTHER_ACTION_ID = "123456"
@@ -49,7 +49,7 @@ const listActionTestCases = function () {
       , arbitrary_commission: true
     });
 
-    logMe && console.log("actionData", actionData);
+    logMe && console.log("actionData\n", JSON.stringify( actionData ));
 
     const params    = {}
         , actionId  = actionData.id
@@ -58,39 +58,44 @@ const listActionTestCases = function () {
     params.id = createdActionIds.join(",");
 
     const response = await actionsService.list(params).catch(function(e) {return e});
-    assert.equal( response.success, true );
-    assert.isArray( response.data.actions );
-    assert.equal( response.data.actions.length, createdActionIds.length );
+    logMe && console.log("params\n", JSON.stringify( params ), "\nresponse\n", JSON.stringify( response ) );
+
+    helper.validateSuccessResponse( response, "actions", true );
+
+    assert.equal( response.data.actions.length, createdActionIds.length, "Unexpected number of records." );
   };
 
   it('Should pass when id is valid', idValidator);
   it('Should pass when id is comma separated list of 2 ids', idValidator);
   it('Should pass when id is comma separated list of 3 ids', idValidator);
 
-  it('Should fail when id is invalid', async function() {
+
+  it('Should pass when id is invalid (Must have zero records)', async function() {
     const params = Object.assign({}, listParams);
     params.id = '86268074-18d7-4118-942f-fc9c8fd1429d111';
     const response = await actionsService.list(params).catch(function(e) {return e});
-    assert.equal(response.success, false);
-    assert.equal(response.err.code, 'BAD_REQUEST');
-    assert.deepEqual(helper.errorFields(response).sort(), ['id'].sort());
+    
+    helper.validateSuccessResponse( response, "actions", true );
+
+    assert.equal( response.data.actions.length, 0, "No of expected records do not match." );
+
   });
 
   it('Should fail when id belongs to someone else', async function() {
     const params = Object.assign({}, listParams);
     params.id = OTHER_ACTION_ID;
     const response = await actionsService.list(params).catch(function(e) {return e});
-    assert.equal(response.success, false);
-    assert.equal(response.err.code, 'BAD_REQUEST');
-    assert.deepEqual(helper.errorFields(response).sort(), ['id'].sort());
+
+    helper.validateSuccessResponse( response, "actions", true );
+
+    assert.equal( response.data.actions.length, 0, "No of expected records do not match." );
   });
 
   it('Should fail when limit is 0', async function() {
     const params = Object.assign({}, listParams);
     params.limit = 0;
     const response = await actionsService.list(params).catch(function(e) {return e});
-    assert.equal(response.success, false);
-    assert.equal(response.err.code, 'BAD_REQUEST');
+    validateErrorResponse(response, 'BAD_REQUEST');
     assert.deepEqual(helper.errorFields(response).sort(), ['limit'].sort());
   });
 
@@ -98,8 +103,7 @@ const listActionTestCases = function () {
     const params = Object.assign({}, listParams);
     params.limit = -1;
     const response = await actionsService.list(params).catch(function(e) {return e});
-    assert.equal(response.success, false);
-    assert.equal(response.err.code, 'BAD_REQUEST');
+    validateErrorResponse(response, 'BAD_REQUEST');
     assert.deepEqual(helper.errorFields(response).sort(), ['limit'].sort());
   });
 
@@ -107,8 +111,7 @@ const listActionTestCases = function () {
     const params = Object.assign({}, listParams);
     params.limit = 101;
     const response = await actionsService.list(params).catch(function(e) {return e});
-    assert.equal(response.success, false);
-    assert.equal(response.err.code, 'BAD_REQUEST');
+    validateErrorResponse(response, 'BAD_REQUEST');
     assert.deepEqual(helper.errorFields(response).sort(), ['limit'].sort());
   });
 
@@ -116,8 +119,7 @@ const listActionTestCases = function () {
     const params = Object.assign({}, listParams);
     params.limit = 'ABC';
     const response = await actionsService.list(params).catch(function(e) {return e});
-    assert.equal(response.success, false);
-    assert.equal(response.err.code, 'BAD_REQUEST');
+    validateErrorResponse(response, 'BAD_REQUEST');
     assert.deepEqual(helper.errorFields(response).sort(), ['limit'].sort());
   });
 
@@ -125,8 +127,7 @@ const listActionTestCases = function () {
     const params = Object.assign({}, listParams);
     params.limit = '';
     const response = await actionsService.list(params).catch(function(e) {return e});
-    assert.equal(response.success, false);
-    assert.equal(response.err.code, 'BAD_REQUEST');
+    validateErrorResponse(response, 'BAD_REQUEST');
     assert.deepEqual(helper.errorFields(response).sort(), ['limit'].sort());
   });
 
@@ -141,8 +142,7 @@ const listActionTestCases = function () {
     const params = Object.assign({}, listParams);
     params.order = 'abc';
     const response = await actionsService.list(params).catch(function(e) {return e});
-    assert.equal(response.success, false);
-    assert.equal(response.err.code, 'BAD_REQUEST');
+    validateErrorResponse(response, 'BAD_REQUEST');
     assert.deepEqual(helper.errorFields(response).sort(), ['order'].sort());
   });
 
@@ -154,8 +154,7 @@ const listActionTestCases = function () {
     const params = Object.assign({}, listParams);
     params.page_no = 0;
     const response = await actionsService.list(params).catch(function(e) {return e});
-    assert.equal(response.success, false);
-    assert.equal(response.err.code, 'BAD_REQUEST');
+    validateErrorResponse(response, 'BAD_REQUEST');
     assert.deepEqual(helper.errorFields(response).sort(), ['page_no'].sort());
   });
 
@@ -163,8 +162,7 @@ const listActionTestCases = function () {
     const params = Object.assign({}, listParams);
     params.page_no = -1;
     const response = await actionsService.list(params).catch(function(e) {return e});
-    assert.equal(response.success, false);
-    assert.equal(response.err.code, 'BAD_REQUEST');
+    validateErrorResponse(response, 'BAD_REQUEST');
     assert.deepEqual(helper.errorFields(response).sort(), ['page_no'].sort());
   });
 
@@ -172,17 +170,15 @@ const listActionTestCases = function () {
     const params = Object.assign({}, listParams);
     params.page_no = 'ABC';
     const response = await actionsService.list(params).catch(function(e) {return e});
-    assert.equal(response.success, false);
-    assert.equal(response.err.code, 'BAD_REQUEST');
+    validateErrorResponse(response, 'BAD_REQUEST');
     assert.deepEqual(helper.errorFields(response).sort(), ['page_no'].sort());
   });
 
-  it('Should pass when page_no is blank', async function() {
+  it('Should fail when page_no is blank', async function() {
     const params = Object.assign({}, listParams);
     params.page_no = '';
     const response = await actionsService.list(params).catch(function(e) {return e});
-    assert.equal(response.success, false);
-    assert.equal(response.err.code, 'BAD_REQUEST');
+    validateErrorResponse(response, 'BAD_REQUEST');
     assert.deepEqual(helper.errorFields(response).sort(), ['page_no'].sort());
   });
 
@@ -190,7 +186,7 @@ const listActionTestCases = function () {
     const params = Object.assign({}, listParams);
     params.page_no = 1000000000000000000;
     const response = await actionsService.list(params).catch(function(e) {return e});
-    assert.equal(response.success, true);
+    helper.validateSuccessResponse( response, "actions", true );
     assert.deepEqual(helper.responseKeys(response).sort(), ['success', 'data'].sort());
     assert.deepEqual(helper.responseKeys(response.data).sort(), ['result_type', 'actions', 'meta'].sort());
     assert.equal(response.data.actions.length, 0);
@@ -200,9 +196,8 @@ const listActionTestCases = function () {
   testListActionFilter( "kind", ["user_to_user", "company_to_user", "user_to_company"] );
   testListActionFilter( "currency", ["USD", "BT"] );
   testListActionFilter( "arbitrary_amount", [true, false] );
-  testListActionFilter( "amount", ["0.01", 1, "0.00001"], -1);
   testListActionFilter( "arbitrary_commission", [true, false] );
-  testListActionFilter( "commission_percent", [0.01, 1, 100], -1);
+  
 };
 
 
@@ -384,10 +379,15 @@ const validateAction = function ( action, expectedAction ) {
     assert.isOk( bnAmount.isGreaterThanOrEqualTo( bnMin ), "action.amount is not greater than or equal to minimum expected value." );
   }
 
-  //7. Validate commission_percent
-  if ( action.arbitrary_commission || action.kind !== ActionKinds.USER_TO_USER ) {
-    assert.isNull( action.commission_percent, "action.commission_percent is not null when action.arbitrary_commission is true OR action.kind is not " + ActionKinds.USER_TO_USER );
-  } else {
+  //8. Validate commission_percent and arbitrary_commission
+  if ( action.kind !== ActionKinds.USER_TO_USER ) {
+    assert.isNull( action.arbitrary_commission, "action.arbitrary_commission is not null when action.kind is not " + ActionKinds.USER_TO_USER );
+    assert.isNull( action.commission_percent, "action.commission_percent is not null when action.kind is not " + ActionKinds.USER_TO_USER );
+  }
+  else if ( action.arbitrary_commission || action.kind !== ActionKinds.USER_TO_USER ) {
+    assert.isNull( action.commission_percent, "action.commission_percent is not null when action.arbitrary_commission is true");
+  } 
+  else {
     let bnCommissionPercent = new BigNumber( action.commission_percent );
     assert.isNotOk( bnCommissionPercent.isNaN(), "action.commission_percent is NaN" );
     assert.isOk( bnCommissionPercent.isGreaterThanOrEqualTo( 0 ), "action.commission_percent is lesser than 0.");
