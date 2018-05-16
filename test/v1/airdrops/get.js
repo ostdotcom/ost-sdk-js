@@ -51,8 +51,7 @@ describe('services/v1/airdrops/get', function () {
     dupData.id = '86268074-18d7-4118-942f-fc9c8fd1429d111';
     const response = await airdropService.get(dupData).catch(function(e) {return e});
     assert.equal(response.success, false);
-    assert.equal(response.err.code, 'BAD_REQUEST');
-    assert.deepEqual(helper.errorFields(response).sort(), ['id'].sort());
+    assert.equal(response.err.code, ' NOT_FOUND');
   });
 
   it('Should fail when id belongs to someone else', async function() {
@@ -60,8 +59,7 @@ describe('services/v1/airdrops/get', function () {
     dupData.id = '86268074-18d7-4118-942f-fc9c8fd1429d';
     const response = await airdropService.get(dupData).catch(function(e) {return e});
     assert.equal(response.success, false);
-    assert.equal(response.err.code, 'BAD_REQUEST');
-    assert.deepEqual(helper.errorFields(response).sort(), ['id'].sort());
+    assert.equal(response.err.code, 'NOT_FOUND');
   });
 
   it('Should fail when id is comma separated list', async function() {
@@ -69,8 +67,7 @@ describe('services/v1/airdrops/get', function () {
     dupData.id = '86268074-18d7-4118-942f-fc9c8fd1429d,86268074-18d7-4118-942f-fc9c8fd1429d';
     const response = await airdropService.get(dupData).catch(function(e) {return e});
     assert.equal(response.success, false);
-    assert.equal(response.err.code, 'BAD_REQUEST');
-    assert.deepEqual(helper.errorFields(response).sort(), ['id'].sort());
+    assert.equal(response.err.code, 'NOT_FOUND');
   });
 
   it('Should pass when id is valid', async function() {
