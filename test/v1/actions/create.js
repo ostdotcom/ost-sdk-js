@@ -89,7 +89,7 @@ const validateAction = function ( action, expectedAction ) {
 
   //7. Validate commission_percent
   if ( action.arbitrary_commission || action.kind !== ActionKinds.USER_TO_USER ) {
-    assert.isNull( action.commission_percent, "action.kind is not null when action.arbitrary_commission is true OR action.kind is not " + ActionKinds.USER_TO_USER );
+    assert.isNull( action.commission_percent, "action.commission_percent is not null when action.arbitrary_commission is true OR action.kind is not " + ActionKinds.USER_TO_USER );
   } else {
     let bnCommissionPercent = new BigNumber( action.commission_percent );
     assert.isNotOk( bnCommissionPercent.isNaN(), "action.commission_percent is NaN" );
