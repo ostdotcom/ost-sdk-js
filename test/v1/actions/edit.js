@@ -48,21 +48,18 @@ const validateAction = function ( action, expectedAction ) {
   assert.isOk(action.id, "action.id is not valid (empty string)");
 
   //2. Validate arbitrary_amount
-  assert.isBoolean( action.arbitrary_amount, "action.arbitrary_amount is not Boolean.");
+  assert.isBoolean( action.arbitrary_amount, "action.arbitrary_amount is not Boolean.");  
 
-  //3. Validate arbitrary_commission
-  assert.isBoolean( action.arbitrary_commission, "action.arbitrary_commission is not Boolean.");
-
-  //4. Validate name
+  //3. Validate name
   assert.isString( action.name, "action.name is not String");
 
-  //5. Validate kind
+  //4. Validate kind
   assert.include( ActionKindsArray, action.kind, "Invalid action.kind " + action.kind );
 
-  //6. Validate currency
+  //5. Validate currency
   assert.include( ActionCurrenciesArray, action.currency, "Invalid action.currency " + action.currency );  
 
-  //7. Validate amount
+  //6. Validate amount
   if ( action.arbitrary_amount ) {
     assert.isNull( action.amount, "action.amount is not null when action.arbitrary_amount is true");
   } else {
@@ -87,19 +84,24 @@ const validateAction = function ( action, expectedAction ) {
     assert.isOk( bnAmount.isGreaterThanOrEqualTo( bnMin ), "action.amount is not greater than or equal to minimum expected value." );
   }
 
-  //8. Validate commission_percent and arbitrary_commission
+  //7. Validate commission_percent and arbitrary_commission
   if ( action.kind !== ActionKinds.USER_TO_USER ) {
     assert.isNull( action.arbitrary_commission, "action.arbitrary_commission is not null when action.kind is not " + ActionKinds.USER_TO_USER );
     assert.isNull( action.commission_percent, "action.commission_percent is not null when action.kind is not " + ActionKinds.USER_TO_USER );
   }
-  else if ( action.arbitrary_commission || action.kind !== ActionKinds.USER_TO_USER ) {
-    assert.isNull( action.commission_percent, "action.commission_percent is not null when action.arbitrary_commission is true");
-  } 
   else {
-    let bnCommissionPercent = new BigNumber( action.commission_percent );
-    assert.isNotOk( bnCommissionPercent.isNaN(), "action.commission_percent is NaN" );
-    assert.isOk( bnCommissionPercent.isGreaterThanOrEqualTo( 0 ), "action.commission_percent is lesser than 0.");
-    assert.isOk( bnCommissionPercent.isLessThanOrEqualTo( 100 ), "action.commission_percent is greater than 100.");
+    //8. Validate arbitrary_commission
+    assert.isBoolean( action.arbitrary_commission, "action.arbitrary_commission is not Boolean.");  
+
+    if ( action.arbitrary_commission ) {
+      assert.isNull( action.commission_percent, "action.commission_percent is not null when action.arbitrary_commission is true");
+    } 
+    else {
+      let bnCommissionPercent = new BigNumber( action.commission_percent );
+      assert.isNotOk( bnCommissionPercent.isNaN(), "action.commission_percent is NaN" );
+      assert.isOk( bnCommissionPercent.isGreaterThanOrEqualTo( 0 ), "action.commission_percent is lesser than 0.");
+      assert.isOk( bnCommissionPercent.isLessThanOrEqualTo( 100 ), "action.commission_percent is greater than 100.");
+    }
   }
 
   if ( expectedAction ) {
