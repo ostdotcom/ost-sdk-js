@@ -31,9 +31,9 @@ async function getTransactionTypes(response) {
   }
 };
 
-const userToUserValidData = {name: 'Like', kind: 'user_to_user', currency_type: 'usd', currency_value: '0.01', commission_percent: '1'};
-const companyToUserValidData = {name: 'Grant', kind: 'company_to_user', currency_type: 'bt', currency_value: '0.01'};
-const userToCompanyValidData = {name: 'Buy', kind: 'user_to_company', currency_type: 'bt', currency_value: '0.01'};
+const userToUserValidData = {name: 'Like', kind: 'user_to_user', currency_type: 'USD', currency_value: '0.01', commission_percent: '1'};
+const companyToUserValidData = {name: 'Grant', kind: 'company_to_user', currency_type: 'BT', currency_value: '0.01'};
+const userToCompanyValidData = {name: 'Buy', kind: 'user_to_company', currency_type: 'BT', currency_value: '0.01'};
 
 describe('services/v0/transaction_kind/edit', function () {
 
@@ -51,6 +51,11 @@ describe('services/v0/transaction_kind/edit', function () {
     assert.equal(response.data.result_type, "transactions");
     assert.equal(response.data.transactions.length, 1);
     assert.deepEqual(Object.keys(response.data.transactions[0]).sort(), ['id', 'name', 'client_transaction_id', 'kind', 'currency_type', 'currency_value', 'commission_percent', 'uts'].sort());
+    assert.equal(response.data.transactions[0].name, dupData.name);
+    assert.equal(response.data.transactions[0].kind, dupData.kind);
+    assert.equal(response.data.transactions[0].currency_type, dupData.currency_type);
+    assert.equal(parseFloat(response.data.transactions[0].currency_value), parseFloat(dupData.currency_value));
+    assert.equal(parseFloat(response.data.transactions[0].commission_percent), parseFloat(dupData.commission_percent));
   });
 
   it('should pass when name is not sent', async function() {
@@ -62,6 +67,10 @@ describe('services/v0/transaction_kind/edit', function () {
     assert.equal(response.data.result_type, "transactions");
     assert.equal(response.data.transactions.length, 1);
     assert.deepEqual(Object.keys(response.data.transactions[0]).sort(), ['id', 'name', 'client_transaction_id', 'kind', 'currency_type', 'currency_value', 'commission_percent', 'uts'].sort());
+    assert.equal(response.data.transactions[0].kind, dupData.kind);
+    assert.equal(response.data.transactions[0].currency_type, dupData.currency_type);
+    assert.equal(parseFloat(response.data.transactions[0].currency_value), parseFloat(dupData.currency_value));
+    assert.equal(parseFloat(response.data.transactions[0].commission_percent), parseFloat(dupData.commission_percent));
   });
 
   it('should pass when kind is not sent', async function() {
@@ -74,6 +83,10 @@ describe('services/v0/transaction_kind/edit', function () {
     assert.equal(response.data.result_type, "transactions");
     assert.equal(response.data.transactions.length, 1);
     assert.deepEqual(Object.keys(response.data.transactions[0]).sort(), ['id', 'name', 'client_transaction_id', 'kind', 'currency_type', 'currency_value', 'commission_percent', 'uts'].sort());
+    assert.equal(response.data.transactions[0].name, dupData.name);
+    assert.equal(response.data.transactions[0].currency_type, dupData.currency_type);
+    assert.equal(parseFloat(response.data.transactions[0].currency_value), parseFloat(dupData.currency_value));
+    assert.equal(parseFloat(response.data.transactions[0].commission_percent), parseFloat(dupData.commission_percent));
   });
 
   it('should return promise', async function() {
@@ -115,6 +128,10 @@ describe('services/v0/transaction_kind/edit', function () {
     assert.equal(response.data.result_type, "transactions");
     assert.equal(response.data.transactions.length, 1);
     assert.deepEqual(Object.keys(response.data.transactions[0]).sort(), ['id', 'name', 'client_transaction_id', 'kind', 'currency_type', 'currency_value', 'commission_percent', 'uts'].sort());
+    assert.equal(response.data.transactions[0].kind, dupData.kind);
+    assert.equal(response.data.transactions[0].currency_type, dupData.currency_type);
+    assert.equal(parseFloat(response.data.transactions[0].currency_value), parseFloat(dupData.currency_value));
+    assert.equal(parseFloat(response.data.transactions[0].commission_percent), parseFloat(dupData.commission_percent));
   });
 
   it('should fail when name is less than 3 chars', async function() {
@@ -143,6 +160,10 @@ describe('services/v0/transaction_kind/edit', function () {
     assert.equal(response.data.result_type, "transactions");
     assert.equal(response.data.transactions.length, 1);
     assert.deepEqual(Object.keys(response.data.transactions[0]).sort(), ['id', 'name', 'client_transaction_id', 'kind', 'currency_type', 'currency_value', 'commission_percent', 'uts'].sort());
+    assert.equal(response.data.transactions[0].name, dupData.name);
+    assert.equal(response.data.transactions[0].currency_type, dupData.currency_type);
+    assert.equal(parseFloat(response.data.transactions[0].currency_value), parseFloat(dupData.currency_value));
+    assert.equal(parseFloat(response.data.transactions[0].commission_percent), parseFloat(dupData.commission_percent));
   });
 
   it('should pass when kind is invalid', async function() {
@@ -155,6 +176,10 @@ describe('services/v0/transaction_kind/edit', function () {
     assert.equal(response.data.result_type, "transactions");
     assert.equal(response.data.transactions.length, 1);
     assert.deepEqual(Object.keys(response.data.transactions[0]).sort(), ['id', 'name', 'client_transaction_id', 'kind', 'currency_type', 'currency_value', 'commission_percent', 'uts'].sort());
+    assert.equal(response.data.transactions[0].name, dupData.name);
+    assert.equal(response.data.transactions[0].currency_type, dupData.currency_type);
+    assert.equal(parseFloat(response.data.transactions[0].currency_value), parseFloat(dupData.currency_value));
+    assert.equal(parseFloat(response.data.transactions[0].commission_percent), parseFloat(dupData.commission_percent));
   });
 
   it('should pass when currency type is undefined', async function() {
@@ -167,27 +192,19 @@ describe('services/v0/transaction_kind/edit', function () {
     assert.equal(response.data.result_type, "transactions");
     assert.equal(response.data.transactions.length, 1);
     assert.deepEqual(Object.keys(response.data.transactions[0]).sort(), ['id', 'name', 'client_transaction_id', 'kind', 'currency_type', 'currency_value', 'commission_percent', 'uts'].sort());
+    assert.equal(response.data.transactions[0].name, dupData.name);
+    assert.equal(response.data.transactions[0].kind, dupData.kind);
+    assert.equal(parseFloat(response.data.transactions[0].currency_value), parseFloat(dupData.currency_value));
+    assert.equal(parseFloat(response.data.transactions[0].commission_percent), parseFloat(dupData.commission_percent));
   });
 
   it('should fail when currency type is invalid', async function() {
     const dupData = JSON.parse(JSON.stringify(userToUserValidData));
     dupData.name = dupData.name + ' ' + Math.round((new Date()).getTime() / 1000);
     dupData.currency_type = "ABC";
-    console.log(JSON.stringify(dupData));
     const response = await transactionKindService.edit(dupData).catch(function(e) {return e});
-    console.log(JSON.stringify(response));
     assert.equal(response.success, false);
     assert.deepEqual(helper.errorFields(response).sort(), ['currency_type'].sort());
-  });
-
-  it('should pass when currency value (USD) is undefined', async function() {
-    const dupData = JSON.parse(JSON.stringify(userToUserValidData));
-    dupData.name = dupData.name + ' ' + Math.round((new Date()).getTime() / 1000);
-    dupData.currency_value = undefined;
-    dupData.currency_type = 'usd';
-    const response = await transactionKindService.edit(dupData).catch(function(e) {return e});
-    assert.equal(response.success, false);
-    assert.deepEqual(helper.errorFields(response).sort(), ['currency_value'].sort());
   });
 
   it('should fail when currency value (USD) is less than 0.01', async function() {
@@ -243,27 +260,42 @@ describe('services/v0/transaction_kind/edit', function () {
   it('U2U: should pass when data is correct', async function() {
     const dupData = JSON.parse(JSON.stringify(userToUserValidData));
     dupData.name = dupData.name + ' ' + Math.round((new Date()).getTime() / 1000);
-    dupData.currency_type = (dupData.currency_type=='usd' ? 'bt' : 'usd');
+    dupData.currency_type = (dupData.currency_type=='USD' ? 'BT' : 'USD');
     const response = await transactionKindService.edit(dupData).catch(function(e) {return e});
     assert.equal(response.success, true);
+    assert.equal(response.data.transactions[0].name, dupData.name);
+    assert.equal(response.data.transactions[0].kind, dupData.kind);
+    assert.equal(response.data.transactions[0].currency_type, dupData.currency_type);
+    assert.equal(parseFloat(response.data.transactions[0].currency_value), parseFloat(dupData.currency_value));
+    assert.equal(response.data.transactions[0].commission_percent, dupData.commission_percent);
   });
 
   it('C2U: should pass when data is correct', async function() {
     const dupData = JSON.parse(JSON.stringify(companyToUserValidData));
     dupData.name = dupData.name + ' ' + Math.round((new Date()).getTime() / 1000);
-    dupData.currency_type = (dupData.currency_type=='usd' ? 'bt' : 'usd');
+    dupData.currency_type = (dupData.currency_type=='USD' ? 'BT' : 'USD');
     dupData.commission_percent = undefined;
     const response = await transactionKindService.edit(dupData).catch(function(e) {return e});
     assert.equal(response.success, true);
+    assert.equal(response.data.transactions[0].name, dupData.name);
+    assert.equal(response.data.transactions[0].kind, dupData.kind);
+    assert.equal(response.data.transactions[0].currency_type, dupData.currency_type);
+    assert.equal(parseFloat(response.data.transactions[0].currency_value), parseFloat(dupData.currency_value));
+    assert.equal(response.data.transactions[0].commission_percent, null);
   });
 
   it('U2C: should pass when data is correct', async function() {
     const dupData = JSON.parse(JSON.stringify(userToCompanyValidData));
     dupData.name = dupData.name + ' ' + Math.round((new Date()).getTime() / 1000);
-    dupData.currency_type = (dupData.currency_type=='usd' ? 'bt' : 'usd');
+    dupData.currency_type = (dupData.currency_type=='USD' ? 'BT' : 'USD');
     dupData.commission_percent = undefined;
     const response = await transactionKindService.edit(dupData).catch(function(e) {return e});
     assert.equal(response.success, true);
+    assert.equal(response.data.transactions[0].name, dupData.name);
+    assert.equal(response.data.transactions[0].kind, dupData.kind);
+    assert.equal(response.data.transactions[0].currency_type, dupData.currency_type);
+    assert.equal(parseFloat(response.data.transactions[0].currency_value), parseFloat(dupData.currency_value));
+    assert.equal(response.data.transactions[0].commission_percent, null);
   });
 
 });

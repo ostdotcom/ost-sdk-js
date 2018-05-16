@@ -27,15 +27,13 @@ describe('services/v0/transaction_kind/transfer', function () {
 
   it('Status: should pass when response data keys match', async function() {
     const dupData = JSON.parse(JSON.stringify(transferStatusData));
-    console.log(JSON.stringify(dupData));
     const response = await transactionKindService.status(dupData).catch(function(e) {return e});
-    console.log(JSON.stringify(response));
     assert.equal(response.success, true);
     assert.deepEqual(helper.responseKeys(response).sort(), ['success', 'data'].sort());
     assert.deepEqual(Object.keys(response.data).sort(), ['client_tokens', 'transaction_types', 'economy_users', 'result_type', 'transactions'].sort());
     assert.equal(response.data.result_type, "transactions");
     assert.equal(response.data.transactions.length, 1);
-    assert.deepEqual(Object.keys(response.data.transactions[0]).sort(), ['id', 'transaction_uuid', 'transaction_hash', 'from_user_id', 'to_user_id', 'transaction_type_id', 'client_token_id', 'status', 'gas_price', 'transaction_timestamp', 'uts'].sort());
+    assert.deepEqual(Object.keys(response.data.transactions[0]).sort(), ['id', 'transaction_uuid', 'transaction_hash', 'from_user_id', 'to_user_id', 'transaction_type_id', 'status', 'gas_price', 'transaction_timestamp', 'gas_used', 'transaction_fee', 'block_number', 'bt_transfer_value', 'bt_commission_amount', 'uts'].sort());
   });
 
   it('Transfer: should return promise', async function() {

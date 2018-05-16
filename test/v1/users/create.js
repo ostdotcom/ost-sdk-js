@@ -5,15 +5,15 @@ const chai = require('chai')
 
 // Load cache service
 const rootPrefix = "../../.."
-  , helper = require(rootPrefix + '/test/v0/helper')
+  , helper = require(rootPrefix + '/test/v1/helper')
   , OSTSDK = require(rootPrefix + '/index')
   , ostObj = new OSTSDK({apiEndpoint: helper.OST_KIT_API_ENDPOINT, apiKey: helper.OST_KIT_API_KEY, apiSecret: helper.OST_KIT_API_SECRET})
-  , userService = ostObj.services.user
+  , userService = ostObj.services.users
 ;
 
 const userValidData = {name: 'Alice'};
 
-describe('services/v0/user/create', function () {
+describe('services/v1/user/create', function () {
 
   it('should pass when response data keys match', async function() {
     const dupData = JSON.parse(JSON.stringify(userValidData));
@@ -21,10 +21,13 @@ describe('services/v0/user/create', function () {
     const response = await userService.create(dupData).catch(function(e) {return e});
     assert.equal(response.success, true);
     assert.deepEqual(helper.responseKeys(response).sort(), ['success', 'data'].sort());
-    assert.deepEqual(helper.responseKeys(response.data).sort(), ['result_type', 'economy_users'].sort());
-    assert.equal(response.data.result_type, "economy_users");
-    assert.equal(response.data.economy_users.length, 1);
-    assert.deepEqual(Object.keys(response.data.economy_users[0]).sort(), ['id', 'uuid', 'name', 'total_airdropped_tokens', 'token_balance'].sort());
+    assert.deepEqual(helper.responseKeys(response.data).sort(), ['result_type', 'user'].sort());
+    assert.equal(response.data.result_type, "user");
+    assert.deepEqual(Object.keys(response.data.user).sort(), ['id', 'addresses', 'name', 'airdropped_tokens', 'token_balance'].sort());
+    assert.equal(response.data.user.addresses.length, 1);
+    assert.equal(response.data.user.addresses[0].length, 2);
+    assert.exists(response.data.user.addresses[0][0]);
+    assert.exists(response.data.user.addresses[0][1]);
   });
 
   it('should return promise', async function() {
@@ -85,4 +88,5 @@ describe('services/v0/user/create', function () {
     const response = await userService.create(dupData).catch(function(e) {return e});
     assert.equal(response.success, true);
   });
+
 });

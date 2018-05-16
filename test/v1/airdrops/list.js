@@ -11,12 +11,6 @@ const rootPrefix = "../../.."
   , airdropService = ostObj.services.airdrops
 ;
 
-// order desc (default)/asc
-// order_by created (default)
-// limit 1 to 100 (10)
-// current_status incomplete, failed, complete, processing
-// page_no (default 1)
-
 const airdropData = {current_status: 'complete', limit: '10', order: 'asc', order_by: 'created', page_no: '1'};
 
 describe('services/v1/airdrops/list', function () {
@@ -27,31 +21,37 @@ describe('services/v1/airdrops/list', function () {
     assert.typeOf(response, 'Promise');
   });
 
-  it('Should fail when id is invalid', async function() {
+  it('Should pass when id is invalid, but with empty data', async function() {
     const dupData = JSON.parse(JSON.stringify(airdropData));
     dupData.id = '86268074-18d7-4118-942f-fc9c8fd1429d111';
-    const response = await airdropService.get(dupData).catch(function(e) {return e});
-    assert.equal(response.success, false);
-    assert.equal(response.err.code, 'BAD_REQUEST');
-    assert.deepEqual(helper.errorFields(response).sort(), ['id'].sort());
+    const response = await airdropService.list(dupData).catch(function(e) {return e});
+    assert.equal(response.success, true);
+    assert.deepEqual(helper.responseKeys(response).sort(), ['success', 'data'].sort());
+    assert.deepEqual(helper.responseKeys(response.data).sort(), ['result_type', 'airdrops', 'meta'].sort());
+    assert.equal(response.data.airdrops.length, 0);
+    assert.deepEqual(helper.responseKeys(response.data.meta.next_page_payload).sort(), [].sort());
   });
 
-  it('Should fail when id belongs to someone else', async function() {
+  it('Should pass when id belongs to someone else, but with empty data', async function() {
     const dupData = JSON.parse(JSON.stringify(airdropData));
     dupData.id = '86268074-18d7-4118-942f-fc9c8fd1429d';
-    const response = await airdropService.get(dupData).catch(function(e) {return e});
-    assert.equal(response.success, false);
-    assert.equal(response.err.code, 'BAD_REQUEST');
-    assert.deepEqual(helper.errorFields(response).sort(), ['id'].sort());
+    const response = await airdropService.list(dupData).catch(function(e) {return e});
+    assert.equal(response.success, true);
+    assert.deepEqual(helper.responseKeys(response).sort(), ['success', 'data'].sort());
+    assert.deepEqual(helper.responseKeys(response.data).sort(), ['result_type', 'airdrops', 'meta'].sort());
+    assert.equal(response.data.airdrops.length, 0);
+    assert.deepEqual(helper.responseKeys(response.data.meta.next_page_payload).sort(), [].sort());
   });
 
-  it('Should fail when id is comma separated list', async function() {
+  it('Should pass when id is invalid comma separated list, but with empty data', async function() {
     const dupData = JSON.parse(JSON.stringify(airdropData));
     dupData.id = '86268074-18d7-4118-942f-fc9c8fd1429d,86268074-18d7-4118-942f-fc9c8fd1429d';
-    const response = await airdropService.get(dupData).catch(function(e) {return e});
-    assert.equal(response.success, false);
-    assert.equal(response.err.code, 'BAD_REQUEST');
-    assert.deepEqual(helper.errorFields(response).sort(), ['id'].sort());
+    const response = await airdropService.list(dupData).catch(function(e) {return e});
+    assert.equal(response.success, true);
+    assert.deepEqual(helper.responseKeys(response).sort(), ['success', 'data'].sort());
+    assert.deepEqual(helper.responseKeys(response.data).sort(), ['result_type', 'airdrops', 'meta'].sort());
+    assert.equal(response.data.airdrops.length, 0);
+    assert.deepEqual(helper.responseKeys(response.data.meta.next_page_payload).sort(), [].sort());
   });
 
   it('Should pass when id is valid', async function() {
@@ -59,7 +59,7 @@ describe('services/v1/airdrops/list', function () {
 
     const dupData = {};
     dupData.id = airdropResponse.data.airdrop.id;
-    const response = await airdropService.get(dupData).catch(function(e) {return e});
+    const response = await airdropService.list(dupData).catch(function(e) {return e});
     assert.equal(response.success, true);
   });
 
@@ -91,6 +91,13 @@ describe('services/v1/airdrops/list', function () {
   it('Should pass when current_status has all valid values', async function() {
     const dupData = JSON.parse(JSON.stringify(airdropData));
     dupData.current_status = 'incomplete,processing,complete,failed';
+    const response = await airdropService.list(dupData).catch(function(e) {return e});
+    assert.equal(response.success, true);
+  });
+
+  it('Should pass when current_status is not sent', async function() {
+    const dupData = JSON.parse(JSON.stringify(airdropData));
+    delete dupData.current_status;
     const response = await airdropService.list(dupData).catch(function(e) {return e});
     assert.equal(response.success, true);
   });
@@ -147,6 +154,13 @@ describe('services/v1/airdrops/list', function () {
     assert.equal(response.success, true);
   });
 
+  it('Should pass when limit is not sent', async function() {
+    const dupData = JSON.parse(JSON.stringify(airdropData));
+    delete dupData.limit;
+    const response = await airdropService.list(dupData).catch(function(e) {return e});
+    assert.equal(response.success, true);
+  });
+
   it('Should fail when order is invalid', async function() {
     const dupData = JSON.parse(JSON.stringify(airdropData));
     dupData.order = 'abc';
@@ -177,6 +191,13 @@ describe('services/v1/airdrops/list', function () {
     assert.equal(response.success, true);
   });
 
+  it('Should pass when order is not sent', async function() {
+    const dupData = JSON.parse(JSON.stringify(airdropData));
+    delete dupData.order;
+    const response = await airdropService.list(dupData).catch(function(e) {return e});
+    assert.equal(response.success, true);
+  });
+
   it('Should fail when order_by is invalid', async function() {
     const dupData = JSON.parse(JSON.stringify(airdropData));
     dupData.order_by = 'abc';
@@ -189,6 +210,20 @@ describe('services/v1/airdrops/list', function () {
   it('Should pass when order_by is blank', async function() {
     const dupData = JSON.parse(JSON.stringify(airdropData));
     dupData.order_by = '';
+    const response = await airdropService.list(dupData).catch(function(e) {return e});
+    assert.equal(response.success, true);
+  });
+
+  it('Should pass when order_by is created', async function() {
+    const dupData = JSON.parse(JSON.stringify(airdropData));
+    dupData.order_by = 'created';
+    const response = await airdropService.list(dupData).catch(function(e) {return e});
+    assert.equal(response.success, true);
+  });
+
+  it('Should pass when order_by is not sent', async function() {
+    const dupData = JSON.parse(JSON.stringify(airdropData));
+    delete dupData.order_by;
     const response = await airdropService.list(dupData).catch(function(e) {return e});
     assert.equal(response.success, true);
   });
@@ -238,6 +273,13 @@ describe('services/v1/airdrops/list', function () {
     assert.deepEqual(helper.responseKeys(response.data).sort(), ['result_type', 'airdrops', 'meta'].sort());
     assert.equal(response.data.airdrops.length, 0);
     assert.deepEqual(helper.responseKeys(response.data.meta.next_page_payload).sort(), [].sort());
+  });
+
+  it('Should pass when page_no is not sent', async function() {
+    const dupData = JSON.parse(JSON.stringify(airdropData));
+    delete dupData.page_no;
+    const response = await airdropService.list(dupData).catch(function(e) {return e});
+    assert.equal(response.success, true);
   });
 
   it('Should pass when request data is undefined, also test pagination', async function() {
