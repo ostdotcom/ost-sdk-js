@@ -157,8 +157,8 @@ const createActionTestCases = function () {
         , "BT"  : [{arbitrary_amount: true}, { amount: 0.00001, arbitrary_amount: false }, { amount: "0.00001", arbitrary_amount: false }, { amount: 99.99999, arbitrary_amount: false }, { amount: "99.99999", arbitrary_amount: false }]
       }
       , invalid: {
-        "USD"   : [{arbitrary_amount: false}, { amount: 0.0099, arbitrary_amount: false }, { amount: 99.99, arbitrary_amount: true }]
-        , "BT"  : [{arbitrary_amount: false}, { amount: 0.0000099, arbitrary_amount: false }, { amount: 99.99999, arbitrary_amount: true }]
+        "USD"   : [{arbitrary_amount: false}, {amount: true, arbitrary_amount: false}, { amount: 0.0099, arbitrary_amount: false }, { amount: 99.99, arbitrary_amount: true }]
+        , "BT"  : [{arbitrary_amount: false}, {amount: "; DROP TABLE USERS;", arbitrary_amount: false}, { amount: 0.0000099, arbitrary_amount: false }, { amount: 99.99999, arbitrary_amount: true }, {amount: 1.0, arbitrary_amount: false, name: ";DROP TABLE USERS;"}]
       }
     }
     , amtTestCaseKey
@@ -174,7 +174,7 @@ const createActionTestCases = function () {
         "user_to_user": [{arbitrary_commission: true}, { commission_percent: 0.01, arbitrary_commission: false }, { commission_percent: 100, arbitrary_commission: false }]
       }
       , invalid: {
-        "user_to_user"      : [{ commission_percent: -0.01, arbitrary_commission: false }, { commission_percent: 100.01, arbitrary_commission: false }]
+        "user_to_user"      : [{ commission_percent: -0.01, arbitrary_commission: false }, { commission_percent: 100.01, arbitrary_commission: false }, { commission_percent: true, arbitrary_commission: false }]
         , "company_to_user" : [{arbitrary_commission: true}, { commission_percent: 1.00, arbitrary_commission: false }]
         , "user_to_company" : [{arbitrary_commission: true}, { commission_percent: 1.00, arbitrary_commission: false }]
       }
@@ -256,7 +256,7 @@ const createActionTestCases = function () {
               cComData = commissions[ 0 ];
               Object.assign( finalParams, cComData);
             }
-            testCreateAction( finalParams, testCaseMeta );
+            testCreateAction( finalParams, Object.assign( {}, testCaseMeta ) );
             if ( shouldBreak ) { break; } else { continue; }
           }
 
@@ -273,7 +273,7 @@ const createActionTestCases = function () {
               //No commission data for this Test-Case.
               if ( isCommissionValid ) {
                 finalParams = Object.assign( {}, params);
-                testCreateAction( params, testCaseMeta );
+                testCreateAction( params, Object.assign( {}, testCaseMeta ) );
               }
               if ( shouldBreak ) { break; } else { continue; }
             }
@@ -284,7 +284,7 @@ const createActionTestCases = function () {
               finalParams = Object.assign( {}, params);
               cComData = commissions[ comCnt ];
               Object.assign( finalParams, cComData);
-              testCreateAction( finalParams, testCaseMeta );
+              testCreateAction( finalParams, Object.assign( {}, testCaseMeta ) );
 
               if ( shouldBreak ) { break; }
             } /* End: for comCnt < comLen */
@@ -333,9 +333,13 @@ const testCreateAction = function ( params, testCaseMeta ) {
   metaMsg += "]";
 
   itMsg = allValid ? "should create new action with " : "should FAIL to create new action with ";
-  let namePostFix = allValid ? "P" : "F";
-  params.name =  "C" + createActionCnt + " " + Date.now() + namePostFix;
-  testCaseMeta.isNameValid = true;
+  if ( !params.hasOwnProperty( "name" ) ) {
+    let namePostFix = allValid ? "P" : "F";
+    params.name =  "C" + createActionCnt + " " + Date.now() + namePostFix;
+    testCaseMeta.isNameValid = true;    
+  } else {
+    testCaseMeta.isNameValid = false;
+  }
 
   for( paramKey in params ) {
     if ( !params.hasOwnProperty( paramKey) ) { continue; }
