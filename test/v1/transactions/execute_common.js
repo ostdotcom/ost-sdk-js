@@ -13,9 +13,6 @@ const rootPrefix = "../../.."
 ;
 
 const transactionData = {from_user_id: helper.OST_KIT_TRANSFER_FROM_UUID, to_user_id: helper.OST_KIT_TRANSFER_TO_UUID, action_id: ''};
-// const transactionArbitraryCommissionData = {from_user_id: helper.OST_KIT_TRANSFER_FROM_UUID, to_user_id: helper.OST_KIT_TRANSFER_TO_UUID, action_id: '', amount: , commission_percent: };
-// const transactionArbitraryAmountData = {from_user_id: helper.OST_KIT_TRANSFER_FROM_UUID, to_user_id: helper.OST_KIT_TRANSFER_TO_UUID, action_id: '', amount: , commission_percent: };
-// const transactionArbitraryCommissionAmountData = {from_user_id: helper.OST_KIT_TRANSFER_FROM_UUID, to_user_id: helper.OST_KIT_TRANSFER_TO_UUID, action_id: '', amount: , commission_percent: };
 
 describe('services/v1/transactions/execute (COMMON)', function () {
 
