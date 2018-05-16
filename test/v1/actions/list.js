@@ -182,15 +182,12 @@ const listActionTestCases = function () {
     assert.deepEqual(helper.errorFields(response).sort(), ['page_no'].sort());
   });
 
-  it('Should pass when page_no is big number, but with empty data', async function() {
+  it('Should fail when page_no is big number', async function() {
     const params = Object.assign({}, listParams);
     params.page_no = 1000000000000000000;
     const response = await actionsService.list(params).catch(function(e) {return e});
-    helper.validateSuccessResponse( response, "actions", true );
-    assert.deepEqual(helper.responseKeys(response).sort(), ['success', 'data'].sort());
-    assert.deepEqual(helper.responseKeys(response.data).sort(), ['result_type', 'actions', 'meta'].sort());
-    assert.equal(response.data.actions.length, 0);
-    assert.deepEqual(helper.responseKeys(response.data.meta.next_page_payload).sort(), [].sort());
+    helper.validateErrorResponse(response, 'BAD_REQUEST');
+    assert.deepEqual(helper.errorFields(response).sort(), ['page_no'].sort());
   });
 
   testListActionFilter( "kind", ["user_to_user", "company_to_user", "user_to_company"] );
