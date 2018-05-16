@@ -18,16 +18,18 @@ describe('services/v0/transaction_kind/transfer', function () {
 
   it('Transfer: should pass when response data keys match', async function() {
     const dupData = JSON.parse(JSON.stringify(transferTokenData));
-    const response = await transactionKindService.execute(dupData);
+    const response = await transactionKindService.execute(dupData).catch(function(e) {return e});
     assert.equal(response.success, true);
     assert.deepEqual(helper.responseKeys(response).sort(), ['success', 'data'].sort());
-    assert.deepEqual(helper.responseKeys(response.data).sort(), ['transaction_uuid', 'transaction_hash', 'from_uuid', 'to_uuid', 'transaction_kind'].sort());
+    assert.deepEqual(helper.responseKeys(response.data).sort(), ['transaction_uuid', 'transaction_hash', 'from_uuid', 'to_uuid', 'action_id'].sort());
     transferStatusData.transaction_uuids = [response.data.transaction_uuid];
   });
 
   it('Status: should pass when response data keys match', async function() {
     const dupData = JSON.parse(JSON.stringify(transferStatusData));
-    const response = await transactionKindService.status(dupData);
+    console.log(JSON.stringify(dupData));
+    const response = await transactionKindService.status(dupData).catch(function(e) {return e});
+    console.log(JSON.stringify(response));
     assert.equal(response.success, true);
     assert.deepEqual(helper.responseKeys(response).sort(), ['success', 'data'].sort());
     assert.deepEqual(Object.keys(response.data).sort(), ['client_tokens', 'transaction_types', 'economy_users', 'result_type', 'transactions'].sort());
@@ -38,13 +40,13 @@ describe('services/v0/transaction_kind/transfer', function () {
 
   it('Transfer: should return promise', async function() {
     const dupData = JSON.parse(JSON.stringify(transferTokenData));
-    const response = transactionKindService.execute(dupData);
+    const response = transactionKindService.execute(dupData).catch(function(e) {return e});
     assert.typeOf(response, 'Promise');
   });
 
   it('Status: should return promise', async function() {
     const dupData = JSON.parse(JSON.stringify(transferStatusData));
-    const response = transactionKindService.status(dupData);
+    const response = transactionKindService.status(dupData).catch(function(e) {return e});
     assert.typeOf(response, 'Promise');
   });
 

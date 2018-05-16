@@ -17,7 +17,7 @@ describe('services/v1/airdrops/get', function () {
 
   it('Should return promise', async function() {
     const dupData = JSON.parse(JSON.stringify(airdropData));
-    const response = airdropService.get(dupData);
+    const response = airdropService.get(dupData).catch(function(e) {return e});
     assert.typeOf(response, 'Promise');
   });
 
@@ -75,12 +75,11 @@ describe('services/v1/airdrops/get', function () {
 
   it('Should pass when id is valid', async function() {
     const airdropResponse = await airdropService.execute({amount: 0.00001}).catch(function(e) {return e});
-    console.log("airdropResponse", airdropResponse);
+    console.log(JSON.stringify(airdropResponse));
 
     const dupData = JSON.parse(JSON.stringify(airdropData));
     dupData.id = airdropResponse.data.airdrop.id;
     const response = await airdropService.get(dupData).catch(function(e) {return e});
-    console.log("response", response);
     assert.equal(response.success, true);
     assert.deepEqual(helper.responseKeys(response).sort(), ['success', 'data'].sort());
     assert.deepEqual(helper.responseKeys(response.data).sort(), ['result_type', 'airdrop'].sort());

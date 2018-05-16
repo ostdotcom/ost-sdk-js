@@ -23,7 +23,7 @@ describe('services/v1/airdrops/list', function () {
 
   it('Should return promise', async function() {
     const dupData = undefined;
-    const response = airdropService.list(dupData);
+    const response = airdropService.list(dupData).catch(function(e) {return e});
     assert.typeOf(response, 'Promise');
   });
 
@@ -220,7 +220,7 @@ describe('services/v1/airdrops/list', function () {
     assert.deepEqual(helper.errorFields(response).sort(), ['page_no'].sort());
   });
 
-  it('Should pass when page_no is blank', async function() {
+  it('Should fail when page_no is blank', async function() {
     const dupData = JSON.parse(JSON.stringify(airdropData));
     dupData.page_no = '';
     const response = await airdropService.list(dupData).catch(function(e) {return e});

@@ -20,7 +20,7 @@ describe('services/v0/transaction_kind/create', function () {
   it('should pass when response data keys match', async function() {
     const dupData = JSON.parse(JSON.stringify(userToUserValidData));
     dupData.name = dupData.name + ' ' + Math.round((new Date()).getTime() / 1000);
-    const response = await transactionKindService.create(dupData);
+    const response = await transactionKindService.create(dupData).catch(function(e) {return e});
     assert.equal(response.success, true);
     assert.deepEqual(helper.responseKeys(response).sort(), ['success', 'data'].sort());
     assert.equal(response.data.result_type, "transactions");
@@ -31,7 +31,7 @@ describe('services/v0/transaction_kind/create', function () {
   it('should return promise', async function() {
     const dupData = JSON.parse(JSON.stringify(userToUserValidData));
     dupData.name = dupData.name + ' ' + Math.round((new Date()).getTime() / 1000);
-    const response = transactionKindService.create(dupData);
+    const response = transactionKindService.create(dupData).catch(function(e) {return e});
     assert.typeOf(response, 'Promise');
   });
 

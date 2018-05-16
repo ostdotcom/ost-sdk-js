@@ -17,7 +17,7 @@ describe('services/v1/airdrops/execute', function () {
 
   it('Should return promise', async function() {
     const dupData = JSON.parse(JSON.stringify(airdropData));
-    const response = airdropService.execute(dupData);
+    const response = airdropService.execute(dupData).catch(function(e) {return e});
     assert.typeOf(response, 'Promise');
   });
 
