@@ -51,7 +51,7 @@ describe('services/v1/airdrops/get', function () {
     dupData.id = '86268074-18d7-4118-942f-fc9c8fd1429d111';
     const response = await airdropService.get(dupData).catch(function(e) {return e});
     assert.equal(response.success, false);
-    assert.equal(response.err.code, ' NOT_FOUND');
+    assert.equal(response.err.code, 'NOT_FOUND');
   });
 
   it('Should fail when id belongs to someone else', async function() {
