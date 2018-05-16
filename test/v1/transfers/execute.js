@@ -94,9 +94,7 @@ describe('services/v1/transfers/execute', function () {
   it('Should fail when to address invalid', async function() {
     const dupData = JSON.parse(JSON.stringify(transferData));
     dupData.to_address = '0xac';
-    console.log(JSON.stringify(dupData));
     const response = await transferService.execute(dupData).catch(function(e) {return e});
-    console.log(JSON.stringify(response));
     assert.equal(response.success, false);
     assert.equal(response.err.code, 'BAD_REQUEST');
     assert.deepEqual(helper.errorFields(response).sort(), ['to_address'].sort());

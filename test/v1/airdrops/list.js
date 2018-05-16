@@ -258,9 +258,7 @@ describe('services/v1/airdrops/list', function () {
   it('Should fail when page_no is blank', async function() {
     const dupData = JSON.parse(JSON.stringify(airdropData));
     dupData.page_no = '';
-    console.log(JSON.stringify(dupData));
     const response = await airdropService.list(dupData).catch(function(e) {return e});
-    console.log(JSON.stringify(response));
     assert.equal(response.success, false);
     assert.equal(response.err.code, 'BAD_REQUEST');
     assert.deepEqual(helper.errorFields(response).sort(), ['page_no'].sort());

@@ -23,7 +23,6 @@ helperKlass.prototype = {
   OST_KIT_API_SECRET: process.env.OST_KIT_API_SECRET,
   OST_KIT_TRANSFER_FROM_UUID: process.env.OST_KIT_TRANSFER_FROM_UUID,
   OST_KIT_TRANSFER_TO_UUID: process.env.OST_KIT_TRANSFER_TO_UUID,
-  OST_KIT_TRANSFER_KIND: process.env.OST_KIT_TRANSFER_KIND,
   DEBUG: ( "true" === process.env.OST_SDK_JS_DEBUG ),
 
   // helper functions
@@ -119,7 +118,7 @@ helperKlass.prototype = {
 
 //Validate required ENV variables
 if (!process.env.OST_KIT_API_V1_ENDPOINT || !process.env.OST_KIT_API_KEY || !process.env.OST_KIT_API_SECRET
-  || !process.env.OST_KIT_TRANSFER_FROM_UUID || !process.env.OST_KIT_TRANSFER_TO_UUID || !process.env.OST_KIT_TRANSFER_KIND) {
+  || !process.env.OST_KIT_TRANSFER_FROM_UUID || !process.env.OST_KIT_TRANSFER_TO_UUID) {
   console.log("USAGES: To run test cases, please define following ENV variables");
   console.log("----------------------------------------------------------------");
   console.log("export OST_KIT_API_V1_ENDPOINT='https://playgroundapi.ost.com/v1/'");
@@ -127,7 +126,6 @@ if (!process.env.OST_KIT_API_V1_ENDPOINT || !process.env.OST_KIT_API_KEY || !pro
   console.log("export OST_KIT_API_SECRET='79faff8d51498a98e7601bf09bba86b0765d4488a34416cce2455f2d82689273'");
   console.log("export OST_KIT_TRANSFER_FROM_UUID='cd890eeb-6376-48d4-9e28-d29527013a2d'");
   console.log("export OST_KIT_TRANSFER_TO_UUID='8acdbc49-6eb1-4555-9440-d961981cfeec'");
-  console.log("export OST_KIT_TRANSFER_KIND='Purchase'");
   process.exit(1);
 }
 

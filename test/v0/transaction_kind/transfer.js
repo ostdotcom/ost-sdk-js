@@ -11,10 +11,17 @@ const rootPrefix = "../../.."
   , transactionKindService = ostObj.services.transactionKind;
 ;
 
-const transferTokenData = {from_uuid: helper.OST_KIT_TRANSFER_FROM_UUID, to_uuid: helper.OST_KIT_TRANSFER_TO_UUID, transaction_kind: helper.OST_KIT_TRANSFER_KIND};
+const transferTokenData = {from_uuid: helper.OST_KIT_TRANSFER_FROM_UUID, to_uuid: helper.OST_KIT_TRANSFER_TO_UUID, transaction_kind: ''};
 const transferStatusData = {};
 
 describe('services/v0/transaction_kind/transfer', function () {
+
+  it('FIRST PREPARE DATA FOR TRANSFER', async function() {
+    const dupData = {name: 'Like', kind: 'user_to_user', currency_type: 'USD', currency_value: '0.01', commission_percent: '0'};
+    dupData.name = dupData.name + ' ' + Math.round((new Date()).getTime() / 1000);
+    const response = await transactionKindService.create(dupData).catch(function(e) {return e});
+    transferTokenData.transaction_kind = response.data.transactions[0].name;
+  });
 
   it('Transfer: should pass when response data keys match', async function() {
     const dupData = JSON.parse(JSON.stringify(transferTokenData));

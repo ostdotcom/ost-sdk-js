@@ -58,7 +58,7 @@ describe('services/v1/transfers/get', function () {
 
   it('Should fail when id belongs to someone else', async function() {
     const dupData = JSON.parse(JSON.stringify(transferData));
-    dupData.id = '86268074-18d7-4118-942f-fc9c8fd1429d';
+    dupData.id = '25203d79-7ebd-458d-9231-31844ae2bb9f';
     const response = await transferService.get(dupData).catch(function(e) {return e});
     assert.equal(response.success, false);
     assert.equal(response.err.code, 'BAD_REQUEST');
