@@ -15,7 +15,7 @@ const rootPrefix    = "../../.."
     }
   , ostObj          = new OSTSDK( sdkConfig )
   , actionsService  = ostObj.services.actions
-  , logMe           = true
+  , logMe           = helper.DEBUG
 ;
 
       
@@ -87,10 +87,15 @@ const validateAction = function ( action, expectedAction ) {
     assert.isOk( bnAmount.isGreaterThanOrEqualTo( bnMin ), "action.amount is not greater than or equal to minimum expected value." );
   }
 
-  //7. Validate commission_percent
-  if ( action.arbitrary_commission || action.kind !== ActionKinds.USER_TO_USER ) {
-    assert.isNull( action.commission_percent, "action.commission_percent is not null when action.arbitrary_commission is true OR action.kind is not " + ActionKinds.USER_TO_USER );
-  } else {
+  //8. Validate commission_percent and arbitrary_commission
+  if ( action.kind !== ActionKinds.USER_TO_USER ) {
+    assert.isNull( action.arbitrary_commission, "action.arbitrary_commission is not null when action.kind is not " + ActionKinds.USER_TO_USER );
+    assert.isNull( action.commission_percent, "action.commission_percent is not null when action.kind is not " + ActionKinds.USER_TO_USER );
+  }
+  else if ( action.arbitrary_commission || action.kind !== ActionKinds.USER_TO_USER ) {
+    assert.isNull( action.commission_percent, "action.commission_percent is not null when action.arbitrary_commission is true");
+  } 
+  else {
     let bnCommissionPercent = new BigNumber( action.commission_percent );
     assert.isNotOk( bnCommissionPercent.isNaN(), "action.commission_percent is NaN" );
     assert.isOk( bnCommissionPercent.isGreaterThanOrEqualTo( 0 ), "action.commission_percent is lesser than 0.");
@@ -148,7 +153,6 @@ const createActionTestCases = function () {
       valid: {
         "USD"   : [{arbitrary_amount: true}, { amount: 0.01, arbitrary_amount: false }, { amount: 99.99, arbitrary_amount: false }, { amount: "99.99", arbitrary_amount: false } ]
         , "BT"  : [{arbitrary_amount: true}, { amount: 0.00001, arbitrary_amount: false }, { amount: "0.00001", arbitrary_amount: false }, { amount: 99.99999, arbitrary_amount: false }, { amount: "99.99999", arbitrary_amount: false }]
-        , "UNKNOWN": [{arbitrary_amount: true}]
       }
       , invalid: {
         "USD"   : [{arbitrary_amount: false}, { amount: 0.0099, arbitrary_amount: false }, { amount: 99.99, arbitrary_amount: true }]
@@ -171,7 +175,6 @@ const createActionTestCases = function () {
         "user_to_user"      : [{ commission_percent: -0.01, arbitrary_commission: false }, { commission_percent: 100.01, arbitrary_commission: false }]
         , "company_to_user" : [{arbitrary_commission: true}, { commission_percent: 1.00, arbitrary_commission: false }]
         , "user_to_company" : [{arbitrary_commission: true}, { commission_percent: 1.00, arbitrary_commission: false }]
-        , "UNKNOWN_KIND": [{arbitrary_commission: true}]
       }
     }
     , comTestCaseKey
@@ -217,7 +220,12 @@ const createActionTestCases = function () {
         if ( !amountData.hasOwnProperty( amtTestCaseKey ) ) { continue; }
         isAmountDataValid = amtTestCaseKey === "valid";
 
-        amounts = amountData[ amtTestCaseKey ][ cCurrency ];        
+        if ( amountData[ amtTestCaseKey ].hasOwnProperty( cCurrency ) ) {
+          amounts = amountData[ amtTestCaseKey ][ cCurrency ];
+        } else {
+          amounts = [{arbitrary_amount: true}];
+        }
+
         amtLen = amounts.length;
 
         for( amtCnt = 0; amtCnt < amtLen; amtCnt++ )  {
