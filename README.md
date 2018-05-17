@@ -17,7 +17,7 @@ To use this node module, developers will need to:
 Install OST JavaScript SDK
 
 ```bash
-> npm install @ostdotcom/ost-sdk-js
+> npm install @ostdotcom/ost-sdk
 ```
 
 ## Example Usage
@@ -25,7 +25,7 @@ Install OST JavaScript SDK
 Require the SDK:
 
 ```node.js
-const OSTSDK = require('@ostdotcom/ost-sdk-js');
+const OSTSDK = require('@ostdotcom/ost-sdk');
 ```
 
 Initialize the SDK object:
