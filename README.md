@@ -17,7 +17,7 @@ To use this node module, developers will need to:
 Install OST JavaScript SDK
 
 ```bash
-> npm install @ostdotcom/ost-sdk-js
+> npm install @ostdotcom/ost-sdk
 ```
 
 ## Example Usage
