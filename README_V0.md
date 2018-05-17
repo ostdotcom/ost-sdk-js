@@ -1,5 +1,5 @@
 # OST JavaScript SDK
-The official [OST JavaScript SDK](https://dev.ost.com/).
+The official [OST JavaScript SDK](https://dev.ost.com/docs/0.9.1/simpletoken.html).
 
 ## Requirements
 
@@ -10,14 +10,14 @@ To use this node module, developers will need to:
 
 ## Documentation
 
-[https://dev.ost.com/](https://dev.ost.com/)
+[https://dev.ost.com/](https://dev.ost.com/docs/0.9.1/simpletoken.html)
 
 ## Installation
 
 Install OST JavaScript SDK
 
 ```bash
-> npm install @ostdotcom/ost-sdk-js
+> npm install @ostdotcom/ost-sdk
 ```
 
 ## Example Usage
@@ -25,7 +25,7 @@ Install OST JavaScript SDK
 Require the SDK:
 
 ```node.js
-const OSTSDK = require('@ostdotcom/ost-sdk-js');
+const OSTSDK = require('@ostdotcom/ost-sdk');
 ```
 
 Initialize the SDK object:

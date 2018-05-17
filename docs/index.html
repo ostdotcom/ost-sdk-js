@@ -33,14 +33,14 @@
 			<li class="dropdown">
 				<a href="modules.list.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="module-lib_request.html">lib/request</a></li><li><a href="module-lib_validate.html">lib/validate</a></li><li><a href="module-services_v0_manifest.html">services/v0/manifest</a></li><li><a href="module-services_v0_transaction_kind.html">services/v0/transaction_kind</a></li><li><a href="module-services_v0_user.html">services/v0/user</a></li><li><a href="module-services_v1_manifest.html">services/v1/manifest</a></li>
+					<li><a href="module-lib_request.html">lib/request</a></li><li><a href="module-lib_validate.html">lib/validate</a></li><li><a href="module-services_v0_manifest.html">services/v0/manifest</a></li><li><a href="module-services_v0_transaction_kind.html">services/v0/transaction_kind</a></li><li><a href="module-services_v0_user.html">services/v0/user</a></li><li><a href="module-services_v1_actions.html">services/v1/actions</a></li><li><a href="module-services_v1_airdrops.html">services/v1/airdrops</a></li><li><a href="module-services_v1_manifest.html">services/v1/manifest</a></li><li><a href="module-services_v1_token.html">services/v1/token</a></li><li><a href="module-services_v1_transactions.html">services/v1/transactions</a></li><li><a href="module-services_v1_transfers.html">services/v1/transfers</a></li><li><a href="module-services_v1_users.html">services/v1/users</a></li>
 				</ul>
 			</li>
 			
 			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="module-lib_request-RequestKlass.html">lib/request~RequestKlass</a></li><li><a href="module-lib_validate-ValidateKlass.html">lib/validate~ValidateKlass</a></li><li><a href="module-services_v0_manifest-manifest.html">services/v0/manifest~manifest</a></li><li><a href="module-services_v0_transaction_kind-transactionKind.html">services/v0/transaction_kind~transactionKind</a></li><li><a href="module-services_v0_user-user.html">services/v0/user~user</a></li><li><a href="module-services_v1_manifest-manifest.html">services/v1/manifest~manifest</a></li>
+					<li><a href="module-lib_request-RequestKlass.html">lib/request~RequestKlass</a></li><li><a href="module-lib_validate-ValidateKlass.html">lib/validate~ValidateKlass</a></li><li><a href="module-services_v0_manifest-manifest.html">services/v0/manifest~manifest</a></li><li><a href="module-services_v0_transaction_kind-transactionKind.html">services/v0/transaction_kind~transactionKind</a></li><li><a href="module-services_v0_user-user.html">services/v0/user~user</a></li><li><a href="module-services_v1_actions-actions.html">services/v1/actions~actions</a></li><li><a href="module-services_v1_airdrops-airdrops.html">services/v1/airdrops~airdrops</a></li><li><a href="module-services_v1_manifest-manifest.html">services/v1/manifest~manifest</a></li><li><a href="module-services_v1_token-token.html">services/v1/token~token</a></li><li><a href="module-services_v1_transactions-transactions.html">services/v1/transactions~transactions</a></li><li><a href="module-services_v1_transfers-transfers.html">services/v1/transfers~transfers</a></li><li><a href="module-services_v1_users-users.html">services/v1/users~users</a></li>
 				</ul>
 			</li>
 			
@@ -93,7 +93,7 @@
 
 
     <section class="readme-section">
-        <article><h1>OST Javascript SDK</h1><p>The official <a href="https://dev.ost.com/">OST Javascript SDK</a>.</p>
+        <article><h1>OST JavaScript SDK</h1><p>The official <a href="https://dev.ost.com/">OST JavaScript SDK</a>.</p>
 <h2>Requirements</h2><p>To use this node module, developers will need to:</p>
 <ol>
 <li>Sign-up on <a href="https://kit.ost.com">https://kit.ost.com</a>.</li>
@@ -101,22 +101,29 @@
 <li>Obtain an API Key and API Secret from <a href="https://kit.ost.com/developer-api-console">https://kit.ost.com/developer-api-console</a>.</li>
 </ol>
 <h2>Documentation</h2><p><a href="https://dev.ost.com/">https://dev.ost.com/</a></p>
-<h2>Installation</h2><p>Install OST Javascript SDK</p>
-<pre class="prettyprint source lang-bash"><code>> npm install @ostdotcom/ost-sdk</code></pre><h2>Example Usage</h2><p>Require the SDK:</p>
-<pre class="prettyprint source lang-node.js"><code>const OSTSDK = require('@ostdotcom/ost-sdk');</code></pre><p>Initialize the SDK object:</p>
-<pre class="prettyprint source lang-node.js"><code>const ostObj = new OSTSDK({apiKey: &lt;api_key>, apiSecret: &lt;api_secret>, apiEndpoint: &lt;api_endpoint>});</code></pre><h3>Transaction Kind Module</h3><p>Initialize a <code>TransactionKind</code> object to perform transaction-related actions:</p>
-<pre class="prettyprint source lang-node.js"><code>const transactionKindService = ostObj.services.transactionKind;</code></pre><p>Create new transaction types:</p>
-<pre class="prettyprint source lang-node.js"><code>transactionKindService.create({name: 'Like', kind: 'user_to_user', currency_type: 'usd', currency_value: '1.25', commission_percent: '12'}).then(console.log).catch(console.log);</code></pre><pre class="prettyprint source lang-node.js"><code>transactionKindService.create({name: 'Grant', kind: 'company_to_user', currency_type: 'bt', currency_value: '12', commission_percent: '0'}).then(console.log).catch(console.log);</code></pre><pre class="prettyprint source lang-node.js"><code>transactionKindService.create({name: 'Buy', kind: 'user_to_company', currency_type: 'bt', currency_value: '100', commission_percent: '0'}).then(console.log).catch(console.log);</code></pre><p>Get a list of existing transaction kinds and other data:</p>
-<pre class="prettyprint source lang-node.js"><code>transactionKindService.list().then(console.log).catch(console.log);</code></pre><p>Edit an existing transaction kind:</p>
-<pre class="prettyprint source lang-node.js"><code>transactionKindService.edit({client_transaction_id: '12', name: 'New Transaction Kind'}).then(console.log).catch(console.log);</code></pre><p>Execute a branded token transfer by transaction kind:</p>
-<pre class="prettyprint source lang-node.js"><code>transactionKindService.execute({from_uuid: '1234-1928-1081dsds-djhksjd', to_uuid: '1234-1928-1081-1223232', transaction_kind: 'Purchase'}).then(console.log).catch(console.log);</code></pre><p>Get the status of an executed transaction:</p>
-<pre class="prettyprint source lang-node.js"><code>transactionKindService.status({transaction_uuids: ['5f79063f-e22a-4d28-99d7-dd095f02c72e']}).then(console.log).catch(console.log);</code></pre><h3>User Module</h3><p>Initialize a <code>User</code> object to perform user specific actions:</p>
-<pre class="prettyprint source lang-node.js"><code>const userService = ostObj.services.user;</code></pre><p>Create a new user:</p>
-<pre class="prettyprint source lang-node.js"><code>userService.create({name: 'Alice'}).then(console.log).catch(console.log);</code></pre><p>Get a list of users and other data:</p>
-<pre class="prettyprint source lang-node.js"><code>userService.list().then(console.log).catch(console.log);</code></pre><p>Edit an existing user:</p>
-<pre class="prettyprint source lang-node.js"><code>userService.edit({uuid: '1234-1928-1081dsds-djhksjd', name: 'Bob'}).then(console.log).catch(console.log);</code></pre><p>Airdrop branded tokens to users:</p>
-<pre class="prettyprint source lang-node.js"><code>userService.airdropTokens({amount: 1, list_type: 'all'}).then(console.log).catch(console.log);</code></pre><p>As airdropping tokens is an asynchronous task, you can check the airdrop's status:</p>
-<pre class="prettyprint source lang-node.js"><code>userService.airdropStatus({airdrop_uuid: 'd8303e01-5ce0-401f-8ae4-d6a0bcdb2e24'}).then(console.log).catch(console.log);</code></pre></article>
+<h2>Installation</h2><p>Install OST JavaScript SDK</p>
+<pre class="prettyprint source lang-bash"><code>> npm install @ostdotcom/ost-sdk-js</code></pre><h2>Example Usage</h2><p>Require the SDK:</p>
+<pre class="prettyprint source lang-node.js"><code>const OSTSDK = require('@ostdotcom/ost-sdk-js');</code></pre><p>Initialize the SDK object:</p>
+<pre class="prettyprint source lang-node.js"><code>// the latest valid API endpoint is &quot;https://playgroundapi.ost.com/v1/&quot;, this may change in the future
+const ostObj = new OSTSDK({apiKey: &lt;api_key>, apiSecret: &lt;api_secret>, apiEndpoint: &lt;api_endpoint>});</code></pre><h3>Users Module</h3><pre class="prettyprint source lang-node.js"><code>const userService = ostObj.services.users;</code></pre><p>Create a new user:</p>
+<pre class="prettyprint source lang-node.js"><code>userService.create({name: 'Alice'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });</code></pre><p>Edit an existing user:</p>
+<pre class="prettyprint source lang-node.js"><code>userService.edit({id: '1234-1928-1081dsds-djhksjd', name: 'Bob'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });</code></pre><p>Get an existing user:</p>
+<pre class="prettyprint source lang-node.js"><code>userService.get({id: '1234-1928-1081dsds-djhksjd'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });</code></pre><p>Get a list of users and other data:</p>
+<pre class="prettyprint source lang-node.js"><code>userService.list({}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });</code></pre><h3>Airdrops Module</h3><pre class="prettyprint source lang-node.js"><code>const airdropService = ostObj.services.airdrops;</code></pre><p>Execute Airdrop:</p>
+<pre class="prettyprint source lang-node.js"><code>airdropService.execute({amount: 1, airdropped: 'true', user_ids: 'f87346e4-61f6-4d55-8cb8-234c65437b01'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });</code></pre><p>Get Airdrop Status:</p>
+<pre class="prettyprint source lang-node.js"><code>airdropService.get({id: 'ecd9b0b2-a0f4-422c-95a4-f25f8fc88334'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });</code></pre><p>List Airdrop</p>
+<pre class="prettyprint source lang-node.js"><code>airdropService.list({page_no: 1, limit: 50, current_status: 'processing,complete'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });</code></pre><h3>Token Module</h3><pre class="prettyprint source lang-node.js"><code>const tokenService = ostObj.services.token;</code></pre><p>Get details:</p>
+<pre class="prettyprint source lang-node.js"><code>tokenService.get({}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });</code></pre><h3>Actions Module</h3><pre class="prettyprint source lang-node.js"><code>const actionService = ostObj.services.actions;</code></pre><p>Create a new action:</p>
+<pre class="prettyprint source lang-node.js"><code>actionService.create({name: 'Voteup', kind: 'user_to_user', currency: 'USD', arbitrary_amount: false, amount: 1.01, commission_percent: 1}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); }); </code></pre><p>Edit an action:</p>
+<pre class="prettyprint source lang-node.js"><code>actionService.edit({id: 10, name: 'Like'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });</code></pre><p>Get an action:</p>
+<pre class="prettyprint source lang-node.js"><code>actionService.get({id: 1234}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });</code></pre><p>List actions:</p>
+<pre class="prettyprint source lang-node.js"><code>actionService.list({}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });</code></pre><h3>Transaction Module</h3><pre class="prettyprint source lang-node.js"><code>const transactionService = ostObj.services.transactions;</code></pre><p>Execute Transaction:</p>
+<pre class="prettyprint source lang-node.js"><code>transactionService.execute({from_user_id:'f87346e4-61f6-4d55-8cb8-234c65437b01', to_user_id:'c07bd853-e893-4400-b7e8-c358cfa05d85', action_id:'20145'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });</code></pre><p>Get Transaction Status:</p>
+<pre class="prettyprint source lang-node.js"><code>transactionService.get({id: 'ecd9b0b2-a0f4-422c-95a4-f25f8fc88334'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });</code></pre><p>List Transactions:</p>
+<pre class="prettyprint source lang-node.js"><code>transactionService.list({page_no: 1, limit: 10}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });</code></pre><h3>Transfer Module</h3><pre class="prettyprint source lang-node.js"><code>const transferService = ostObj.services.transfers;</code></pre><p>Execute ST Prime Transfer:</p>
+<pre class="prettyprint source lang-node.js"><code>transferService.execute({to_address:'0xd2b789293674faEE51bEb2d0338d15401dEbfdE3', amount:1}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });</code></pre><p>Get Transfer Status:</p>
+<pre class="prettyprint source lang-node.js"><code>transferService.get({id: 'd0589dc5-d0a0-4996-b9f8-847295fd2c3b'});</code></pre><p>List Transfers:</p>
+<pre class="prettyprint source lang-node.js"><code>transferService.list({id: 'ff9ed3ff-9125-4e49-8cc2-174fd0fd3c30,e5c24167-a3b2-4073-a064-6a7fcdb13be8'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });</code></pre></article>
     </section>
 
 

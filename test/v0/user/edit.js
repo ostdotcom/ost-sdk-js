@@ -16,17 +16,17 @@ const userValidData = {name: 'Alice'};
 describe('services/v0/user/edit', function () {
 
   it('FIRST PREPARE DATA FOR EDIT', async function() {
-    const response = await userService.list();
+    const response = await userService.list().catch(function(e) {return e});
     userValidData.uuid = response.data.economy_users[0].id;
   });
 
   it('should pass when response data keys match', async function() {
     const dupData = JSON.parse(JSON.stringify(userValidData));
     dupData.name = dupData.name + ' ' + Math.round((new Date()).getTime() / 1000);
-    const response = await userService.edit(dupData);
+    const response = await userService.edit(dupData).catch(function(e) {return e});
     assert.equal(response.success, true);
     assert.deepEqual(helper.responseKeys(response).sort(), ['success', 'data'].sort());
-    assert.deepEqual(helper.responseKeys(response.data).sort(), ['result_type', 'economy_users', 'meta'].sort());
+    assert.deepEqual(helper.responseKeys(response.data).sort(), ['result_type', 'economy_users'].sort());
     assert.equal(response.data.result_type, "economy_users");
     assert.equal(response.data.economy_users.length, 1);
     assert.deepEqual(Object.keys(response.data.economy_users[0]).sort(), ['id', 'uuid', 'name', 'total_airdropped_tokens', 'token_balance'].sort());
@@ -35,7 +35,7 @@ describe('services/v0/user/edit', function () {
   it('should return promise', async function() {
     const dupData = JSON.parse(JSON.stringify(userValidData));
     dupData.name = dupData.name + ' ' + Math.round((new Date()).getTime() / 1000);
-    const response = userService.edit(dupData);
+    const response = userService.edit(dupData).catch(function(e) {return e});
     assert.typeOf(response, 'Promise');
   });
 
@@ -59,6 +59,7 @@ describe('services/v0/user/edit', function () {
     const dupData = undefined;
     const response = await userService.edit(dupData).catch(function(e) {return e});
     assert.equal(response.success, false);
+    assert.deepEqual(helper.errorFields(response).sort(), ['uuid', 'name'].sort());
   });
 
   it('should fail when uuid is undefined', async function() {
@@ -66,6 +67,7 @@ describe('services/v0/user/edit', function () {
     dupData.uuid = undefined;
     const response = await userService.edit(dupData).catch(function(e) {return e});
     assert.equal(response.success, false);
+    assert.deepEqual(helper.errorFields(response).sort(), ['uuid'].sort());
   });
 
   it('should fail when name is undefined', async function() {

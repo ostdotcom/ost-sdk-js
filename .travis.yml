@@ -25,4 +25,5 @@ install:
 before_script:
 script:
   - mocha --timeout 120000 test/v0/* --exit
+  - mocha --timeout 120000 test/v1/* --exit
 after_script:

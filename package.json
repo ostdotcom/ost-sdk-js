@@ -1,6 +1,6 @@
 {
   "name": "@ostdotcom/ost-sdk-js",
-  "version": "0.9.1",
+  "version": "1.0.0",
   "description": "The official OST Javascript SDK",
   "main": "index.js",
   "scripts": {
@@ -16,7 +16,7 @@
   ],
   "homepage": "https://ost.com",
   "author": "OST.com Ltd.",
-  "license": "LGPL-3.0",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/OpenSTFoundation/ost-sdk-js.git"
@@ -31,6 +31,7 @@
     "chai": "4.1.2",
     "ink-docstrap": "1.3.2",
     "jsdoc": "3.5.5",
-    "mocha": "5.0.0"
+    "mocha": "5.0.0",
+    "bignumber.js": "6.0.0"
   }
 }
