@@ -17,7 +17,6 @@ helperKlass.prototype = {
   OST_KIT_API_SECRET: process.env.OST_KIT_API_SECRET,
   OST_KIT_TRANSFER_FROM_UUID: process.env.OST_KIT_TRANSFER_FROM_UUID,
   OST_KIT_TRANSFER_TO_UUID: process.env.OST_KIT_TRANSFER_TO_UUID,
-  OST_KIT_TRANSFER_KIND: process.env.OST_KIT_TRANSFER_KIND,
 
   // helper functions
   responseKeys: function (response) {
@@ -32,7 +31,7 @@ helperKlass.prototype = {
     var errorFields = []
       , errorData = errorResponse.err.error_data;
     for (var i=0; i < errorData.length; i++) {
-      errorFields = errorFields.concat(Object.keys(errorData[i]));
+      errorFields = errorFields.concat(errorData[i].parameter);
     }
     return errorFields;
   },
@@ -41,7 +40,7 @@ helperKlass.prototype = {
 
 //Validate required ENV variables
 if (!process.env.OST_KIT_API_ENDPOINT || !process.env.OST_KIT_API_KEY || !process.env.OST_KIT_API_SECRET
-  || !process.env.OST_KIT_TRANSFER_FROM_UUID || !process.env.OST_KIT_TRANSFER_TO_UUID || !process.env.OST_KIT_TRANSFER_KIND) {
+  || !process.env.OST_KIT_TRANSFER_FROM_UUID || !process.env.OST_KIT_TRANSFER_TO_UUID) {
   console.log("USAGES: To run test cases, please define following ENV variables");
   console.log("----------------------------------------------------------------");
   console.log("export OST_KIT_API_ENDPOINT='https://playgroundapi.ost.com/'");
@@ -49,7 +48,6 @@ if (!process.env.OST_KIT_API_ENDPOINT || !process.env.OST_KIT_API_KEY || !proces
   console.log("export OST_KIT_API_SECRET='79faff8d51498a98e7601bf09bba86b0765d4488a34416cce2455f2d82689273'");
   console.log("export OST_KIT_TRANSFER_FROM_UUID='cd890eeb-6376-48d4-9e28-d29527013a2d'");
   console.log("export OST_KIT_TRANSFER_TO_UUID='8acdbc49-6eb1-4555-9440-d961981cfeec'");
-  console.log("export OST_KIT_TRANSFER_KIND='Purchase'");
   process.exit(1);
 }
 

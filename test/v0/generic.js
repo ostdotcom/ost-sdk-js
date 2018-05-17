@@ -17,6 +17,9 @@ describe('services/v0/generic', function () {
       , response = await userService.list().catch(function(e) {return e});
     assert.equal(response.success, false);
     assert.equal(response.err.code, 'SOMETHING_WENT_WRONG');
+    assert.deepEqual(helper.responseKeys(response).sort(), ['success', 'err'].sort());
+    assert.deepEqual(helper.responseKeys(response.err).sort(), ['code', 'error_data', 'internal_id', 'msg'].sort());
+    assert.isArray(response.err.error_data);
   });
 
   it('should fail when api key is invalid', async function() {
@@ -24,8 +27,10 @@ describe('services/v0/generic', function () {
       , userService = ostObj.services.user
       , response = await userService.list().catch(function(e) {return e});
     assert.equal(response.success, false);
-    //assert.equal(response.err.code, 'UNAUTHORIZED');
+    assert.equal(response.err.code, 'UNAUTHORIZED');
     assert.deepEqual(helper.responseKeys(response).sort(), ['success', 'err'].sort());
+    assert.deepEqual(helper.responseKeys(response.err).sort(), ['code', 'error_data', 'internal_id', 'msg'].sort());
+    assert.isArray(response.err.error_data);
   });
 
   it('should fail when api secret is invalid', async function() {
@@ -33,8 +38,10 @@ describe('services/v0/generic', function () {
       , userService = ostObj.services.user
       , response = await userService.list().catch(function(e) {return e});
     assert.equal(response.success, false);
-    //assert.equal(response.err.code, 'UNAUTHORIZED');
+    assert.equal(response.err.code, 'UNAUTHORIZED');
     assert.deepEqual(helper.responseKeys(response).sort(), ['success', 'err'].sort());
+    assert.deepEqual(helper.responseKeys(response.err).sort(), ['code', 'error_data', 'internal_id', 'msg'].sort());
+    assert.isArray(response.err.error_data);
   });
 
   it('should pass when api details are valid', async function() {

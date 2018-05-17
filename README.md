@@ -31,62 +31,14 @@ const OSTSDK = require('@ostdotcom/ost-sdk');
 Initialize the SDK object:
 
 ```node.js
-// the currently valid API endpoint is "https://playgroundapi.ost.com", this may change in the future
+// the latest valid API endpoint is "https://playgroundapi.ost.com/v1/", this may change in the future
 const ostObj = new OSTSDK({apiKey: <api_key>, apiSecret: <api_secret>, apiEndpoint: <api_endpoint>});
 ```
 
-### Transaction Kind Module 
-
-Initialize a `TransactionKind` object to perform transaction-related actions:
+### Users Module 
 
 ```node.js
-const transactionKindService = ostObj.services.transactionKind;
-```
-
-Create new transaction types:
-
-```node.js
-transactionKindService.create({name: 'Like', kind: 'user_to_user', currency_type: 'usd', currency_value: '1.25', commission_percent: '12'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
-```
-
-```node.js
-transactionKindService.create({name: 'Grant', kind: 'company_to_user', currency_type: 'bt', currency_value: '12', commission_percent: '0'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
-```
-
-```node.js
-transactionKindService.create({name: 'Buy', kind: 'user_to_company', currency_type: 'bt', currency_value: '100', commission_percent: '0'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
-```
-
-Get a list of existing transaction kinds and other data:
-
-```node.js
-transactionKindService.list().then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
-```
-
-Edit an existing transaction kind:
-
-```node.js
-transactionKindService.edit({client_transaction_id: '12', name: 'New Transaction Kind'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
-```
-
-Execute a branded token transfer by transaction kind:
-
-```node.js
-transactionKindService.execute({from_uuid: '1234-1928-1081dsds-djhksjd', to_uuid: '1234-1928-1081-1223232', transaction_kind: 'Purchase'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
-```
-
-Get the status of an executed transaction:
-
-```node.js
-transactionKindService.status({transaction_uuids: ['5f79063f-e22a-4d28-99d7-dd095f02c72e']}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
-```
-
-### User Module
-
-Initialize a `User` object to perform user specific actions:
-
-```node.js
-const userService = ostObj.services.user;
+const userService = ostObj.services.users;
 ```
 
 Create a new user:
@@ -95,26 +47,139 @@ Create a new user:
 userService.create({name: 'Alice'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
 
-Get a list of users and other data:
-
-```node.js
-userService.list().then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
-```
-
 Edit an existing user:
 
 ```node.js
-userService.edit({uuid: '1234-1928-1081dsds-djhksjd', name: 'Bob'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+userService.edit({id: '1234-1928-1081dsds-djhksjd', name: 'Bob'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
 
-Airdrop branded tokens to users:
+Get an existing user:
 
 ```node.js
-userService.airdropTokens({amount: 1, list_type: 'all'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+userService.get({id: '1234-1928-1081dsds-djhksjd'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
 
-As airdropping tokens is an asynchronous task, you can check the airdrop's status:
+Get a list of users and other data:
 
 ```node.js
-userService.airdropStatus({airdrop_uuid: 'd8303e01-5ce0-401f-8ae4-d6a0bcdb2e24'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+userService.list({}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
+
+### Airdrops Module 
+
+```node.js
+const airdropService = ostObj.services.airdrops;
+```
+
+Execute Airdrop:
+
+```node.js
+airdropService.execute({amount: 1, user_ids: 'f87346e4-61f6-4d55-8cb8-234c65437b01'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+```
+
+Get Airdrop Status:
+
+```node.js
+airdropService.get({id: 'ecd9b0b2-a0f4-422c-95a4-f25f8fc88334'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+```
+
+List Airdrop
+
+```node.js
+airdropService.list({page_no: 1, limit: 50, current_status: 'processing,complete'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+```
+
+
+### Token Module 
+
+```node.js
+const tokenService = ostObj.services.token;
+```
+
+Get details:
+
+```node.js
+tokenService.get({}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+```
+
+### Actions Module 
+
+
+```node.js
+const actionService = ostObj.services.actions;
+```
+
+Create a new action:
+
+```node.js
+actionService.create({name: 'Voteup', kind: 'user_to_user', currency: 'USD', arbitrary_amount: false, amount: 1.01, commission_percent: 1}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); }); 
+```
+
+Edit an action:
+
+```node.js
+actionService.edit({id: 22599, name: 'Like'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+```
+
+Get an action:
+
+```node.js
+actionService.get({id: 22599}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+```
+
+List actions:
+
+```node.js
+actionService.list({}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+```
+
+### Transaction Module 
+
+```node.js
+const transactionService = ostObj.services.transactions;
+```
+
+Execute Transaction:
+
+```node.js
+transactionService.execute({from_user_id:'0a201640-77a7-49c8-b289-b6b5d7325323', to_user_id:'24580db2-bf29-4d73-bf5a-e1d0cf8c8928', action_id:'22599'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+```
+
+Get Transaction Status:
+
+```node.js
+transactionService.get({id: '84d97848-074f-4a9a-a214-19076cfe9dd1'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+```
+
+List Transactions:
+
+```node.js
+transactionService.list({page_no: 1, limit: 10}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+```
+
+### Transfer Module 
+
+```node.js
+const transferService = ostObj.services.transfers;
+```
+
+Execute ST Prime Transfer:
+
+```node.js
+transferService.execute({to_address:'0xd2b789293674faEE51bEb2d0338d15401dEbfdE3', amount:1}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+```
+
+Get Transfer Status:
+
+```node.js
+transferService.get({id: '38895b82-737e-4b23-b111-fec96e52f3b2'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+```
+
+List Transfers:
+
+```node.js
+transferService.list({}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+```
+
+## OST API v0 (Previous Version)
+To refer to the readme documentation of API v0 [Please Follow This Link](README_V0.md)

@@ -18,7 +18,7 @@ describe('services/v0/user/airdrop', function () {
 
   it('Airdrop: should pass when response data keys match', async function() {
     const dupData = JSON.parse(JSON.stringify(airdropData));
-    const response = await userService.airdropTokens(dupData);
+    const response = await userService.airdropTokens(dupData).catch(function(e) {return e});
     assert.equal(response.success, true);
     assert.deepEqual(helper.responseKeys(response).sort(), ['success', 'data'].sort());
     assert.deepEqual(helper.responseKeys(response.data).sort(), ['airdrop_uuid'].sort());
@@ -27,7 +27,7 @@ describe('services/v0/user/airdrop', function () {
 
   it('Status: should pass when response data keys match', async function() {
     const dupData = JSON.parse(JSON.stringify(airdropStatusData));
-    const response = await userService.airdropStatus(dupData);
+    const response = await userService.airdropStatus(dupData).catch(function(e) {return e});
     assert.equal(response.success, true);
     assert.deepEqual(helper.responseKeys(response).sort(), ['success', 'data'].sort());
     assert.deepEqual(helper.responseKeys(response.data).sort(), ['airdrop_uuid', 'current_status', 'steps_complete'].sort());
@@ -35,7 +35,7 @@ describe('services/v0/user/airdrop', function () {
 
   it('Airdrop: should return promise', async function() {
     const dupData = JSON.parse(JSON.stringify(airdropData));
-    const response = userService.airdropTokens(dupData);
+    const response = userService.airdropTokens(dupData).catch(function(e) {return e});
     assert.typeOf(response, 'Promise');
   });
 
@@ -52,16 +52,9 @@ describe('services/v0/user/airdrop', function () {
     assert.equal(response.success, false);
   });
 
-  it('Airdrop: should fail when list_type is undefined', async function() {
+  it('Airdrop: should fail when list_type is not present', async function() {
     const dupData = JSON.parse(JSON.stringify(airdropData));
-    dupData.list_type = undefined;
-    const response = await userService.airdropTokens(dupData).catch(function(e) {return e});
-    assert.equal(response.success, false);
-  });
-
-  it('Airdrop: should fail when list_type is invalid', async function() {
-    const dupData = JSON.parse(JSON.stringify(airdropData));
-    dupData.list_type = 'abc';
+    delete dupData.list_type;
     const response = await userService.airdropTokens(dupData).catch(function(e) {return e});
     assert.equal(response.success, false);
   });
