@@ -16,7 +16,7 @@
   ],
   "homepage": "https://ost.com",
   "author": "OST.com Ltd.",
-  "license": "LGPL-3.0",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/OpenSTFoundation/ost-sdk-js.git"
