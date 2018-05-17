@@ -74,7 +74,7 @@ const airdropService = ostObj.services.airdrops;
 Execute Airdrop:
 
 ```node.js
-airdropService.execute({amount: 1, airdropped: 'true', user_ids: 'f87346e4-61f6-4d55-8cb8-234c65437b01'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+airdropService.execute({amount: 1, user_ids: 'f87346e4-61f6-4d55-8cb8-234c65437b01'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
 
 Get Airdrop Status:
@@ -118,13 +118,13 @@ actionService.create({name: 'Voteup', kind: 'user_to_user', currency: 'USD', arb
 Edit an action:
 
 ```node.js
-actionService.edit({id: 10, name: 'Like'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+actionService.edit({id: 22599, name: 'Like'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
 
 Get an action:
 
 ```node.js
-actionService.get({id: 1234}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+actionService.get({id: 22599}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
 
 List actions:
@@ -142,13 +142,13 @@ const transactionService = ostObj.services.transactions;
 Execute Transaction:
 
 ```node.js
-transactionService.execute({from_user_id:'f87346e4-61f6-4d55-8cb8-234c65437b01', to_user_id:'c07bd853-e893-4400-b7e8-c358cfa05d85', action_id:'20145'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+transactionService.execute({from_user_id:'0a201640-77a7-49c8-b289-b6b5d7325323', to_user_id:'24580db2-bf29-4d73-bf5a-e1d0cf8c8928', action_id:'22599'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
 
 Get Transaction Status:
 
 ```node.js
-transactionService.get({id: 'ecd9b0b2-a0f4-422c-95a4-f25f8fc88334'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+transactionService.get({id: '84d97848-074f-4a9a-a214-19076cfe9dd1'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
 
 List Transactions:
@@ -172,13 +172,13 @@ transferService.execute({to_address:'0xd2b789293674faEE51bEb2d0338d15401dEbfdE3'
 Get Transfer Status:
 
 ```node.js
-transferService.get({id: 'd0589dc5-d0a0-4996-b9f8-847295fd2c3b'});
+transferService.get({id: '38895b82-737e-4b23-b111-fec96e52f3b2'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
 
 List Transfers:
 
 ```node.js
-transferService.list({id: 'ff9ed3ff-9125-4e49-8cc2-174fd0fd3c30,e5c24167-a3b2-4073-a064-6a7fcdb13be8'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+transferService.list({}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
 
 ## OST API v0 (Previous Version)
