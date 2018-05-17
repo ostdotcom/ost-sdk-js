@@ -10,7 +10,7 @@ To use this node module, developers will need to:
 
 ## Documentation
 
-[https://dev.ost.com/docs/0.9.1/simpletoken.html](https://dev.ost.com/docs/0.9.1/simpletoken.html)
+[https://dev.ost.com/](https://dev.ost.com/docs/0.9.1/simpletoken.html)
 
 ## Installation
 
