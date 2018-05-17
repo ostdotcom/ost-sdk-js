@@ -180,3 +180,6 @@ List Transfers:
 ```node.js
 transferService.list({id: 'ff9ed3ff-9125-4e49-8cc2-174fd0fd3c30,e5c24167-a3b2-4073-a064-6a7fcdb13be8'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
+
+## OST API v0 (Previous Version)
+To refer to the readme documentation of API v0 [Please Follow This Link](README_V0.md)
