@@ -25,7 +25,7 @@ Install OST JavaScript SDK
 Require the SDK:
 
 ```node.js
-const OSTSDK = require('@ostdotcom/ost-sdk-js');
+const OSTSDK = require('@ostdotcom/ost-sdk');
 ```
 
 Initialize the SDK object:
