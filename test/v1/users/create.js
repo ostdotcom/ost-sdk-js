@@ -82,7 +82,7 @@ describe('services/v1/user/create', function () {
     assert.equal(response.success, true);
   });
 
-  it('should pass when name is undefined', async function() {
+  it('should pass when name is blank', async function() {
     const dupData = JSON.parse(JSON.stringify(userValidData));
     dupData.name = '';
     const response = await userService.create(dupData).catch(function(e) {return e});
