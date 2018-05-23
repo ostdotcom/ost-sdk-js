@@ -86,7 +86,6 @@ describe('services/v1/transactions/get', function () {
     assert.exists(response.data.transaction.id);
     assert.exists(response.data.transaction.from_user_id);
     assert.exists(response.data.transaction.to_user_id);
-    assert.exists(response.data.transaction.amount);
     assert.exists(response.data.transaction.action_id);
     assert.exists(response.data.transaction.timestamp);
     assert.exists(response.data.transaction.status);

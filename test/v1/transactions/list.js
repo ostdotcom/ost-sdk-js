@@ -254,7 +254,6 @@ describe('services/v1/transactions/list', function () {
     assert.exists(response.data.transactions[0].id);
     assert.exists(response.data.transactions[0].from_user_id);
     assert.exists(response.data.transactions[0].to_user_id);
-    assert.exists(response.data.transactions[0].amount);
     assert.exists(response.data.transactions[0].action_id);
     assert.exists(response.data.transactions[0].timestamp);
     assert.exists(response.data.transactions[0].status);
