@@ -288,7 +288,6 @@ describe('services/v1/airdrops/list', function () {
     assert.deepEqual(helper.responseKeys(response.data).sort(), ['result_type', 'airdrops', 'meta'].sort());
     assert.isAbove(response.data.airdrops.length, 0);
     assert.deepEqual(helper.responseKeys(response.data.airdrops[0]).sort(), ['id', 'current_status', 'steps_complete'].sort());
-    assert.isAbove(response.data.airdrops[0].steps_complete.length, 0);
     if (Object.keys(response.data.meta.next_page_payload).length > 0) {
       assert.deepEqual(helper.responseKeys(response.data.meta.next_page_payload).sort(), ['order_by', 'order', 'page_no', 'limit'].sort());
 
