@@ -1,0 +1,14 @@
+Request = require("./lib/request")
+
+req = new Request({apiKey: "3359e6b46dfccc305c29", apiSecret: "79faff8d51498a98e7601bf09bba86b0765d4488a34416cce2455f2d82689273","apiEndpoint":"https://playground2api.stagingost.com/v1/"});
+
+req._formatQueryParams("/transaction-types/list/",{request_timestamp: 1527529192});
+
+
+req._formatQueryParams("/actions/",{ request_timestamp: 1527548033, kind: "user_to_user" , name: "C1 1527548033", "currency": "USD", "arbitrary_commission": true, "arbitrary_amount": true});
+
+
+req._formatQueryParams("/actions/",{ request_timestamp: 1527551721, id:"22995,22994"});
+
+
+
