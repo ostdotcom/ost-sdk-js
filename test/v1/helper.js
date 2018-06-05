@@ -23,7 +23,7 @@ helperKlass.prototype = {
   OST_KIT_API_SECRET: process.env.OST_KIT_API_SECRET,
   OST_KIT_TRANSFER_FROM_UUID: process.env.OST_KIT_TRANSFER_FROM_UUID,
   OST_KIT_TRANSFER_TO_UUID: process.env.OST_KIT_TRANSFER_TO_UUID,
-  DEBUG: ( "true" === process.env.OST_SDK_JS_DEBUG ),
+  DEBUG: ( "true" === process.env.OST_SDK_DEBUG ),
 
   // helper functions
   responseKeys: function (response) {
