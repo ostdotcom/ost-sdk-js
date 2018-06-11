@@ -181,5 +181,17 @@ List Transfers:
 transferService.list({}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
 
+### Balance Module 
+
+```node.js
+const balanceService = ostObj.services.balances;
+```
+
+Get Balance of user:
+
+```node.js
+balanceService.get({id: '38895b82-737e-4b23-b111-fec96e52f3b2'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+```
+
 ## OST API v0 (Previous Version)
 To refer to the readme documentation of API v0 [Please Follow This Link](README_V0.md)
