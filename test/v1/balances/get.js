@@ -67,8 +67,17 @@ describe('services/v1/balances/get', function () {
 
   it('Should pass when id is valid', async function() {
 
+    let userService = ostObj.services.user;
+    let dupData = { name: 'Bob'};
+    dupData.name = dupData.name + ' ' + Math.round((new Date()).getTime() / 1000);
+
+    const userResponse = await userService.create(dupData).catch(function(e) {return e});
+    assert.equal(userResponse.success, true);
+
+    let id = userResponse.data.user.id;
+
     const data = {};
-    data.id = '86268074-18d7-4118-942f-fc9c8fd1429d';
+    data.id = id;
     const response = await balanceService.get(data).catch(function(e) {return e});
     assert.equal(response.success, true);
     assert.deepEqual(helper.responseKeys(response).sort(), ['success', 'data'].sort());
