@@ -1,8 +1,8 @@
 
 /**
- * Balances Service
+ * Ledger Service
  *
- * @module services/v1/balances
+ * @module services/v1/ledger
  */
 
 const rootPrefix = "../.."
@@ -13,26 +13,26 @@ const rootPrefix = "../.."
 var _requestObj = null;
 
 /**
- * Balances Service constructor
+ * Ledger Service constructor
  *
  * @constructor
  */
-const balances = function (requestObj) {
+const ledger = function (requestObj) {
   const oThis = this;
 
   // Assign request object
   _requestObj = requestObj;
 
   // Define the url prefix
-  oThis.urlPrefix = '/balances';
+  oThis.urlPrefix = '/ledger';
 
   return oThis;
 };
 
-balances.prototype = {
+ledger.prototype = {
 
   /**
-   * Get balance details
+   * Get ledger for user
    *
    * @param {object} params
    *
@@ -46,4 +46,4 @@ balances.prototype = {
   }
 };
 
-module.exports = balances;
+module.exports = ledger;

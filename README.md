@@ -193,5 +193,17 @@ Get Balance of user:
 balanceService.get({id: '38895b82-737e-4b23-b111-fec96e52f3b2'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
 
+### Ledger Module 
+
+```node.js
+const ledgerService = ostObj.services.ledger;
+```
+
+Get ledger for user:
+
+```node.js
+ledgerService.get({id: '38895b82-737e-4b23-b111-fec96e52f3b2'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+```
+
 ## OST API v0 (Previous Version)
 To refer to the readme documentation of API v0 [Please Follow This Link](README_V0.md)
