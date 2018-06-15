@@ -43,7 +43,7 @@ describe('services/v1/balances/get', function () {
 
   it('Should fail when id is invalid', async function() {
     const data = {};
-    data.id = '86268074-18d7-4118-942f-fc9c8fd1429d111';
+    data.id = '86268074-18d7-4118-942f-fc9c8fd1429d';
     const response = await balanceService.get(data).catch(function(e) {return e});
     assert.equal(response.success, false);
     assert.equal(response.err.code, 'NOT_FOUND');
@@ -67,14 +67,12 @@ describe('services/v1/balances/get', function () {
 
   it('Should pass when id is valid', async function() {
 
-    let userService = ostObj.services.user;
-    let dupData = { name: 'Bob'};
-    dupData.name = dupData.name + ' ' + Math.round((new Date()).getTime() / 1000);
+    const userService = ostObj.services.users;
 
-    const userResponse = await userService.create(dupData).catch(function(e) {return e});
+    const userResponse = await userService.list().catch(function(e) {return e});
     assert.equal(userResponse.success, true);
 
-    let id = userResponse.data.user.id;
+    let id = userResponse.data.users[0].id;
 
     const data = {};
     data.id = id;
