@@ -120,7 +120,7 @@ describe('services/v0/transaction_kind/transfer', function () {
     const dupData = JSON.parse(JSON.stringify(transferStatusData));
     dupData.transaction_uuids = dupData.transaction_uuids[0];
     const response = await transactionKindService.status(dupData).catch(function(e) {return e});
-    assert.equal(response.data.transactions.length, 0);
+    assert.equal(response.success, false);
   });
 
   it('Status: should fail when transaction uuids is invalid', async function() {
