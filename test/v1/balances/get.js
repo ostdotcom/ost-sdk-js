@@ -79,7 +79,8 @@ describe('services/v1/balances/get', function () {
     const response = await balanceService.get(data).catch(function(e) {return e});
     assert.equal(response.success, true);
     assert.deepEqual(helper.responseKeys(response).sort(), ['success', 'data'].sort());
-    assert.deepEqual(helper.responseKeys(response.data).sort(), ['airdropped_balance', 'available_balance'].sort());
+    assert.deepEqual(helper.responseKeys(response.data).sort(), ['result_type', 'balances'].sort());
+    assert.deepEqual(helper.responseKeys(response.data.balances).sort(), ['airdropped_balance', 'available_balance', 'token_balance'].sort());
   });
 
 });
