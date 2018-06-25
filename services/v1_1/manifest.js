@@ -14,6 +14,8 @@ const rootPrefix = "../.."
   , transactionsKlass = require(rootPrefix + '/services/v1/transactions')
   , transfersKlass = require(rootPrefix + '/services/v1/transfers')
   , usersKlass = require(rootPrefix + '/services/v1/users')
+  , balancesKlass = require(rootPrefix + '/services/v1_1/balances')
+  , ledgerKlass = require(rootPrefix + '/services/v1_1/ledger')
 ;
 
 // hide request object
@@ -37,6 +39,8 @@ const manifest = function (params) {
   oThis.transactions = new transactionsKlass(_requestObj);
   oThis.transfers = new transfersKlass(_requestObj);
   oThis.users = new usersKlass(_requestObj);
+  oThis.balances = new balancesKlass(_requestObj);
+  oThis.ledger = new ledgerKlass(_requestObj);
 
   return oThis;
 };
