@@ -8,7 +8,7 @@ const rootPrefix = "../../.."
 describe('services/v1_1/transactions/get', function () {
   const coreTestCases = require(rootPrefix + "/test/v1_core/transactions/get");
   var transactionObjKeys =  coreTestCases.getTransactionObjKeys();
-  transactionObjKeys.push("airdrop_amount");
+  transactionObjKeys.push("airdropped_amount");
   coreTestCases.setOSTSDK( ostObj );
   coreTestCases.setHelper( helper );
   coreTestCases.startTests();
