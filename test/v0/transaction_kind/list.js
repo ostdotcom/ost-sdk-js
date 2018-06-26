@@ -23,7 +23,9 @@ describe('services/v0/transaction_kind/list', function () {
     assert.deepEqual(Object.keys(response.data.transaction_types[0]).sort(), ['id', 'client_transaction_id', 'name', 'kind', 'currency_type', 'currency_value', 'commission_percent', 'uts'].sort());
     assert.deepEqual(Object.keys(response.data.client_tokens).sort(), ['client_id', 'name', 'symbol', 'symbol_icon', 'conversion_factor', 'token_erc20_address', 'airdrop_contract_addr', 'simple_stake_contract_addr'].sort());
     assert.deepEqual(Object.keys(response.data.meta).sort(), ['next_page_payload'].sort());
-    assert.deepEqual(Object.keys(response.data.meta.next_page_payload).sort(), ['limit', 'order_by', 'order', 'page_no'].sort());
+    if (Object.keys(response.data.meta.next_page_payload).length > 0) {
+      assert.deepEqual(Object.keys(response.data.meta.next_page_payload).sort(), ['limit', 'order_by', 'order', 'page_no'].sort());
+    }
     assert.deepEqual(Object.keys(response.data.price_points).sort(), ['OST'].sort());
     assert.deepEqual(Object.keys(response.data.price_points.OST).sort(), ['USD'].sort());
     assert.isAbove(parseFloat(response.data.price_points.OST.USD), 0);
