@@ -4,28 +4,21 @@ const chai = require('chai')
 ;
 
 // Load cache service
-const rootPrefix = "../../.."
-    , OSTSDK = require(rootPrefix + '/index')
-  ;
+const rootPrefix = "../../..";
 
 let helper        = null
   ,ostObj         = null
   ,airdropService = null
+  ,airdropData    = {}
 ;
 
-const airdropData = {amount: 0.00001, airdropped: true, user_ids: helper.OST_KIT_TRANSFER_FROM_UUID + "," + helper.OST_KIT_TRANSFER_TO_UUID};
-
-let startTests = function ( it ) {
-
-  if ( !helper ) {
-    helper = require(rootPrefix + '/test/v1/helper');
-  }
-
-  ostObj = ostObj || new OSTSDK({apiEndpoint: helper.OST_KIT_API_ENDPOINT, apiKey: helper.OST_KIT_API_KEY, apiSecret: helper.OST_KIT_API_SECRET});
+let startTests = function (  ) {
 
   if ( !airdropService ) {
     airdropService = ostObj.services.airdrops;
   }
+
+  airdropData = {amount: 0.00001, airdropped: true, user_ids: helper.OST_KIT_TRANSFER_FROM_UUID + "," + helper.OST_KIT_TRANSFER_TO_UUID};
 
   it('Should return promise', async function() {
     const dupData = JSON.parse(JSON.stringify(airdropData));
@@ -184,4 +177,10 @@ let startTests = function ( it ) {
 
 module.exports = {
   startTests: startTests
+  , setOSTSDK: function ( ostSdk ) {
+    ostObj = ostSdk;
+  }
+  , setHelper: function ( helperObj ) {
+    helper = helperObj;
+  }
 };

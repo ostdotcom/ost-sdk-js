@@ -5,7 +5,6 @@ const chai = require('chai')
 
 // Load cache service
 const rootPrefix = "../../.."
-    , OSTSDK = require(rootPrefix + '/index')
 ;
 
 const id = '8338d43f-6a8e-4204-8e3a-392d183668a8';
@@ -17,13 +16,7 @@ let helper        = null
   , ledgerService = null
 ;
 
-let startTests = function ( it ) {
-
-  if ( !helper ) {
-    helper = require(rootPrefix + '/test/v1/helper');
-  }
-
-  ostObj = ostObj || new OSTSDK({apiEndpoint: helper.OST_KIT_API_ENDPOINT, apiKey: helper.OST_KIT_API_KEY, apiSecret: helper.OST_KIT_API_SECRET});
+let startTests = function (  ) {
 
   if ( !ledgerService ) {
     ledgerService = ostObj.services.ledger;
@@ -303,6 +296,12 @@ let startTests = function ( it ) {
 
 module.exports = {
   startTests: startTests
+  , setOSTSDK: function ( ostSdk ) {
+    ostObj = ostSdk;
+  }
+  , setHelper: function ( helperObj ) {
+    helper = helperObj;
+  }
 };
 
 
