@@ -9,22 +9,16 @@ const rootPrefix = "../../.."
 
 const userValidData = {name: 'Alice'};
 
-let helper = null
-  , userService = null
+let helper          = null
+  , ostObj          = null
+  , logMe           = false
+  , userService     = null
 ;
 
-let startTests = function ( it ) {
+let startTests = function () {
 
-  if ( !helper ) {
-    helper = require(rootPrefix + '/test/v1/helper');
-  }
-
-  if ( !userService ) {
-    let OSTSDK = require(rootPrefix + '/index')
-      , ostObj = new OSTSDK({apiEndpoint: helper.OST_KIT_API_ENDPOINT, apiKey: helper.OST_KIT_API_KEY, apiSecret: helper.OST_KIT_API_SECRET})
-    ;
-    userService = ostObj.services.users ;
-  }
+  logMe = helper.DEBUG;
+  userService = userService || ostObj.services.users;
 
 
   it('should pass when response data keys match', async function() {
@@ -106,4 +100,10 @@ let startTests = function ( it ) {
 
 module.exports = {
   startTests: startTests
+  , setOSTSDK: function ( ostSdk ) {
+    ostObj = ostSdk;
+  }
+  , setHelper: function ( helperObj ) {
+    helper = helperObj;
+  }
 };
