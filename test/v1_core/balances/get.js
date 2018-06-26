@@ -7,7 +7,7 @@ const chai = require('chai')
 const rootPrefix = "../../.."
 ;
 
-const id = '8338d43f-6a8e-4204-8e3a-392d183668a8';
+const id = process.env.OST_KIT_TRANSFER_FROM_UUID;
 
 let helper        = null
   ,ostObj         = null

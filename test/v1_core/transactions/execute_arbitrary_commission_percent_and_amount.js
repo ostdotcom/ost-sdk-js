@@ -72,11 +72,11 @@ let startTests = function (  ) {
     assert.deepEqual(helper.errorFields(response).sort(), ['amount'].sort());
   });
 
-  it('Should pass when amount is 0', async function() {
+  it('Should fail when amount is 0', async function() {
     const dupData = JSON.parse(JSON.stringify(transactionData));
     dupData.amount = 0;
     const response = await transactionService.execute(dupData).catch(function(e) {return e});
-    assert.equal(response.success, true);
+    assert.equal(response.success, false);
   });
 
   it('Should fail when amount is blank string', async function() {

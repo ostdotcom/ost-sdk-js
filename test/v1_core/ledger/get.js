@@ -7,7 +7,7 @@ const chai = require('chai')
 const rootPrefix = "../../.."
 ;
 
-const id = '8338d43f-6a8e-4204-8e3a-392d183668a8';
+const id = process.env.OST_KIT_TRANSFER_FROM_UUID;
 
 const ledgerData = {id: id, limit: '10', order: 'asc', order_by: 'created', page_no: '1'};
 
@@ -58,15 +58,12 @@ let startTests = function (  ) {
     }
   });
 
-  it('Should pass when id belongs to someone else but with empty data', async function() {
+  it('Should fail when id belongs to someone else but with empty data', async function() {
     const dupData = JSON.parse(JSON.stringify(ledgerData));
     dupData.id = '8338d43f-6a8e-4204-8e3a-392d183668a8';
     const response = await ledgerService.get(dupData).catch(function(e) {return e});
-    assert.equal(response.success, true);
-    assert.deepEqual(helper.responseKeys(response).sort(), ['success', 'data'].sort());
-    assert.deepEqual(helper.responseKeys(response.data).sort(), ['result_type', 'transactions', 'meta'].sort());
-    assert.equal(response.data.transactions.length, 0);
-    assert.deepEqual(helper.responseKeys(response.data.meta.next_page_payload).sort(), [].sort());
+    assert.equal(response.success, false);
+    assert.equal(response.err.code, 'BAD_REQUEST');
   });
 
   it('Should fail when id is comma separated list', async function() {
