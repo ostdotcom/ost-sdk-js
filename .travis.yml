@@ -5,6 +5,7 @@ branches:
   only:
   - master
   - develop
+  - ashutosh/balances_model_and_cache
 notifications:
   email:
     recipients:
