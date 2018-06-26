@@ -10,19 +10,15 @@ const rootPrefix = "../../.."
 const transactionData = {limit: '10', order: 'asc', order_by: 'created', page_no: '1'};
 
 let helper = null
+  , ostObj = null
   , transactionService = null
 ;
 
-let startTests = function ( it ) {
+let transactionObjKeys = ['id', 'from_user_id', 'to_user_id', 'amount', 'transaction_hash', 'action_id', 'timestamp', 'status', 'transaction_fee', 'commission_amount', 'gas_price', 'gas_used', 'block_number'];
 
-  if ( !helper ) {
-    helper = require(rootPrefix + '/test/v1/helper');
-  }
+let startTests = function (  ) {
 
   if ( !transactionService ) {
-    let OSTSDK = require(rootPrefix + '/index')
-      , ostObj = new OSTSDK({apiEndpoint: helper.OST_KIT_API_ENDPOINT, apiKey: helper.OST_KIT_API_KEY, apiSecret: helper.OST_KIT_API_SECRET})
-    ;
     transactionService = ostObj.services.transactions ;
   }
 
@@ -260,7 +256,7 @@ let startTests = function ( it ) {
     assert.deepEqual(helper.responseKeys(response).sort(), ['success', 'data'].sort());
     assert.deepEqual(helper.responseKeys(response.data).sort(), ['result_type', 'transactions', 'meta'].sort());
     assert.isAbove(response.data.transactions.length, 0);
-    assert.deepEqual(helper.responseKeys(response.data.transactions[0]).sort(), ['id', 'from_user_id', 'to_user_id', 'amount', 'transaction_hash', 'action_id', 'timestamp', 'status', 'transaction_fee', 'commission_amount', 'gas_price', 'gas_used', 'block_number'].sort());
+    assert.deepEqual(helper.responseKeys(response.data.transactions[0]).sort(), transactionObjKeys.sort());
 
     assert.exists(response.data.transactions[0].id);
     assert.exists(response.data.transactions[0].from_user_id);
@@ -285,4 +281,16 @@ let startTests = function ( it ) {
 
 module.exports = {
   startTests: startTests
+  , setOSTSDK: function ( ostSdk ) {
+      ostObj = ostSdk;
+  }
+  , setHelper: function ( helperObj ) {
+    helper = helperObj;
+  }
+  , setTransactionObjKeys : function ( keys ) {
+    transactionObjKeys = keys;
+  }
+  , getTransactionObjKeys : function () {
+    return transactionObjKeys;
+  }
 };

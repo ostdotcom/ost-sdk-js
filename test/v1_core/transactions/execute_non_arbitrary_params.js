@@ -5,24 +5,17 @@ const chai = require('chai')
 
 // Load cache service
 const rootPrefix = "../../.."
-    , OSTSDK = require(rootPrefix + '/index')
   ;
 
-const transactionData = {from_user_id: helper.OST_KIT_TRANSFER_FROM_UUID, to_user_id: helper.OST_KIT_TRANSFER_TO_UUID, action_id: ''};
 
 let helper = null
   , ostObj = null
   , transactionService = null
   , actionService = null
+  , transactionData = null
 ;
 
-let startTests = function ( it ) {
-
-  if ( !helper ) {
-    helper = require(rootPrefix + '/test/v1/helper');
-  }
-
-  ostObj = ostObj || new OSTSDK({apiEndpoint: helper.OST_KIT_API_ENDPOINT, apiKey: helper.OST_KIT_API_KEY, apiSecret: helper.OST_KIT_API_SECRET});
+let startTests = function (  ) {
 
   if ( !transactionService ) {
     transactionService = ostObj.services.transactions ;
@@ -31,6 +24,8 @@ let startTests = function ( it ) {
   if ( !actionService ) {
     actionService = ostObj.services.actions ;
   }
+
+  transactionData = {from_user_id: helper.OST_KIT_TRANSFER_FROM_UUID, to_user_id: helper.OST_KIT_TRANSFER_TO_UUID, action_id: ''};
 
   it('FIRST PREPARE DATA FOR TRANSACTIONS', async function() {
     var actionData = {page_no: 1, limit: 100, order_by: 'created', order: 'desc', arbitrary_amount: false, arbitrary_commission: false};
@@ -105,4 +100,10 @@ let startTests = function ( it ) {
 
 module.exports = {
   startTests: startTests
+  , setOSTSDK: function ( ostSdk ) {
+    ostObj = ostSdk;
+  }
+  , setHelper: function ( helperObj ) {
+    helper = helperObj;
+  }
 };

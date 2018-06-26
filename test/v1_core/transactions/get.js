@@ -5,7 +5,6 @@ const chai = require('chai')
 
 // Load cache service
 const rootPrefix = "../../.."
-  , OSTSDK = require(rootPrefix + '/index')
   ;
 
 const transactionData = {id: ''};
@@ -15,13 +14,9 @@ let helper = null
   , transactionService = null
 ;
 
-let startTests = function ( it ) {
+let transactionObjKeys = ['id', 'from_user_id', 'to_user_id', 'amount', 'transaction_hash', 'action_id', 'timestamp', 'status', 'transaction_fee', 'commission_amount', 'gas_price', 'gas_used', 'block_number'];
 
-  if ( !helper ) {
-    helper = require(rootPrefix + '/test/v1/helper');
-  }
-
-  ostObj = ostObj || new OSTSDK({apiEndpoint: helper.OST_KIT_API_ENDPOINT, apiKey: helper.OST_KIT_API_KEY, apiSecret: helper.OST_KIT_API_SECRET});
+let startTests = function (  ) {
 
   if ( !transactionService ) {
     transactionService = ostObj.services.transactions ;
@@ -93,7 +88,7 @@ let startTests = function ( it ) {
     assert.equal(response.success, true);
     assert.deepEqual(helper.responseKeys(response).sort(), ['success', 'data'].sort());
     assert.deepEqual(helper.responseKeys(response.data).sort(), ['result_type', 'transaction'].sort());
-    assert.deepEqual(helper.responseKeys(response.data.transaction).sort(), ['id', 'from_user_id', 'to_user_id', 'amount', 'transaction_hash', 'action_id', 'timestamp', 'status', 'transaction_fee', 'commission_amount', 'gas_price', 'gas_used', 'block_number'].sort());
+    assert.deepEqual(helper.responseKeys(response.data.transaction).sort(),transactionObjKeys.sort());
 
     assert.exists(response.data.transaction.id);
     assert.exists(response.data.transaction.from_user_id);
@@ -108,4 +103,16 @@ let startTests = function ( it ) {
 
 module.exports = {
   startTests: startTests
+  , setOSTSDK: function ( ostSdk ) {
+    ostObj = ostSdk;
+  }
+  , setHelper: function ( helperObj ) {
+    helper = helperObj;
+  }
+  , setTransactionObjKeys : function ( keys ) {
+    transactionObjKeys = keys;
+  }
+  , getTransactionObjKeys : function () {
+     return transactionObjKeys;
+  }
 };
