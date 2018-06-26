@@ -25,6 +25,7 @@ let startTests = function (  ) {
       return e
     });
     assert.typeOf(response, 'Promise');
+    await response;
   });
 
   it('Should fail when request data is undefined', async function() {
