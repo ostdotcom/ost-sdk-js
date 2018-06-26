@@ -144,11 +144,12 @@ describe('services/v1/transactions/execute (COMMON)', function () {
   });
 
   it('C2U: Should fail when from user id is not reserve', async function() {
-    var actionData = {page_no: 1, limit: 100, order_by: 'created', order: 'asc', kind: 'company_to_user'};
-    const actionResponse = await actionService.list(actionData).catch(function(e) {return e});
+    var actionData = {page_no: 1, limit: 100, order_by: 'created', order: 'asc', kind: 'company_to_user', arbitrary_amount: false};
+    const actionResponse = await actionService.list(actionData).catch(function(e) { console.log("ERROR:", e); return e});
 
     const dupData = JSON.parse(JSON.stringify(transactionData));
     dupData.action_id = actionResponse.data.actions[0].id;
+
     const response = await transactionService.execute(dupData).catch(function(e) {return e});
     assert.equal(response.success, false);
     assert.equal(response.err.code, 'BAD_REQUEST');
