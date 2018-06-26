@@ -5,6 +5,7 @@ branches:
   only:
   - master
   - develop
+  - ashutosh/patch_1.0.1
 notifications:
   email:
     recipients:
