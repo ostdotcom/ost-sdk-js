@@ -6,7 +6,7 @@ const chai    = require('chai')
 
 // Load action service
 const rootPrefix    = "../../.."
-  , helper          = require(rootPrefix + '/test/v1/helper')
+  , helper          = require(rootPrefix + '/test/v1_1/helper')
   , OSTSDK          = require(rootPrefix + '/index')
   , sdkConfig       = {
       apiEndpoint : helper.OST_KIT_API_ENDPOINT
@@ -16,7 +16,7 @@ const rootPrefix    = "../../.."
   , ostObj          = new OSTSDK( sdkConfig )
 ;
 
-describe('services/v1/actions/edit', function () {
+describe('services/v1_1/actions/edit', function () {
   const coreTestCases = require(rootPrefix + "/test/v1_core/actions/edit");
   coreTestCases.setOSTSDK( ostObj );
   coreTestCases.setHelper( helper );

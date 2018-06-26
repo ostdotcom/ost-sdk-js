@@ -1,7 +1,7 @@
 "use strict";
 
 /**
- * OST v1 Test Helper and config
+ * OST v1_1 Test Helper and config
  */
 
  // Load external packages
@@ -19,10 +19,9 @@ const helperKlass = function () {
 };
 
 helperKlass.prototype = {
-  constructor: helperKlass,
   // API Endpoint and authentication details
   // For Travis detailed at: https://travis-ci.org/OpenSTFoundation/ost-sdk-js/settings
-  OST_KIT_API_ENDPOINT: process.env.OST_KIT_API_V1_ENDPOINT,
+  OST_KIT_API_ENDPOINT: process.env.OST_KIT_API_V1_1_ENDPOINT,
   OST_KIT_API_KEY: process.env.OST_KIT_API_KEY,
   OST_KIT_API_SECRET: process.env.OST_KIT_API_SECRET,
   OST_KIT_TRANSFER_FROM_UUID: process.env.OST_KIT_TRANSFER_FROM_UUID,
@@ -117,14 +116,13 @@ helperKlass.prototype = {
     }
 
   },
-
   validateSelf: function () {
     //Validate required ENV variables
-    if (!process.env.OST_KIT_API_V1_ENDPOINT || !process.env.OST_KIT_API_KEY || !process.env.OST_KIT_API_SECRET
+    if (!process.env.OST_KIT_API_V1_1_ENDPOINT || !process.env.OST_KIT_API_KEY || !process.env.OST_KIT_API_SECRET
       || !process.env.OST_KIT_TRANSFER_FROM_UUID || !process.env.OST_KIT_TRANSFER_TO_UUID) {
       console.log("USAGES: To run test cases, please define following ENV variables");
       console.log("----------------------------------------------------------------");
-      console.log("export OST_KIT_API_V1_ENDPOINT='https://playgroundapi.ost.com/v1/'");
+      console.log("export OST_KIT_API_V1_1_ENDPOINT='https://playgroundapi.ost.com/v1_1/'");
       console.log("export OST_KIT_API_KEY='3359e6b46dfccc305c29'");
       console.log("export OST_KIT_API_SECRET='79faff8d51498a98e7601bf09bba86b0765d4488a34416cce2455f2d82689273'");
       console.log("export OST_KIT_TRANSFER_FROM_UUID='cd890eeb-6376-48d4-9e28-d29527013a2d'");
@@ -132,7 +130,6 @@ helperKlass.prototype = {
       process.exit(1);
     }
   }
-
 };
 
 
