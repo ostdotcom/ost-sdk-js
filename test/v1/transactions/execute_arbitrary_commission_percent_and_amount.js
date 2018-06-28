@@ -22,7 +22,7 @@ describe('services/v1/transactions/execute (ARBITRARY COMMISSION PERCENT AND AMO
     var actionData = {page_no: 1, limit: 100, order_by: 'created', order: 'desc', kind: 'user_to_user',
       arbitrary_amount: true, arbitrary_commission: true, currency: "BT"};
     const response = await actionService.list(actionData).catch(function(e) {return e});
-    transactionData.action_id = response.data.actions[0].id;
+    transactionData.action_id = helper.getActionID( response );
   });
 
   it('Should fail when amount is not sent', async function() {
