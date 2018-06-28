@@ -33,21 +33,21 @@ let startTests = function (  ) {
   it('FIRST PREPARE DATA FOR TRANSACTIONS', async function() {
     var actionData = {page_no: 1, limit: 100, order_by: 'created', order: 'desc', arbitrary_amount: false, arbitrary_commission: false};
     const response = await actionService.list(actionData).catch(function(e) {return e});
-    transactionData.action_id = response.data.actions[0].id;
+    transactionData.action_id = helper.getActionID( response );
   });
 
   it('FIRST PREPARE DATA FOR COMPANY TO USER KIND TRANSACTIONS', async function() {
     var actionData = {page_no: 1, limit: 10, order_by: 'created', order: 'desc', arbitrary_amount: false, kind: 'company_to_user'
     };
     const response = await actionService.list(actionData).catch(function(e) {return e});
-    companyToUserData.action_id = response.data.actions[0].id;
+    companyToUserData.action_id = helper.getActionID( response );
   });
 
   it('FIRST PREPARE DATA FOR USER TO COMPANY KIND TRANSACTIONS', async function() {
     var actionData = {page_no: 1, limit: 10, order_by: 'created', order: 'desc', arbitrary_amount: false, kind: 'user_to_company'
     };
     const response = await actionService.list(actionData).catch(function(e) {return e});
-    userToCompanyData.action_id = response.data.actions[0].id;
+    userToCompanyData.action_id = helper.getActionID( response );
   });
 
   it('FIRST PREPARE DATA FOR USER TO USER KIND TRANSACTIONS', async function() {
@@ -55,7 +55,7 @@ let startTests = function (  ) {
       kind: 'user_to_user'
     };
     const response = await actionService.list(actionData).catch(function(e) {return e});
-    userToUserData.action_id = response.data.actions[0].id;
+    userToUserData.action_id = helper.getActionID( response );
   });
 
   it('Should return promise', async function() {

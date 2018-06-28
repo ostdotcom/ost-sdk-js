@@ -30,7 +30,7 @@ let startTests = function (  ) {
   it('FIRST PREPARE DATA FOR TRANSACTIONS', async function() {
     var actionData = {page_no: 1, limit: 100, order_by: 'created', order: 'desc', arbitrary_amount: false, arbitrary_commission: false};
     const response = await actionService.list(actionData).catch(function(e) {return e});
-    transactionData.action_id = response.data.actions[0].id;
+    transactionData.action_id = helper.getActionID( response );
   });
 
   it('Should fail when positive amount is sent', async function() {

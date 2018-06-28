@@ -9,6 +9,7 @@ const chai = require('chai')
   , assert = chai.assert
 ;
 
+const defaultCurrency = "BT";
 
 const rootPrefix = "../../.."
 ;
@@ -116,6 +117,29 @@ helperKlass.prototype = {
     }
 
   },
+
+  getActionID : function ( response ) {
+    let data    = response.data,
+      actions = data.actions ,
+      len     = actions.length, cnt,
+      action, actionID, currency,
+      preAmount, amount
+    ;
+
+    for( cnt = 0 ;  cnt < len ; cnt++ ){
+      action    = actions[ cnt ] ;
+      currency  = action['currency'].toUpperCase();
+      amount    = Number(action['amount']);
+      if( currency == defaultCurrency ) {
+        if( !actionID || preAmount > amount ) {
+          actionID  = action['id'] ;
+          preAmount = amount ;
+        }
+      }
+    }
+    return actionID ;
+  },
+
   validateSelf: function () {
     //Validate required ENV variables
     if (!process.env.OST_KIT_API_V1_1_ENDPOINT || !process.env.OST_KIT_API_KEY || !process.env.OST_KIT_API_SECRET
