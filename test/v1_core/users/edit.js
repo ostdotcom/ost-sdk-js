@@ -27,7 +27,7 @@ let startTests = function () {
 
   it('should pass when response data keys match', async function() {
     const dupData = JSON.parse(JSON.stringify(userValidData));
-    dupData.name = dupData.name + ' ' + Math.round((new Date()).getTime() / 1000);
+    dupData.name = helper.getActionName( dupData.name );
     const response = await userService.edit(dupData).catch(function(e) {return e});
     assert.equal(response.success, true);
     assert.deepEqual(helper.responseKeys(response).sort(), ['success', 'data'].sort());
@@ -42,7 +42,7 @@ let startTests = function () {
 
   it('should return promise', async function() {
     const dupData = JSON.parse(JSON.stringify(userValidData));
-    dupData.name = dupData.name + ' ' + Math.round((new Date()).getTime() / 1000);
+    dupData.name = helper.getActionName( dupData.name );
     const response = userService.edit(dupData).catch(function(e) {return e});
     assert.typeOf(response, 'Promise');
   });

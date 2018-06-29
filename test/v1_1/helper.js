@@ -4,6 +4,10 @@
  * OST v1_1 Test Helper and config
  */
 
+const myProcess  = require('process')
+    , pid        = String( myProcess.pid )
+;
+
  // Load external packages
 const chai = require('chai')
   , assert = chai.assert
@@ -138,6 +142,20 @@ helperKlass.prototype = {
       }
     }
     return actionID ;
+  },
+
+  getActionName : function( name ){
+    const divider     = 1000,
+      multiplier  = 10000
+    ;
+
+    let processId         = Number( pid ) ,
+      currentTime       = (new Date()).getTime() ,
+      processMultiplier = processId * multiplier,
+      finalTimeStamp    = currentTime + processMultiplier
+    ;
+
+    return  name + " " + Math.round( finalTimeStamp / divider);
   },
 
   validateSelf: function () {
