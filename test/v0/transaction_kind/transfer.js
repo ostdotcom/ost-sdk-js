@@ -18,7 +18,7 @@ describe('services/v0/transaction_kind/transfer', function () {
 
   it('FIRST PREPARE DATA FOR TRANSFER', async function() {
     const dupData = {name: 'Like', kind: 'user_to_user', currency_type: 'USD', currency_value: '0.01', commission_percent: '0'};
-    dupData.name = dupData.name + ' ' + Math.round((new Date()).getTime() / 1000);
+    dupData.name = helper.getActionName( dupData.name );
     const response = await transactionKindService.create(dupData).catch(function(e) {return e});
     transferTokenData.transaction_kind = response.data.transactions[0].name;
   });

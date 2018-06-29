@@ -3,6 +3,10 @@
 /**
  * OST v0 Test Helper and config
  */
+const myProcess  = require('process')
+    , pid        = String( myProcess.pid )
+;
+
 
 const rootPrefix = "../../.."
 ;
@@ -35,6 +39,21 @@ helperKlass.prototype = {
     }
     return errorFields;
   },
+
+  getActionName : function( name ){
+    const divider = 1000,
+      multiplier  = 10000
+    ;
+
+    let processId       = Number( pid ) ,
+      processMultiplier = processId * multiplier,
+      currentTimeStamp  = (new Date()).getTime() ,
+      finalTimeStamp    =  Math.round( currentTimeStamp / divider)
+    ;
+
+    finalTimeStamp += processMultiplier;
+    return name + " " + finalTimeStamp;
+  }
 
 };
 
