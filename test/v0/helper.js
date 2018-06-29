@@ -41,15 +41,26 @@ helperKlass.prototype = {
   },
 
   getActionName : function( name ){
-    const multiplier = 1000
+    const  oThis = this
+          , multiplier = 1000
     ;
 
     let randomNumber    = Math.random(),
       randomId          = randomNumber * multiplier,
       currentTimeStamp  = String((new Date()).getTime()),
-      finalTimeStamp    =  currentTimeStamp + parseInt(randomId)
+      finalTimeStamp    = currentTimeStamp + parseInt(randomId),
+      currentName       = name + "" + finalTimeStamp,
+      reverseName       = oThis.reverseString( currentName ),
+      finalName         = reverseName.slice(0, 20)
     ;
-    return name + " " + finalTimeStamp;
+    return finalName;
+  },
+
+  reverseString: function ( currentString ) {
+    var splitString = currentString.split("") ,
+        reverseArray = splitString.reverse()
+    ;
+    return reverseArray.join('');
   }
 
 };
