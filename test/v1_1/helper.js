@@ -145,17 +145,18 @@ helperKlass.prototype = {
   },
 
   getActionName : function( name ){
-    const divider     = 1000,
+    const divider = 1000,
       multiplier  = 10000
     ;
 
-    let processId         = Number( pid ) ,
-      currentTime       = (new Date()).getTime() ,
+    let processId       = Number( pid ) ,
       processMultiplier = processId * multiplier,
-      finalTimeStamp    = currentTime + processMultiplier
+      currentTimeStamp  = (new Date()).getTime() ,
+      finalTimeStamp    =  Math.round( currentTimeStamp / divider)
     ;
 
-    return  name + " " + Math.round( finalTimeStamp / divider);
+    finalTimeStamp += processMultiplier;
+    return name + " " + finalTimeStamp;
   },
 
   validateSelf: function () {
