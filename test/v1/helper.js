@@ -146,17 +146,14 @@ helperKlass.prototype = {
   },
 
   getActionName : function( name ){
-    const divider = 1000,
-      multiplier  = 10000
+    const multiplier = 1000
     ;
 
-    let processId       = Number( pid ) ,
-      processMultiplier = processId * multiplier,
-      currentTimeStamp  = (new Date()).getTime() ,
-      finalTimeStamp    =  Math.round( currentTimeStamp / divider)
+    let randomNumber    = Math.random(),
+      randomId          = randomNumber * multiplier,
+      currentTimeStamp  = String((new Date()).getTime()),
+      finalTimeStamp    =  currentTimeStamp + parseInt(randomId)
     ;
-
-    finalTimeStamp += processMultiplier;
     return name + " " + finalTimeStamp;
   },
 
