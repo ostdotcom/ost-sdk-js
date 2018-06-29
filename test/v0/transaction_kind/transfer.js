@@ -18,7 +18,7 @@ describe('services/v0/transaction_kind/transfer', function () {
 
   it('FIRST PREPARE DATA FOR TRANSFER', async function() {
     const dupData = {name: 'Like', kind: 'user_to_user', currency_type: 'USD', currency_value: '0.01', commission_percent: '0'};
-    dupData.name = dupData.name + ' ' + Math.round((new Date()).getTime() / 1000);
+    dupData.name = helper.getActionName( dupData.name );
     const response = await transactionKindService.create(dupData).catch(function(e) {return e});
     transferTokenData.transaction_kind = response.data.transactions[0].name;
   });
@@ -121,6 +121,7 @@ describe('services/v0/transaction_kind/transfer', function () {
     dupData.transaction_uuids = dupData.transaction_uuids[0];
     const response = await transactionKindService.status(dupData).catch(function(e) {return e});
     assert.equal(response.success, false);
+    assert.equal(response.err.code, "BAD_REQUEST");
   });
 
   it('Status: should fail when transaction uuids is invalid', async function() {
