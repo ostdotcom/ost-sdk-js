@@ -14,6 +14,8 @@ let helper = null
   , transactionData = null
 ;
 
+let transactionObjKeys = ['id', 'from_user_id', 'to_user_id', 'amount', 'transaction_hash', 'action_id', 'timestamp', 'status', 'transaction_fee', 'commission_amount', 'gas_price', 'gas_used', 'block_number'];
+
 let startTests = function (  ) {
 
   if ( !transactionService ) {
@@ -195,7 +197,7 @@ let startTests = function (  ) {
     assert.equal(response.success, true);
     assert.deepEqual(helper.responseKeys(response).sort(), ['success', 'data'].sort());
     assert.deepEqual(helper.responseKeys(response.data).sort(), ['result_type', 'transaction'].sort());
-    assert.deepEqual(helper.responseKeys(response.data.transaction).sort(), ['id', 'from_user_id', 'to_user_id', 'amount', 'transaction_hash', 'action_id', 'timestamp', 'status', 'transaction_fee', 'commission_amount', 'gas_price', 'gas_used', 'block_number'].sort());
+    assert.deepEqual(helper.responseKeys(response.data.transaction).sort(), transactionObjKeys.sort());
 
     assert.exists(response.data.transaction.id);
     assert.exists(response.data.transaction.from_user_id);
@@ -215,5 +217,11 @@ module.exports = {
   }
   , setHelper: function ( helperObj ) {
     helper = helperObj;
+  }
+  , setTransactionObjKeys : function ( keys ) {
+    transactionObjKeys = keys;
+  }
+  , getTransactionObjKeys : function () {
+    return transactionObjKeys;
   }
 };

@@ -8,6 +8,8 @@ const rootPrefix = "../../.."
 
 describe('services/v1_1/transactions/execute', function () {
   const coreTestCases = require(rootPrefix + "/test/v1_core/transactions/execute_arbitrary_commission_percent");
+  var transactionObjKeys =  coreTestCases.getTransactionObjKeys();
+  transactionObjKeys.push("airdropped_amount");
   coreTestCases.setOSTSDK( ostObj );
   coreTestCases.setHelper( helper );
   coreTestCases.startTests();
