@@ -4,10 +4,16 @@
  * OST v1 Test Helper and config
  */
 
+const myProcess  = require('process')
+  , pid        = String( myProcess.pid )
+;
+
  // Load external packages
 const chai = require('chai')
   , assert = chai.assert
 ;
+
+const defaultCurrency = "BT" ;
 
 
 const rootPrefix = "../../.."
@@ -23,7 +29,7 @@ helperKlass.prototype = {
   OST_KIT_API_SECRET: process.env.OST_KIT_API_SECRET,
   OST_KIT_TRANSFER_FROM_UUID: process.env.OST_KIT_TRANSFER_FROM_UUID,
   OST_KIT_TRANSFER_TO_UUID: process.env.OST_KIT_TRANSFER_TO_UUID,
-  DEBUG: ( "true" === process.env.OST_SDK_JS_DEBUG ),
+  DEBUG: ( "true" === process.env.OST_SDK_DEBUG ),
 
   // helper functions
   responseKeys: function (response) {
@@ -113,6 +119,51 @@ helperKlass.prototype = {
     }
 
   },
+
+  getActionID : function ( response ) {
+    let data    = response.data,
+        actions = data.actions ,
+        len     = actions.length, cnt,
+        action, actionID, currency,
+        preAmount, amount
+        ;
+
+    for( cnt = 0 ;  cnt < len ; cnt++ ){
+      action    = actions[ cnt ] ;
+      currency  = action['currency'].toUpperCase();
+      amount    = Number(action['amount']);
+      if( currency == defaultCurrency ) {
+        if( !actionID || preAmount > amount ) {
+          actionID  = action['id'] ;
+          preAmount = amount ;
+        }
+      }
+    }
+    return actionID ;
+  },
+
+  getActionName : function( name ){
+    const  oThis = this
+      , multiplier = 1000
+    ;
+
+    let randomNumber    = Math.random(),
+      randomId          = randomNumber * multiplier,
+      currentTimeStamp  = String((new Date()).getTime()),
+      finalTimeStamp    = currentTimeStamp + parseInt(randomId),
+      currentName       = name + "" + finalTimeStamp,
+      reverseName       = oThis.reverseString( currentName ),
+      finalName         = reverseName.slice(0, 20)
+    ;
+    return finalName;
+  },
+
+  reverseString: function ( currentString ) {
+    var splitString = currentString.split("") ,
+      reverseArray  = splitString.reverse()
+    ;
+    return reverseArray.join('');
+  }
 
 };
 

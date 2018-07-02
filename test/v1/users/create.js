@@ -17,7 +17,7 @@ describe('services/v1/user/create', function () {
 
   it('should pass when response data keys match', async function() {
     const dupData = JSON.parse(JSON.stringify(userValidData));
-    dupData.name = dupData.name + ' ' + Math.round((new Date()).getTime() / 1000);
+    dupData.name =  helper.getActionName( dupData.name );
     const response = await userService.create(dupData).catch(function(e) {return e});
     assert.equal(response.success, true);
     assert.deepEqual(helper.responseKeys(response).sort(), ['success', 'data'].sort());
@@ -32,7 +32,7 @@ describe('services/v1/user/create', function () {
 
   it('should return promise', async function() {
     const dupData = JSON.parse(JSON.stringify(userValidData));
-    dupData.name = dupData.name + ' ' + Math.round((new Date()).getTime() / 1000);
+    dupData.name =  helper.getActionName( dupData.name );
     const response = userService.create(dupData).catch(function(e) {return e});
     assert.typeOf(response, 'Promise');
   });
@@ -82,7 +82,7 @@ describe('services/v1/user/create', function () {
     assert.equal(response.success, true);
   });
 
-  it('should pass when name is undefined', async function() {
+  it('should pass when name is blank', async function() {
     const dupData = JSON.parse(JSON.stringify(userValidData));
     dupData.name = '';
     const response = await userService.create(dupData).catch(function(e) {return e});

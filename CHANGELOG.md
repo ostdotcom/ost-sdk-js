@@ -1,3 +1,8 @@
+[OST Javascript SDK v1.0.1](https://github.com/OpenSTFoundation/ost-sdk-js/tree/v1.0.1) July 02 2018
+---
+
+* Updated v1 test-cases.  
+
 [OST Javascript SDK v1.0.0](https://github.com/OpenSTFoundation/ost-sdk-js/tree/v1.0.0) May 17 2018
 ---
 
