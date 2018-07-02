@@ -1,4 +1,4 @@
-[OST Javascript SDK v1.0.1](https://github.com/OpenSTFoundation/ost-sdk-js/tree/v1.0.1) June 20 2018
+[OST Javascript SDK v1.1.0](https://github.com/OpenSTFoundation/ost-sdk-js/tree/v1.1.0) July 02 2018
 ---
 
 * Added balance module to v1 API

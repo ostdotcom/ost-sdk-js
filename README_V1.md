@@ -31,7 +31,7 @@ const OSTSDK = require('@ostdotcom/ost-sdk-js');
 Initialize the SDK object:
 
 ```node.js
-// the latest valid API endpoint is "https://sandboxapi.ost.com/v1.1/", this may change in the future
+// the latest valid API endpoint is "https://sandboxapi.ost.com/v1/", this may change in the future
 const ostObj = new OSTSDK({apiKey: <api_key>, apiSecret: <api_secret>, apiEndpoint: <api_endpoint>});
 ```
 
@@ -181,30 +181,5 @@ List Transfers:
 transferService.list({}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
 
-### Balance Module 
-
-```node.js
-const balanceService = ostObj.services.balances;
-```
-
-Get Balance of user:
-
-```node.js
-balanceService.get({id: '38895b82-737e-4b23-b111-fec96e52f3b2'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
-```
-
-### Ledger Module 
-
-```node.js
-const ledgerService = ostObj.services.ledger;
-```
-
-Get ledger for user:
-
-```node.js
-ledgerService.get({id: '38895b82-737e-4b23-b111-fec96e52f3b2'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
-```
-
 ## OST API v0 (Previous Version)
-To refer to the readme documentation of API v1 [Please Follow This Link](README_V1.md)
 To refer to the readme documentation of API v0 [Please Follow This Link](README_V0.md)
