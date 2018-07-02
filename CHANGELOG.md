@@ -1,3 +1,9 @@
+[OST Javascript SDK v1.1.0](https://github.com/OpenSTFoundation/ost-sdk-js/tree/v1.1.0) July 02 2018
+---
+
+* Added balance module to v1 API
+* Added ledger module to v1 API
+
 [OST Javascript SDK v1.0.0](https://github.com/OpenSTFoundation/ost-sdk-js/tree/v1.0.0) May 17 2018
 ---
 

@@ -3,6 +3,10 @@
 /**
  * OST v0 Test Helper and config
  */
+const myProcess  = require('process')
+    , pid        = String( myProcess.pid )
+;
+
 
 const rootPrefix = "../../.."
 ;
@@ -35,6 +39,29 @@ helperKlass.prototype = {
     }
     return errorFields;
   },
+
+  getActionName : function( name ){
+    const  oThis = this
+          , multiplier = 1000
+    ;
+
+    let randomNumber    = Math.random(),
+      randomId          = randomNumber * multiplier,
+      currentTimeStamp  = String((new Date()).getTime()),
+      finalTimeStamp    = currentTimeStamp + parseInt(randomId),
+      currentName       = name + "" + finalTimeStamp,
+      reverseName       = oThis.reverseString( currentName ),
+      finalName         = reverseName.slice(0, 20)
+    ;
+    return finalName;
+  },
+
+  reverseString: function ( currentString ) {
+    var splitString = currentString.split("") ,
+        reverseArray = splitString.reverse()
+    ;
+    return reverseArray.join('');
+  }
 
 };
 

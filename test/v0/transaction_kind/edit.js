@@ -44,7 +44,7 @@ describe('services/v0/transaction_kind/edit', function () {
 
   it('should pass when response data keys match', async function() {
     const dupData = JSON.parse(JSON.stringify(userToUserValidData));
-    dupData.name = dupData.name + ' ' + Math.round((new Date()).getTime() / 1000);
+    dupData.name = helper.getActionName( dupData.name );
     const response = await transactionKindService.edit(dupData).catch(function(e) {return e});
     assert.equal(response.success, true);
     assert.deepEqual(helper.responseKeys(response).sort(), ['success', 'data'].sort());
@@ -75,7 +75,7 @@ describe('services/v0/transaction_kind/edit', function () {
 
   it('should pass when kind is not sent', async function() {
     const dupData = JSON.parse(JSON.stringify(userToUserValidData));
-    dupData.name = dupData.name + ' ' + Math.round((new Date()).getTime() / 1000);
+    dupData.name = helper.getActionName( dupData.name );
     delete dupData.kind;
     const response = await transactionKindService.edit(dupData).catch(function(e) {return e});
     assert.equal(response.success, true);
@@ -91,7 +91,7 @@ describe('services/v0/transaction_kind/edit', function () {
 
   it('should return promise', async function() {
     const dupData = JSON.parse(JSON.stringify(userToUserValidData));
-    dupData.name = dupData.name + ' ' + Math.round((new Date()).getTime() / 1000);
+    dupData.name = helper.getActionName( dupData.name );
     const response = transactionKindService.edit(dupData).catch(function(e) {return e});
     assert.typeOf(response, 'Promise');
   });
@@ -152,7 +152,7 @@ describe('services/v0/transaction_kind/edit', function () {
 
   it('should pass when kind is undefined', async function() {
     const dupData = JSON.parse(JSON.stringify(userToUserValidData));
-    dupData.name = dupData.name + ' ' + Math.round((new Date()).getTime() / 1000);
+    dupData.name = helper.getActionName( dupData.name );
     dupData.kind = undefined;
     const response = await transactionKindService.edit(dupData).catch(function(e) {return e});
     assert.equal(response.success, true);
@@ -168,7 +168,7 @@ describe('services/v0/transaction_kind/edit', function () {
 
   it('should pass when kind is invalid', async function() {
     const dupData = JSON.parse(JSON.stringify(userToUserValidData));
-    dupData.name = dupData.name + ' ' + Math.round((new Date()).getTime() / 1000);
+    dupData.name = helper.getActionName( dupData.name );
     dupData.kind = "test";
     const response = await transactionKindService.edit(dupData).catch(function(e) {return e});
     assert.equal(response.success, true);
@@ -184,7 +184,7 @@ describe('services/v0/transaction_kind/edit', function () {
 
   it('should pass when currency type is undefined', async function() {
     const dupData = JSON.parse(JSON.stringify(userToUserValidData));
-    dupData.name = dupData.name + ' ' + Math.round((new Date()).getTime() / 1000);
+    dupData.name = helper.getActionName( dupData.name );
     dupData.currency_type = undefined;
     const response = await transactionKindService.edit(dupData).catch(function(e) {return e});
     assert.equal(response.success, true);
@@ -200,7 +200,7 @@ describe('services/v0/transaction_kind/edit', function () {
 
   it('should fail when currency type is invalid', async function() {
     const dupData = JSON.parse(JSON.stringify(userToUserValidData));
-    dupData.name = dupData.name + ' ' + Math.round((new Date()).getTime() / 1000);
+    dupData.name = helper.getActionName( dupData.name );
     dupData.currency_type = "ABC";
     const response = await transactionKindService.edit(dupData).catch(function(e) {return e});
     assert.equal(response.success, false);
@@ -209,7 +209,7 @@ describe('services/v0/transaction_kind/edit', function () {
 
   it('should fail when currency value (USD) is less than 0.01', async function() {
     const dupData = JSON.parse(JSON.stringify(userToUserValidData));
-    dupData.name = dupData.name + ' ' + Math.round((new Date()).getTime() / 1000);
+    dupData.name = helper.getActionName( dupData.name );
     dupData.currency_value = 0.009;
     dupData.currency_type = 'usd';
     const response = await transactionKindService.edit(dupData).catch(function(e) {return e});
@@ -219,7 +219,7 @@ describe('services/v0/transaction_kind/edit', function () {
 
   it('should fail when currency value (USD) is greater than 100', async function() {
     const dupData = JSON.parse(JSON.stringify(userToUserValidData));
-    dupData.name = dupData.name + ' ' + Math.round((new Date()).getTime() / 1000);
+    dupData.name = helper.getActionName( dupData.name );
     dupData.currency_value = 100.01;
     dupData.currency_type = 'usd';
     const response = await transactionKindService.edit(dupData).catch(function(e) {return e});
@@ -229,7 +229,7 @@ describe('services/v0/transaction_kind/edit', function () {
 
   it('should fail when currency value (BT) is undefined', async function() {
     const dupData = JSON.parse(JSON.stringify(userToUserValidData));
-    dupData.name = dupData.name + ' ' + Math.round((new Date()).getTime() / 1000);
+    dupData.name = helper.getActionName( dupData.name );
     dupData.currency_value = undefined;
     dupData.currency_type = 'bt';
     const response = await transactionKindService.edit(dupData).catch(function(e) {return e});
@@ -239,7 +239,7 @@ describe('services/v0/transaction_kind/edit', function () {
 
   it('should fail when currency value (BT) is less than 0.00001', async function() {
     const dupData = JSON.parse(JSON.stringify(userToUserValidData));
-    dupData.name = dupData.name + ' ' + Math.round((new Date()).getTime() / 1000);
+    dupData.name = helper.getActionName( dupData.name );
     dupData.currency_value = 0.000009;
     dupData.currency_type = 'bt';
     const response = await transactionKindService.edit(dupData).catch(function(e) {return e});
@@ -249,7 +249,7 @@ describe('services/v0/transaction_kind/edit', function () {
 
   it('should fail when currency value (BT) is greater than 100', async function() {
     const dupData = JSON.parse(JSON.stringify(userToUserValidData));
-    dupData.name = dupData.name + ' ' + Math.round((new Date()).getTime() / 1000);
+    dupData.name = helper.getActionName( dupData.name );
     dupData.currency_value = 100.01;
     dupData.currency_type = 'bt';
     const response = await transactionKindService.edit(dupData).catch(function(e) {return e});
@@ -259,7 +259,7 @@ describe('services/v0/transaction_kind/edit', function () {
 
   it('U2U: should pass when data is correct', async function() {
     const dupData = JSON.parse(JSON.stringify(userToUserValidData));
-    dupData.name = dupData.name + ' ' + Math.round((new Date()).getTime() / 1000);
+    dupData.name = helper.getActionName( dupData.name );
     dupData.currency_type = (dupData.currency_type=='USD' ? 'BT' : 'USD');
     const response = await transactionKindService.edit(dupData).catch(function(e) {return e});
     assert.equal(response.success, true);
@@ -272,7 +272,7 @@ describe('services/v0/transaction_kind/edit', function () {
 
   it('C2U: should pass when data is correct', async function() {
     const dupData = JSON.parse(JSON.stringify(companyToUserValidData));
-    dupData.name = dupData.name + ' ' + Math.round((new Date()).getTime() / 1000);
+    dupData.name = helper.getActionName( dupData.name );
     dupData.currency_type = (dupData.currency_type=='USD' ? 'BT' : 'USD');
     dupData.commission_percent = undefined;
     const response = await transactionKindService.edit(dupData).catch(function(e) {return e});
@@ -286,7 +286,7 @@ describe('services/v0/transaction_kind/edit', function () {
 
   it('U2C: should pass when data is correct', async function() {
     const dupData = JSON.parse(JSON.stringify(userToCompanyValidData));
-    dupData.name = dupData.name + ' ' + Math.round((new Date()).getTime() / 1000);
+    dupData.name = helper.getActionName( dupData.name );
     dupData.currency_type = (dupData.currency_type=='USD' ? 'BT' : 'USD');
     dupData.commission_percent = undefined;
     const response = await transactionKindService.edit(dupData).catch(function(e) {return e});
