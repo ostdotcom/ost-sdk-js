@@ -59,7 +59,13 @@ manifest.prototype = {
   transfers: null,
 
   // Services at /users endpoint
-  users: null
+  users: null,
+
+  // Services at /balances endpoint
+  balances: null,
+
+  // Services at /ledger endpoint
+  ledger: null
 
 };
 

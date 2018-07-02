@@ -4,18 +4,27 @@
  * OST v1 Test Helper and config
  */
 
+const myProcess  = require('process')
+    , pid        = String( myProcess.pid )
+;
+
  // Load external packages
 const chai = require('chai')
   , assert = chai.assert
 ;
 
+const defaultCurrency = "BT";
 
 const rootPrefix = "../../.."
 ;
 
-const helperKlass = function () {};
+const helperKlass = function () {
+  const oThis = this;
+  oThis.validateSelf();
+};
 
 helperKlass.prototype = {
+  constructor: helperKlass,
   // API Endpoint and authentication details
   // For Travis detailed at: https://travis-ci.org/OpenSTFoundation/ost-sdk-js/settings
   OST_KIT_API_ENDPOINT: process.env.OST_KIT_API_V1_ENDPOINT,
@@ -114,19 +123,68 @@ helperKlass.prototype = {
 
   },
 
+  getActionID : function ( response ) {
+    let data    = response.data,
+      actions = data.actions ,
+      len     = actions.length, cnt,
+      action, actionID, currency,
+      preAmount, amount
+    ;
+
+    for( cnt = 0 ;  cnt < len ; cnt++ ){
+      action    = actions[ cnt ] ;
+      currency  = action['currency'].toUpperCase();
+      amount    = Number(action['amount']);
+      if( currency == defaultCurrency ) {
+        if( !actionID || preAmount > amount ) {
+          actionID  = action['id'] ;
+          preAmount = amount ;
+        }
+      }
+    }
+    return actionID ;
+  },
+
+  getActionName : function( name ){
+    const  oThis = this
+      , multiplier = 1000
+    ;
+
+    let randomNumber    = Math.random(),
+      randomId          = randomNumber * multiplier,
+      currentTimeStamp  = String((new Date()).getTime()),
+      finalTimeStamp    = currentTimeStamp + parseInt(randomId),
+      currentName       = name + "" + finalTimeStamp,
+      reverseName       = oThis.reverseString( currentName ),
+      finalName         = reverseName.slice(0, 20)
+    ;
+    return finalName;
+  },
+
+  reverseString: function ( currentString ) {
+    var splitString = currentString.split("") ,
+      reverseArray = splitString.reverse()
+    ;
+    return reverseArray.join('');
+  },
+
+  validateSelf: function () {
+    //Validate required ENV variables
+    if (!process.env.OST_KIT_API_V1_ENDPOINT || !process.env.OST_KIT_API_KEY || !process.env.OST_KIT_API_SECRET
+      || !process.env.OST_KIT_TRANSFER_FROM_UUID || !process.env.OST_KIT_TRANSFER_TO_UUID) {
+      console.log("USAGES: To run test cases, please define following ENV variables");
+      console.log("----------------------------------------------------------------");
+      console.log("export OST_KIT_API_V1_ENDPOINT='https://playgroundapi.ost.com/v1/'");
+      console.log("export OST_KIT_API_KEY='3359e6b46dfccc305c29'");
+      console.log("export OST_KIT_API_SECRET='79faff8d51498a98e7601bf09bba86b0765d4488a34416cce2455f2d82689273'");
+      console.log("export OST_KIT_TRANSFER_FROM_UUID='cd890eeb-6376-48d4-9e28-d29527013a2d'");
+      console.log("export OST_KIT_TRANSFER_TO_UUID='8acdbc49-6eb1-4555-9440-d961981cfeec'");
+      process.exit(1);
+    }
+  }
+
 };
 
-//Validate required ENV variables
-if (!process.env.OST_KIT_API_V1_ENDPOINT || !process.env.OST_KIT_API_KEY || !process.env.OST_KIT_API_SECRET
-  || !process.env.OST_KIT_TRANSFER_FROM_UUID || !process.env.OST_KIT_TRANSFER_TO_UUID) {
-  console.log("USAGES: To run test cases, please define following ENV variables");
-  console.log("----------------------------------------------------------------");
-  console.log("export OST_KIT_API_V1_ENDPOINT='https://playgroundapi.ost.com/v1/'");
-  console.log("export OST_KIT_API_KEY='3359e6b46dfccc305c29'");
-  console.log("export OST_KIT_API_SECRET='79faff8d51498a98e7601bf09bba86b0765d4488a34416cce2455f2d82689273'");
-  console.log("export OST_KIT_TRANSFER_FROM_UUID='cd890eeb-6376-48d4-9e28-d29527013a2d'");
-  console.log("export OST_KIT_TRANSFER_TO_UUID='8acdbc49-6eb1-4555-9440-d961981cfeec'");
-  process.exit(1);
-}
+
 
 module.exports = new helperKlass();
