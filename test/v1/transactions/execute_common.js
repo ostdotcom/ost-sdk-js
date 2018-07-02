@@ -23,21 +23,21 @@ describe('services/v1/transactions/execute (COMMON)', function () {
   it('FIRST PREPARE DATA FOR TRANSACTIONS', async function() {
     var actionData = {page_no: 1, limit: 100, order_by: 'created', order: 'desc', arbitrary_amount: false, arbitrary_commission: false};
     const response = await actionService.list(actionData).catch(function(e) {return e});
-    transactionData.action_id = response.data.actions[0].id;
+    transactionData.action_id = helper.getActionID( response );
   });
 
   it('FIRST PREPARE DATA FOR COMPANY TO USER KIND TRANSACTIONS', async function() {
     var actionData = {page_no: 1, limit: 10, order_by: 'created', order: 'desc', arbitrary_amount: false, kind: 'company_to_user'
     };
     const response = await actionService.list(actionData).catch(function(e) {return e});
-    companyToUserData.action_id = response.data.actions[0].id;
+    companyToUserData.action_id = helper.getActionID( response );
   });
 
   it('FIRST PREPARE DATA FOR USER TO COMPANY KIND TRANSACTIONS', async function() {
     var actionData = {page_no: 1, limit: 10, order_by: 'created', order: 'desc', arbitrary_amount: false, kind: 'user_to_company'
     };
     const response = await actionService.list(actionData).catch(function(e) {return e});
-    userToCompanyData.action_id = response.data.actions[0].id;
+    userToCompanyData.action_id = helper.getActionID( response );
   });
 
   it('FIRST PREPARE DATA FOR USER TO USER KIND TRANSACTIONS', async function() {
@@ -45,7 +45,7 @@ describe('services/v1/transactions/execute (COMMON)', function () {
       kind: 'user_to_user'
     };
     const response = await actionService.list(actionData).catch(function(e) {return e});
-    userToUserData.action_id = response.data.actions[0].id;
+    userToUserData.action_id = helper.getActionID( response );
   });
 
   it('Should return promise', async function() {
@@ -144,11 +144,12 @@ describe('services/v1/transactions/execute (COMMON)', function () {
   });
 
   it('C2U: Should fail when from user id is not reserve', async function() {
-    var actionData = {page_no: 1, limit: 100, order_by: 'created', order: 'asc', kind: 'company_to_user'};
-    const actionResponse = await actionService.list(actionData).catch(function(e) {return e});
+    var actionData = {page_no: 1, limit: 100, order_by: 'created', order: 'asc', kind: 'company_to_user', arbitrary_amount: false};
+    const actionResponse = await actionService.list(actionData).catch(function(e) { console.log("ERROR:", e); return e});
 
     const dupData = JSON.parse(JSON.stringify(transactionData));
     dupData.action_id = actionResponse.data.actions[0].id;
+
     const response = await transactionService.execute(dupData).catch(function(e) {return e});
     assert.equal(response.success, false);
     assert.equal(response.err.code, 'BAD_REQUEST');

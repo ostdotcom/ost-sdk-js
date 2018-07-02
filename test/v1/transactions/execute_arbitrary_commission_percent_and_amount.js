@@ -20,9 +20,9 @@ describe('services/v1/transactions/execute (ARBITRARY COMMISSION PERCENT AND AMO
 
   it('FIRST PREPARE DATA FOR TRANSACTIONS', async function() {
     var actionData = {page_no: 1, limit: 100, order_by: 'created', order: 'desc', kind: 'user_to_user',
-      arbitrary_amount: true, arbitrary_commission: true};
+      arbitrary_amount: true, arbitrary_commission: true, currency: "BT"};
     const response = await actionService.list(actionData).catch(function(e) {return e});
-    transactionData.action_id = response.data.actions[0].id;
+    transactionData.action_id = helper.getActionID( response );
   });
 
   it('Should fail when amount is not sent', async function() {
@@ -61,11 +61,11 @@ describe('services/v1/transactions/execute (ARBITRARY COMMISSION PERCENT AND AMO
     assert.deepEqual(helper.errorFields(response).sort(), ['amount'].sort());
   });
 
-  it('Should pass when amount is 0', async function() {
+  it('Should fail when amount is 0', async function() {
     const dupData = JSON.parse(JSON.stringify(transactionData));
     dupData.amount = 0;
     const response = await transactionService.execute(dupData).catch(function(e) {return e});
-    assert.equal(response.success, true);
+    assert.equal(response.success, false);
   });
 
   it('Should fail when amount is blank string', async function() {
