@@ -205,7 +205,7 @@ Get ledger for user:
 ledgerService.get({id: '38895b82-737e-4b23-b111-fec96e52f3b2'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
 
-## OST API v0 (Previous Version)
+## OST API Previous Versions
 To refer to the readme documentation of API v1 [Please Follow This Link](README_V1.md)
 
 To refer to the readme documentation of API v0 [Please Follow This Link](README_V0.md)
