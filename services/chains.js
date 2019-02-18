@@ -1,11 +1,10 @@
-
 /**
- * Balances Service
+ * Chains Service
  *
- * @module services/v1/balances
- */
+ * @module services/chains
+*/
 
-const rootPrefix = "../.."
+const rootPrefix = ".."
   , validate = require(rootPrefix + '/lib/validate')
 ;
 
@@ -13,26 +12,26 @@ const rootPrefix = "../.."
 var _requestObj = null;
 
 /**
- * Balances Service constructor
+ * Chains Service constructor
  *
  * @constructor
  */
-const balances = function (requestObj) {
+const chains = function (requestObj) {
   const oThis = this;
 
   // Assign request object
   _requestObj = requestObj;
 
   // Define the url prefix
-  oThis.urlPrefix = '/balances';
+  oThis.urlPrefix = '/chains';
 
   return oThis;
 };
 
-balances.prototype = {
+chains.prototype = {
 
   /**
-   * Get balance details
+   * Get chains details
    *
    * @param {object} params
    *
@@ -42,8 +41,8 @@ balances.prototype = {
     const oThis = this;
     params = params || {};
 
-    return _requestObj.get(oThis.urlPrefix + "/" + validate.getId(params) + "/", params);
+    return _requestObj.get(oThis.urlPrefix + "/" + validate.getChainId(params), params);
   }
 };
 
-module.exports = balances;
+module.exports = chains;

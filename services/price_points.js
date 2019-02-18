@@ -1,38 +1,38 @@
 "use strict";
 
 /**
- * Token Service
+ * pricePoints Service
  *
- * @module services/v1/token
+ * @module services/price_points
  */
 
-const rootPrefix = "../.."
+const rootPrefix = ".."
 ;
 
 // hide request object
 var _requestObj = null;
 
 /**
- * Token Service constructor
+ * pricePoints Service constructor
  *
  * @constructor
  */
-const token = function (requestObj) {
+const pricePoints = function (requestObj) {
   const oThis = this;
 
   // Assign request object
   _requestObj = requestObj;
 
   // Define the url prefix
-  oThis.urlPrefix = '/token';
+  oThis.urlPrefix = '/price-points';
 
   return oThis;
 };
 
-token.prototype = {
+pricePoints.prototype = {
 
   /**
-   * Get token details
+   * Get pricePoints details
    *
    * @param {object} params
    *
@@ -47,4 +47,4 @@ token.prototype = {
 
 };
 
-module.exports = token;
+module.exports = pricePoints;

@@ -1,12 +1,12 @@
 "use strict";
 
 /**
- * Airdrops Service
+ * Users Service
  *
- * @module services/v1/airdrops
+ * @module services/v1/users
  */
 
-const rootPrefix = "../.."
+const rootPrefix = ".."
   , validate = require(rootPrefix + '/lib/validate')
 ;
 
@@ -14,32 +14,32 @@ const rootPrefix = "../.."
 var _requestObj = null;
 
 /**
- * Airdrops Service constructor
+ * Users Service constructor
  *
  * @constructor
  */
-const airdrops = function (requestObj) {
+const users = function (requestObj) {
   const oThis = this;
 
   // Assign request object
   _requestObj = requestObj;
 
   // Define the url prefix
-  oThis.urlPrefix = '/airdrops';
+  oThis.urlPrefix = '/users';
 
   return oThis;
 };
 
-airdrops.prototype = {
+users.prototype = {
 
   /**
-   * Execute airdrop
+   * Create
    *
    * @param {object} params
    *
    * @public
    */
-  execute: function (params) {
+  create: function (params) {
     const oThis = this;
     params = params || {};
 
@@ -47,7 +47,21 @@ airdrops.prototype = {
   },
 
   /**
-   * Get airdrop details
+   * List
+   *
+   * @param {object} params
+   *
+   * @public
+   */
+    getList: function (params) {
+    const oThis = this;
+    params = params || {};
+
+    return _requestObj.get( oThis.urlPrefix + "/", params);
+  },
+
+  /**
+   * Get user details
    *
    * @param {object} params
    *
@@ -57,23 +71,9 @@ airdrops.prototype = {
     const oThis = this;
     params = params || {};
 
-    return _requestObj.get(oThis.urlPrefix + "/" + validate.getId(params) + "/", params);
-  },
-
-  /**
-   * List of airdrops
-   *
-   * @param {object} params
-   *
-   * @public
-   */
-  list: function (params) {
-    const oThis = this;
-    params = params || {};
-
-    return _requestObj.get(oThis.urlPrefix + "/", params);
+    return _requestObj.get(oThis.urlPrefix + "/" + validate.getId(params) , params);
   }
 
 };
 
-module.exports = airdrops;
+module.exports = users;

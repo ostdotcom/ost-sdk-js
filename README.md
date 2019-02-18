@@ -5,7 +5,7 @@ The official [OST JavaScript SDK](https://dev.ost.com/).
 
 To use this node module, developers will need to:
 1. Sign-up on [https://kit.ost.com](https://kit.ost.com).
-2. Launch a branded token economy with the OST KIT Economy Planner.
+2. Launch a branded price_points economy with the OST KIT Economy Planner.
 3. Obtain an API Key and API Secret from [https://kit.ost.com/developer-api-console](https://kit.ost.com/developer-api-console).
 
 ## Documentation
@@ -31,9 +31,36 @@ const OSTSDK = require('@ostdotcom/ost-sdk-js');
 Initialize the SDK object:
 
 ```node.js
-// the latest valid API endpoint is "https://sandboxapi.ost.com/v1.1/", this may change in the future
-const ostObj = new OSTSDK({apiKey: <api_key>, apiSecret: <api_secret>, apiEndpoint: <api_endpoint>});
+// the latest valid API endpoint is "https://sandboxapi.ost.com/v2/", this may change in the future
+const ostObj = new OSTSDK({apiKey: <api_key>, apiSecret: <api_secret>, apiEndpoint: <api_endpoint>,
+config: {timeout: <timeout>});
 ```
+
+
+### chains Module 
+
+```node.js
+const chainService = ostObj.services.chains;
+```
+Get chain:
+
+```node.js
+chainService.get({chain_id: '2000'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+```
+
+
+### Token Module 
+
+```node.js
+const tokenService = ostObj.services.tokens;
+```
+
+Get details:
+
+```node.js
+tokenService.get({}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+```
+
 
 ### Users Module 
 
@@ -44,13 +71,7 @@ const userService = ostObj.services.users;
 Create a new user:
 
 ```node.js
-userService.create({name: 'Alice'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
-```
-
-Edit an existing user:
-
-```node.js
-userService.edit({id: '1234-1928-1081dsds-djhksjd', name: 'Bob'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+userService.create({}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
 
 Get an existing user:
@@ -62,150 +83,84 @@ userService.get({id: '1234-1928-1081dsds-djhksjd'}).then(function(res) { console
 Get a list of users and other data:
 
 ```node.js
-userService.list({}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+userService.getList({}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
 
-### Airdrops Module 
+### Devices Module 
 
 ```node.js
-const airdropService = ostObj.services.airdrops;
+const deviceService = ostObj.services.devices;
 ```
 
-Execute Airdrop:
+Create a device for user:
 
 ```node.js
-airdropService.execute({amount: 1, user_ids: 'f87346e4-61f6-4d55-8cb8-234c65437b01'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+deviceService.create(
+    {
+    user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7', 
+    address: '0x1Ea365269A3e6c8fa492eca9A531BFaC8bA1649E',
+    api_signer_address: '0x5F860598383868e8E8Ee0ffC5ADD92369Db37455',
+    device_uuid: '593a967f-87bd-49a6-976c-52edf46c4df4',
+    device_name: 'Iphone S'
+    }).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
 
-Get Airdrop Status:
+Get an user device:
 
 ```node.js
-airdropService.get({id: 'ecd9b0b2-a0f4-422c-95a4-f25f8fc88334'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+deviceService.get({user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7', 
+  device_address: '0x1Ea365269A3e6c8fa492eca9A531BFaC8bA1649E'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
 
-List Airdrop
+Get a list of devices:
 
 ```node.js
-airdropService.list({page_no: 1, limit: 50, current_status: 'processing,complete'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+deviceService.getList({user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7',
+// pagination_identifier: 'eyJsYXN0RXZhbHVhdGVkS2V5Ijp7InVpZCI6eyJTIjoiZDE5NGFhNzUtYWNkNS00ZjQwLWIzZmItZTczYTdjZjdjMGQ5In0sIndhIjp7IlMiOiIweDU4YjQxMDY0NzQ4OWI4ODYzNTliNThmZTIyMjYwZWIxOTYwN2IwZjYifX19',
+// addresses: ["0x5906ae461eb6283cf15b0257d3206e74d83a6bd4","0xab248ef66ee49f80e75266595aa160c8c1abdd5a"] 
+}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
 
 
-### Token Module 
+### Session Module 
 
 ```node.js
-const tokenService = ostObj.services.token;
+const sessionService = ostObj.services.sessions;
 ```
-
-Get details:
+Get an user session:
 
 ```node.js
-tokenService.get({}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+sessionService.get({user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7', 
+  session_address: '0x1Ea365269A3e6c8fa492eca9A531BFaC8bA1649E'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
 
-### Actions Module 
-
+Get a list of sessions:
 
 ```node.js
-const actionService = ostObj.services.actions;
+sessionService.getList({user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7', 
+}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
 
-Create a new action:
+
+### Device Manager Module 
 
 ```node.js
-actionService.create({name: 'Voteup', kind: 'user_to_user', currency: 'USD', arbitrary_amount: false, amount: 1.01, commission_percent: 1}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); }); 
+const deviceManager = ostObj.services.device_managers;
 ```
-
-Edit an action:
+Get User's Device Manager Details:
 
 ```node.js
-actionService.edit({id: 22599, name: 'Like'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+deviceManager.get({user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
 
-Get an action:
+
+### Price Points Module 
 
 ```node.js
-actionService.get({id: 22599}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+const pricePoints = ostObj.services.price_points;
 ```
-
-List actions:
+Get:
 
 ```node.js
-actionService.list({}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+pricePoints.get({}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
-
-### Transaction Module 
-
-```node.js
-const transactionService = ostObj.services.transactions;
-```
-
-Execute Transaction:
-
-```node.js
-transactionService.execute({from_user_id:'0a201640-77a7-49c8-b289-b6b5d7325323', to_user_id:'24580db2-bf29-4d73-bf5a-e1d0cf8c8928', action_id:'22599'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
-```
-
-Get Transaction Status:
-
-```node.js
-transactionService.get({id: '84d97848-074f-4a9a-a214-19076cfe9dd1'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
-```
-
-List Transactions:
-
-```node.js
-transactionService.list({page_no: 1, limit: 10}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
-```
-
-### Transfer Module 
-
-```node.js
-const transferService = ostObj.services.transfers;
-```
-
-Execute ST Prime Transfer:
-
-```node.js
-transferService.execute({to_address:'0xd2b789293674faEE51bEb2d0338d15401dEbfdE3', amount:1}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
-```
-
-Get Transfer Status:
-
-```node.js
-transferService.get({id: '38895b82-737e-4b23-b111-fec96e52f3b2'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
-```
-
-List Transfers:
-
-```node.js
-transferService.list({}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
-```
-
-### Balance Module 
-
-```node.js
-const balanceService = ostObj.services.balances;
-```
-
-Get Balance of user:
-
-```node.js
-balanceService.get({id: '38895b82-737e-4b23-b111-fec96e52f3b2'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
-```
-
-### Ledger Module 
-
-```node.js
-const ledgerService = ostObj.services.ledger;
-```
-
-Get ledger for user:
-
-```node.js
-ledgerService.get({id: '38895b82-737e-4b23-b111-fec96e52f3b2'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
-```
-
-## OST API Previous Versions
-To refer to the readme documentation of API v1 [Please Follow This Link](README_V1.md)
-
-To refer to the readme documentation of API v0 [Please Follow This Link](README_V0.md)
