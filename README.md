@@ -142,18 +142,6 @@ sessionService.getList({user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7',
 ```
 
 
-### Device Manager Module 
-
-```node.js
-const deviceManager = ostObj.services.device_managers;
-```
-Get User's Device Manager Details:
-
-```node.js
-deviceManager.get({user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
-```
-
-
 ### Price Points Module 
 
 ```node.js

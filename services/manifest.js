@@ -9,7 +9,6 @@
 const rootPrefix = ".."
   , requestKlass = require(rootPrefix + '/lib/request')
   , chainsKlass = require(rootPrefix + '/services/chains')
-  , deviceManagersKlass = require(rootPrefix + '/services/device_managers')
   , devicesKlass = require(rootPrefix + '/services/devices')
   , pricePointsKlass = require(rootPrefix + '/services/price_points')
   , sessionsKlass = require(rootPrefix + '/services/sessions')
@@ -31,7 +30,6 @@ const manifest = function (params) {
   _requestObj = new requestKlass(params);
   // Define services available in V2
   oThis.chains = new chainsKlass(_requestObj);
-  oThis.device_managers = new deviceManagersKlass(_requestObj);
   oThis.devices = new devicesKlass(_requestObj);
   oThis.price_points = new pricePointsKlass(_requestObj);
   oThis.sessions = new sessionsKlass(_requestObj);
@@ -45,9 +43,6 @@ manifest.prototype = {
 
   // Services at /chains endpoint
   chains: null,
-
-  // Services at /device_managers endpoint
-  device_managers: null,
 
   // Services at /devices endpoint
   devices: null,
