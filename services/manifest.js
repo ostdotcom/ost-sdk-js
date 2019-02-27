@@ -14,6 +14,12 @@ const rootPrefix = ".."
   , sessionsKlass = require(rootPrefix + '/services/sessions')
   , tokensKlass = require(rootPrefix + '/services/tokens')
   , usersKlass = require(rootPrefix + '/services/users')
+  , balanceKlass = require(rootPrefix + '/services/balance')
+  , deviceManagersKlass = require(rootPrefix + '/services/device_managers')
+  , recoveryOwnersKlass = require(rootPrefix + '/services/recovery_owners')
+  , rulesKlass = require(rootPrefix + '/services/rules')
+  , TransactionsKlass = require(rootPrefix + '/services/transactions')
+
 ;
 
 // hide request object
@@ -35,6 +41,11 @@ const manifest = function (params) {
   oThis.sessions = new sessionsKlass(_requestObj);
   oThis.tokens = new tokensKlass(_requestObj);
   oThis.users = new usersKlass(_requestObj);
+  oThis.balance = new balanceKlass(_requestObj);
+  oThis.device_managers = new deviceManagersKlass(_requestObj);
+  oThis.recovery_owners = new recoveryOwnersKlass(_requestObj);
+  oThis.rules = new rulesKlass(_requestObj);
+  oThis.transactions = new TransactionsKlass(_requestObj);
 
   return oThis;
 };
@@ -59,6 +70,15 @@ manifest.prototype = {
   // Services at /users endpoint
   users: null,
 
+  balance: null,
+
+  device_managers: null,
+
+  recovery_owners: null,
+
+  rules: null,
+
+  transactions: null,
 
 };
 

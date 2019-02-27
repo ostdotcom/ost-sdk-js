@@ -24,7 +24,8 @@ const pricePoints = function (requestObj) {
   _requestObj = requestObj;
 
   // Define the url prefix
-  oThis.urlPrefix = '/price-points';
+  oThis.urlPrefix = '/chains';
+  oThis.urlSuffix = '/price-points';
 
   return oThis;
 };
@@ -42,7 +43,7 @@ pricePoints.prototype = {
     const oThis = this;
     params = params || {};
 
-    return _requestObj.get(oThis.urlPrefix + "/", params);
+    return _requestObj.get(oThis.urlPrefix + "/" + validate.getChainId(params) + oThis.urlSuffix, params);
   }
 
 };

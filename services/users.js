@@ -42,8 +42,7 @@ users.prototype = {
   create: function (params) {
     const oThis = this;
     params = params || {};
-
-    return _requestObj.post(oThis.urlPrefix + "/", params);
+    return _requestObj.post(oThis.urlPrefix, params);
   },
 
   /**
@@ -57,7 +56,7 @@ users.prototype = {
     const oThis = this;
     params = params || {};
 
-    return _requestObj.get( oThis.urlPrefix + "/", params);
+    return _requestObj.get( oThis.urlPrefix, params);
   },
 
   /**

@@ -24,7 +24,14 @@ const rootPrefix = ".",
     tokenService = ostObj.services.tokens,
     deviceService = ostObj.services.devices,
     sessionService = ostObj.services.sessions,
-    pricePoints = ostObj.services.price_points;
+    pricePoints = ostObj.services.price_points,
+    balanceService = ostObj.services.balance,
+    deviceManagersService = ostObj.services.device_managers,
+    recoveryOwnersService = ostObj.services.recovery_owners,
+    rulesService = ostObj.services.rules,
+    transactionsService = ostObj.services.transactions
+    ;
+
 
 
 var userId, deviceAddrs;
@@ -67,7 +74,7 @@ function getUser() {
 function getChain() {
 
     it("test get chain ", async function () {
-        let res = await chainService.get({chain_id: '200'}).catch(function (err) {
+        let res = await chainService.get({chain_id: 200}).catch(function (err) {
             console.log(JSON.stringify(err));
             assert.fail('get chain testcase is failed');
         });
@@ -172,7 +179,7 @@ function getUserSession() {
 function getpricePoints() {
 
     it("test get price points", async function () {
-        let res = await pricePoints.get({a: [1, 2, 3, "a"]}).catch(function (err) {
+        let res = await pricePoints.get({a: [1, 2, 3, "a"], chain_id: '200'}).catch(function (err) {
             console.log(JSON.stringify(err));
             assert.fail('get price points testcase is failed');
         });
@@ -181,6 +188,101 @@ function getpricePoints() {
 
 
 }
+
+function getBalance(){
+    it("test get balance", async function () {
+        let res = await balanceService.get({
+            user_id: userId
+        }).catch(function (err) {
+            assert.fail('get balance');
+        });
+        assert.equal(res.success, true);
+    });
+}
+
+
+function getDeviceManagers(){
+    it("test get device managers", async function () {
+        let res = await deviceManagersService.get({
+            user_id: userId
+        }).catch(function (err) {
+            console.log(JSON.stringify(err));
+            assert.fail('get device managers');
+        });
+        assert.equal(res.success, true);
+    });
+}
+
+
+function getRecoveryOwnerAddress(){
+    it("test get reconvery owners", async function () {
+        let res = await recoveryOwnersService.get({
+            user_id: userId,
+            "recovery-owner-address": "12121212"
+        }).catch(function (err) {
+            console.log(JSON.stringify(err));
+            assert.fail('get balance');
+        });
+        assert.equal(res.success, true);
+    });
+}
+
+
+function getRules(){
+    it("test get rules", async function () {
+        let res = await rulesService.get({
+        }).catch(function (err) {
+            console.log(JSON.stringify(err));
+            assert.fail('get rules');
+        });
+        assert.equal(res.success, true);
+    });
+}
+
+function executeTransactions(){
+    it("test execute transaction", async function () {
+        let res = await transactionsService.execute({
+            user_id: userId
+        }).catch(function (err) {
+            console.log(JSON.stringify(err));
+            assert.fail('execute transaction');
+        });
+        assert.equal(res.success, true);
+    });
+}
+
+
+function transactionsList(){
+    it("test transaction list", async function () {
+        let res = await transactionsService.getList({
+            user_id: userId
+        }).catch(function (err) {
+            console.log(JSON.stringify(err));
+            assert.fail('list transactions');
+        });
+        assert.equal(res.success, true);
+    });
+}
+
+
+function getTransaction(){
+    it("test transaction list", async function () {
+        let res = await transactionsService.get({
+            user_id: userId,
+            trasaction_id: "121212121212"
+        }).catch(function (err) {
+            console.log(JSON.stringify(err));
+            assert.fail('list transactions');
+        });
+        assert.equal(res.success, true);
+    });
+}
+
+
+
+
+
+
 
 async function generateRandomAddrs() {
     let buffer = await require('crypto').randomBytes(20);
@@ -191,14 +293,21 @@ async function generateRandomAddrs() {
 function testcases() {
     createUser();
     userList();
-    getChain();
+   // getChain();
     getUser();
     getTokenDetails();
     createDevice();
     getDeviceList();
-    getUserSessionList();
     getUserSession();
-    getpricePoints();
+    getUserSessionList();
+    //getpricePoints();
+    getBalance();
+    getDeviceManagers();
+    getRecoveryOwnerAddress();
+    getRules();
+    executeTransactions();
+    getTransaction();
+    transactionsList();
 }
 
 testcases();
