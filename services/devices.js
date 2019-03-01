@@ -70,7 +70,7 @@ devices.prototype = {
         const oThis = this;
         var params = params || {};
         return _requestObj.get(oThis.urlPrefix + "/" + validate.getUserId(params) + oThis.urlSuffix +
-        "/" + validate.getDeviceAddress(params), params);
+            "/" + validate.getDeviceAddress(params), params);
     },
 
 };

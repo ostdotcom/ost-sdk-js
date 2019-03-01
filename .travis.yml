@@ -5,6 +5,7 @@ branches:
   only:
   - master
   - develop
+  - /^release-.*/
 notifications:
   email:
     recipients:
@@ -24,5 +25,5 @@ install:
   - npm install -g mocha
 before_script:
 script:
-  - mocha test.js --timeout 12000
+  - mocha --timeout 120000 test/* --exit
 after_script:

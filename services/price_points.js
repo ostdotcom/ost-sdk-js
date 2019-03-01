@@ -1,7 +1,7 @@
 "use strict";
 
 /**
- * pricePoints Service
+ * Price Points Service
  *
  * @module services/price_points
  */
@@ -14,38 +14,38 @@ const rootPrefix = ".."
 var _requestObj = null;
 
 /**
- * pricePoints Service constructor
+ * Price Points Service constructor
  *
  * @constructor
  */
 const pricePoints = function (requestObj) {
-  const oThis = this;
+    const oThis = this;
 
-  // Assign request object
-  _requestObj = requestObj;
+    // Assign request object
+    _requestObj = requestObj;
 
-  // Define the url prefix
-  oThis.urlPrefix = '/chains';
-  oThis.urlSuffix = '/price-points';
+    // Define the url prefix
+    oThis.urlPrefix = '/chains';
+    oThis.urlSuffix = '/price-points';
 
-  return oThis;
+    return oThis;
 };
 
 pricePoints.prototype = {
 
-  /**
-   * Get pricePoints details
-   *
-   * @param {object} params
-   *
-   * @public
-   */
-  get: function (params) {
-    const oThis = this;
-    params = params || {};
+    /**
+     * Get pricePoints details
+     *
+     * @param {object} params
+     *
+     * @public
+     */
+    get: function (params) {
+        const oThis = this;
+        params = params || {};
 
-    return _requestObj.get(oThis.urlPrefix + "/" + validate.getChainId(params) + oThis.urlSuffix, params);
-  }
+        return _requestObj.get(oThis.urlPrefix + "/" + validate.getChainId(params) + oThis.urlSuffix, params);
+    }
 
 };
 

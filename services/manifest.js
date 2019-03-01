@@ -3,7 +3,7 @@
 /**
  * Service Manifest
  *
- * @module services/v1/manifest
+ * @module services/manifest
  */
 
 const rootPrefix = ".."
@@ -18,7 +18,7 @@ const rootPrefix = ".."
   , deviceManagersKlass = require(rootPrefix + '/services/device_managers')
   , recoveryOwnersKlass = require(rootPrefix + '/services/recovery_owners')
   , rulesKlass = require(rootPrefix + '/services/rules')
-  , TransactionsKlass = require(rootPrefix + '/services/transactions')
+  , transactionsKlass = require(rootPrefix + '/services/transactions')
 
 ;
 
@@ -32,9 +32,11 @@ var _requestObj = null;
  */
 const manifest = function (params) {
   const oThis = this;
+
   // Create request object
   _requestObj = new requestKlass(params);
-  // Define services available in V2
+
+  // Define services
   oThis.chains = new chainsKlass(_requestObj);
   oThis.devices = new devicesKlass(_requestObj);
   oThis.price_points = new pricePointsKlass(_requestObj);
@@ -45,29 +47,23 @@ const manifest = function (params) {
   oThis.device_managers = new deviceManagersKlass(_requestObj);
   oThis.recovery_owners = new recoveryOwnersKlass(_requestObj);
   oThis.rules = new rulesKlass(_requestObj);
-  oThis.transactions = new TransactionsKlass(_requestObj);
+  oThis.transactions = new transactionsKlass(_requestObj);
 
   return oThis;
 };
 
 manifest.prototype = {
 
-  // Services at /chains endpoint
   chains: null,
 
-  // Services at /devices endpoint
   devices: null,
 
-  // Services at /price_points endpoint
   price_points: null,
 
-  // Services at /sessions endpoint
   sessions: null,
 
-  // Services at /tokens endpoint
   tokens: null,
 
-  // Services at /users endpoint
   users: null,
 
   balance: null,

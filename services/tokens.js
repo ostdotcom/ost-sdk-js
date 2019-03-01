@@ -1,7 +1,7 @@
 "use strict";
 
 /**
- * tokens Service
+ * Token Service
  *
  * @module services/tokens
  */
@@ -32,7 +32,7 @@ const tokens = function (requestObj) {
 tokens.prototype = {
 
     /**
-     * Get tokens details
+     * Get token details
      *
      * @param {object} params
      *

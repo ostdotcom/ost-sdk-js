@@ -1,5 +1,5 @@
 /**
- * DevicesManagers Service
+ * Devices Managers Service
  *
  * @module services/device_managers
  */
@@ -12,7 +12,7 @@ const rootPrefix = ".."
 var _requestObj = null;
 
 /**
- * DeviceManagers Service constructor
+ * Device Managers Service constructor
  *
  * @constructor
  */
@@ -42,7 +42,7 @@ device_managers.prototype = {
     get: function (params) {
         const oThis = this;
         var params = params || {};
-        return _requestObj.get(oThis.urlPrefix + "/" + validate.getUserId(params) + oThis.urlSuffix, params );
+        return _requestObj.get(oThis.urlPrefix + "/" + validate.getUserId(params) + oThis.urlSuffix, params);
     },
 
 };

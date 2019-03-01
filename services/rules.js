@@ -1,7 +1,7 @@
 /**
- * Devices Service
+ * Rules Service
  *
- * @module services/device_managers
+ * @module services/rules
  */
 
 const rootPrefix = ".."
@@ -41,7 +41,7 @@ rules.prototype = {
     get: function (params) {
         const oThis = this;
         var params = params || {};
-        return _requestObj.get(oThis.urlPrefix , params);
+        return _requestObj.get(oThis.urlPrefix, params);
     },
 
 };

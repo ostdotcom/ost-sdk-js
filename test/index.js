@@ -1,5 +1,5 @@
 "use strict";
-const rootPrefix = ".",
+const rootPrefix = "..",
 
     chai = require("chai"),
     assert = chai.assert,
@@ -30,6 +30,7 @@ const rootPrefix = ".",
     recoveryOwnersService = ostObj.services.recovery_owners,
     rulesService = ostObj.services.rules,
     transactionsService = ostObj.services.transactions,
+
 
     userId = process.env.OST_KIT_USER_ID,
     companyUserId = process.env.OST_KIT_COMPANY_USER_ID,
@@ -125,7 +126,6 @@ function createDevice() {
 
 function getDevice() {
     it("test get device", async function () {
-        console.log(deviceAddrs)
         let res = await deviceService.get({
             user_id: userId,
             device_address: deviceAddrs

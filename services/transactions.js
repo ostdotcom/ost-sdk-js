@@ -33,7 +33,7 @@ transactions.prototype = {
 
 
     /**
-     * execute transaction
+     * execute company to user transaction
      *
      * @param {object} params
      *
@@ -42,7 +42,7 @@ transactions.prototype = {
     execute: function (params) {
         const oThis = this;
         var params = params || {};
-            return _requestObj.post(oThis.urlPrefix + "/" + validate.getUserId(params) + oThis.urlSuffix, params);
+        return _requestObj.post(oThis.urlPrefix + "/" + validate.getUserId(params) + oThis.urlSuffix, params);
     },
 
     /**

@@ -1,5 +1,5 @@
 /**
- * recovery_owners Service
+ * Recovery Owners Service
  *
  * @module services/recovery_owners
  */
@@ -12,7 +12,7 @@ const rootPrefix = ".."
 var _requestObj = null;
 
 /**
- * recovery_owners service
+ * Recovery Owners service
  *
  * @constructor
  */
@@ -42,7 +42,7 @@ recovery_owners.prototype = {
     get: function (params) {
         const oThis = this;
         var params = params || {};
-        return _requestObj.get(oThis.urlPrefix + "/" + validate.getUserId(params)  + oThis.urlSufix +
+        return _requestObj.get(oThis.urlPrefix + "/" + validate.getUserId(params) + oThis.urlSufix +
             "/" + validate.getRecoveryOwnerAddress(params), params);
     },
 };

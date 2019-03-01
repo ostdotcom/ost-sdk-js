@@ -1,6 +1,6 @@
 {
   "name": "@ostdotcom/ost-sdk-js",
-  "version": "2.0.0",
+  "version": "2.0.0-beta.1",
   "description": "The official OST Javascript SDK",
   "main": "index.js",
   "scripts": {
@@ -11,17 +11,18 @@
     "Javascript",
     "Node.js",
     "SDK",
-    "SimpleToken"
+    "SimpleToken",
+    "OpenST"
   ],
   "homepage": "https://ost.com",
   "author": "OST.com Ltd.",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/OpenSTFoundation/ost-sdk-js.git"
+    "url": "https://github.com/ostdotcom/ost-sdk-js.git"
   },
   "bugs": {
-    "url": "https://github.com/OpenSTFoundation/ost-sdk-js/issues"
+    "url": "https://github.com/ostdotcom/ost-sdk-js/issues"
   },
   "dependencies": {
     "qs": "6.6.0"
