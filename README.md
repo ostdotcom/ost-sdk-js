@@ -31,7 +31,7 @@ const OSTSDK = require('@ostdotcom/ost-sdk-js');
 Initialize the SDK object:
 
 ```node.js
-// the latest valid API endpoint is "https://api.ost.com/mainnet/v2/", this may change in the future
+// the latest valid API endpoint is "https://api.ost.com/mainnet/v2/"
 const ostObj = new OSTSDK({apiKey: <api_key>, apiSecret: <api_secret>, apiEndpoint: <api_endpoint>,
 config: {timeout: <timeout>});
 ```
