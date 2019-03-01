@@ -37,6 +37,22 @@ config: {timeout: <timeout>});
 ```
 
 
+### Balance Module 
+
+```node.js
+const balanceService = ostObj.services.balance;
+```
+Get an user balance:
+
+```node.js
+balanceService.get({
+            user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7'
+        }).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+```
+
+
+
+
 ### chains Module 
 
 ```node.js
@@ -49,42 +65,19 @@ chainService.get({chain_id: '2000'}).then(function(res) { console.log(JSON.strin
 ```
 
 
-### Token Module 
+### Device Managers Module 
 
 ```node.js
-const tokenService = ostObj.services.tokens;
+const deviceManagersService = ostObj.services.device_managers;
 ```
-
-Get details:
+Get user's device managers:
 
 ```node.js
-tokenService.get({}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+deviceManagersService.get({
+            user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7'
+        }).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
 
-
-### Users Module 
-
-```node.js
-const userService = ostObj.services.users;
-```
-
-Create a new user:
-
-```node.js
-userService.create({}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
-```
-
-Get an existing user:
-
-```node.js
-userService.get({id: '1234-1928-1081dsds-djhksjd'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
-```
-
-Get a list of users and other data:
-
-```node.js
-userService.getList({}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
-```
 
 
 ### Devices Module 
@@ -106,13 +99,6 @@ deviceService.create(
     }).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
 
-Get an user device:
-
-```node.js
-deviceService.get({user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7', 
-  device_address: '0x1Ea365269A3e6c8fa492eca9A531BFaC8bA1649E'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
-```
-
 Get a list of devices:
 
 ```node.js
@@ -120,6 +106,39 @@ deviceService.getList({user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7',
 // pagination_identifier: 'eyJsYXN0RXZhbHVhdGVkS2V5Ijp7InVpZCI6eyJTIjoiZDE5NGFhNzUtYWNkNS00ZjQwLWIzZmItZTczYTdjZjdjMGQ5In0sIndhIjp7IlMiOiIweDU4YjQxMDY0NzQ4OWI4ODYzNTliNThmZTIyMjYwZWIxOTYwN2IwZjYifX19',
 // addresses: ["0x5906ae461eb6283cf15b0257d3206e74d83a6bd4","0xab248ef66ee49f80e75266595aa160c8c1abdd5a"] 
 }).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+```
+
+Get an user device:
+
+```node.js
+deviceService.get({user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7', 
+  device_address: '0x1Ea365269A3e6c8fa492eca9A531BFaC8bA1649E'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+```
+
+### Price Points Module 
+
+```node.js
+const pricePoints = ostObj.services.price_points;
+```
+Get:
+
+```node.js
+pricePoints.get({chain_id: 200}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+```
+
+
+### Recovery Owners Module 
+
+```node.js
+const recoveryOwnersService = ostObj.services.recovery_owners;
+```
+Get recovery owners:
+
+```node.js
+recoveryOwnersService.get({
+            user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7',
+            recovery_owner_address: '1122323ABE22121212D1221'
+        }).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
 
 
@@ -143,6 +162,18 @@ sessionService.getList({user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7',
 ```
 
 
+
+### Token Module 
+
+```node.js
+const tokenService = ostObj.services.tokens;
+```
+
+Get details:
+
+```node.js
+tokenService.get({}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+```
 
 
 ### Transactions Module 
@@ -180,60 +211,28 @@ transactionsService.get({ user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7', trasa
 ```
 
 
-### Balance Module 
+### Users Module 
 
 ```node.js
-const balanceService = ostObj.services.balance;
-```
-Get an user balance:
-
-```node.js
-balanceService.get({
-            user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7'
-        }).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+const userService = ostObj.services.users;
 ```
 
-
-
-### Price Points Module 
+Create a new user:
 
 ```node.js
-const pricePoints = ostObj.services.price_points;
-```
-Get:
-
-```node.js
-pricePoints.get({chain_id: 200}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+userService.create({}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
 
-
-### Device Managers Module 
-
-```node.js
-const deviceManagersService = ostObj.services.device_managers;
-```
-Get user's device managers:
+Get an existing user:
 
 ```node.js
-deviceManagersService.get({
-            user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7'
-        }).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+userService.get({id: '1234-1928-1081dsds-djhksjd'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
 
-
-
-### Recovery Owners Module 
+Get a list of users and other data:
 
 ```node.js
-const recoveryOwnersService = ostObj.services.recovery_owners;
-```
-Get recovery owners:
-
-```node.js
-recoveryOwnersService.get({
-            user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7',
-            recovery_owner_address: '1122323ABE22121212D1221'
-        }).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+userService.getList({}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
 
 

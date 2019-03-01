@@ -208,7 +208,8 @@ function getBalance() {
 function getDeviceManagers() {
     it("test get device managers", async function () {
         let res = await deviceManagersService.get({
-            user_id: userId
+            user_id: userId,
+            garbage_str: "~^[]%$#@!&*~,./?~()-_'this is garbage" // This garbage string is for testing
         }).catch(function (err) {
             console.log(JSON.stringify(err));
             assert.fail('get device managers');
