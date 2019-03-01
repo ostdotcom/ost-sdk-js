@@ -97,7 +97,7 @@ userService.create({}).then(function(res) { console.log(JSON.stringify(res)); })
 Get an existing user:
 
 ```node.js
-userService.get({id: '1234-1928-1081dsds-djhksjd'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+userService.get({id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
 
 Get list of users:
@@ -187,7 +187,7 @@ Get recovery owner of an existing user:
 ```node.js
 recoveryOwnersService.get({
             user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7',
-            recovery_owner_address: '1122323ABE22121212D1221'
+            recovery_owner_address: '0xe37906219ad67cc1301b970539c9860f9ce8d991'
         }).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
 
@@ -238,5 +238,5 @@ transactionsService.getList({ user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7' })
 Get transaction of an exiting user:
 
 ```node.js
-transactionsService.get({ user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7', trasaction_id: '1212121AD21DSDA21A2' }).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+transactionsService.get({ user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7', trasaction_id: 'f1d6fbb2-2531-4c80-9e43-e67195bb01c7' }).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
