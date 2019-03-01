@@ -86,6 +86,7 @@ Get a list of users and other data:
 userService.getList({}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
 
+
 ### Devices Module 
 
 ```node.js
@@ -142,6 +143,47 @@ sessionService.getList({user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7',
 ```
 
 
+
+
+### Transactions Module 
+
+```node.js
+const transactionsService = ostObj.services.transactions;
+```
+ execute transaction
+
+```node.js
+transactionsService.execute({ user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7' }).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+```
+
+Get List of transactions for user
+
+```node.js
+transactionsService.getList({ user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7' }).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+```
+
+Get a transaction
+
+```node.js
+transactionsService.get({ user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7', trasaction_id: '1212121AD21DSDA21A2' }).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+```
+
+
+### Balance Module 
+
+```node.js
+const balanceService = ostObj.services.balance;
+```
+Get an user balance:
+
+```node.js
+balanceService.get({
+            user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7'
+        }).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+```
+
+
+
 ### Price Points Module 
 
 ```node.js
@@ -150,5 +192,54 @@ const pricePoints = ostObj.services.price_points;
 Get:
 
 ```node.js
-pricePoints.get({}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+pricePoints.get({chain_id: 200}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
+
+
+### Device Managers Module 
+
+```node.js
+const deviceManagersService = ostObj.services.device_managers;
+```
+Get user's device managers:
+
+```node.js
+deviceManagersService.get({
+            user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7'
+        }).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+```
+
+
+
+### Recovery Owners Module 
+
+```node.js
+const recoveryOwnersService = ostObj.services.recovery_owners;
+```
+Get recovery owners:
+
+```node.js
+recoveryOwnersService.get({
+            user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7',
+            recovery_owner_address: '1122323ABE22121212D1221'
+        }).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+```
+
+
+### Rules Module 
+
+```node.js
+const rulesService = ostObj.services.rules;
+```
+Get rules:
+
+```node.js
+rulesService.get({}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+```
+
+
+
+
+
+
+

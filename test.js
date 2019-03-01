@@ -218,10 +218,10 @@ function getRecoveryOwnerAddress(){
     it("test get reconvery owners", async function () {
         let res = await recoveryOwnersService.get({
             user_id: userId,
-            "recovery-owner-address": "12121212"
+            recovery_owner_address: "12121212"
         }).catch(function (err) {
             console.log(JSON.stringify(err));
-            assert.fail('get balance');
+            assert.fail('get recovery owners');
         });
         assert.equal(res.success, true);
     });
