@@ -24,6 +24,5 @@ install:
   - npm install -g mocha
 before_script:
 script:
-  - mocha --timeout 120000 test/v1/* --exit
-  - mocha --timeout 120000 test/v1_1/* --exit
+  - mocha test.js --timeout 12000
 after_script:
