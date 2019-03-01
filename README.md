@@ -79,7 +79,7 @@ const rulesService = ostObj.services.rules;
 Get rules:
 
 ```node.js
-rulesService.get({}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+rulesService.getList({}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
 
 ### Users Module 

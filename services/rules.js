@@ -38,7 +38,7 @@ rules.prototype = {
      *
      * @public
      */
-    get: function (params) {
+    getList: function (params) {
         const oThis = this;
         var params = params || {};
         return _requestObj.get(oThis.urlPrefix, params);

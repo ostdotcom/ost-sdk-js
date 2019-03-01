@@ -235,7 +235,7 @@ function getRecoveryOwnerAddress() {
 
 function getRules() {
     it("test get rules", async function () {
-        let res = await rulesService.get({}).catch(function (err) {
+        let res = await rulesService.getList({}).catch(function (err) {
             console.log(JSON.stringify(err));
             assert.fail('get rules');
         });
