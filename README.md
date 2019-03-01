@@ -153,6 +153,17 @@ const transactionsService = ostObj.services.transactions;
  execute transaction
 
 ```node.js
+let raw_calldata = JSON.stringify({
+            method: "directTransfers", 
+            parameters: [["0xa31e988eebc89d0bc3e4a9a5463545ea534593e4"],[5]]
+        })
+
+let executeParams = {
+    user_id: companyId,
+    to: "0xe37906219ad67cc1301b970539c9860f9ce8d991",
+    raw_calldata: raw_calldata
+};
+
 transactionsService.execute({ user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7' }).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
 

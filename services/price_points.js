@@ -7,6 +7,7 @@
  */
 
 const rootPrefix = ".."
+    , validate = require(rootPrefix + '/lib/validate')
 ;
 
 // hide request object

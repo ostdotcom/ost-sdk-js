@@ -29,12 +29,19 @@ const rootPrefix = ".",
     deviceManagersService = ostObj.services.device_managers,
     recoveryOwnersService = ostObj.services.recovery_owners,
     rulesService = ostObj.services.rules,
-    transactionsService = ostObj.services.transactions
-    ;
+    transactionsService = ostObj.services.transactions,
 
+    userId = process.env.OST_KIT_USER_ID,
+    companyUserId = process.env.OST_KIT_COMPANY_USER_ID,
+    auxChainId = process.env.OST_KIT_AUX_CHAIN_ID,
+    transactionId = process.env.OST_KIT_TRANSACTION_ID,
+    deviceAddrs = process.env.OST_KIT_USER_DEVICE_ADDRESS,
+    sessionAddrs = process.env.OST_KIT_SESSION_ADDRESS,
+    ruleAddress = process.env.OST_KIT_RULE_ADDRESS,
+    user2TokenHolderAddress = process.env.OST_KIT_USER2_TOKEN_HOLDER_ADDRESS,
+    recoveryOwnerAddrs = process.env.OST_KIT_RECOVERY_OWNER_ADDRESS
+;
 
-
-var userId, deviceAddrs;
 
 function userList() {
     it("test user list", async function () {
@@ -54,10 +61,10 @@ function createUser() {
             assert.fail('create User testcase is failed');
         });
         assert.equal(res.success, true);
-        userId = res["data"]["user"]["id"];
-
     });
+
 }
+
 
 function getUser() {
 
@@ -74,7 +81,7 @@ function getUser() {
 function getChain() {
 
     it("test get chain ", async function () {
-        let res = await chainService.get({chain_id: 200}).catch(function (err) {
+        let res = await chainService.get({chain_id: auxChainId}).catch(function (err) {
             console.log(JSON.stringify(err));
             assert.fail('get chain testcase is failed');
         });
@@ -96,7 +103,6 @@ function createDevice() {
 
     it("test create device ", function () {
         generateRandomAddrs().then(async function (res) {
-            deviceAddrs = res;
             let resp = await deviceService.create(
                 {
                     user_id: userId,
@@ -110,7 +116,7 @@ function createDevice() {
             });
             assert.equal(resp.success, true);
             // get device device testcase
-            getDevice();
+
         })
     });
 
@@ -119,6 +125,7 @@ function createDevice() {
 
 function getDevice() {
     it("test get device", async function () {
+        console.log(deviceAddrs)
         let res = await deviceService.get({
             user_id: userId,
             device_address: deviceAddrs
@@ -161,25 +168,22 @@ function getUserSessionList() {
 }
 
 function getUserSession() {
-    let sessionAddrs = process.env.OST_KIT_SESSION_ADDRESS;
-    if (sessionAddrs) {
-        it("test get user session", async function () {
-            let res = await sessionService.get({
-                user_id: userId,
-                session_address: sessionAddrs
-            }).catch(function (err) {
-                console.log(JSON.stringify(err));
-                assert.fail('get user session testcase is failed');
-            });
-            assert.equal(res.success, true);
+    it("test get user session", async function () {
+        let res = await sessionService.get({
+            user_id: userId,
+            session_address: sessionAddrs
+        }).catch(function (err) {
+            console.log(JSON.stringify(err));
+            assert.fail('get user session testcase is failed');
         });
-    }
+        assert.equal(res.success, true);
+    });
 }
 
 function getpricePoints() {
 
     it("test get price points", async function () {
-        let res = await pricePoints.get({a: [1, 2, 3, "a"], chain_id: '200'}).catch(function (err) {
+        let res = await pricePoints.get({a: [1, 2, 3, "a"], chain_id: auxChainId}).catch(function (err) {
             console.log(JSON.stringify(err));
             assert.fail('get price points testcase is failed');
         });
@@ -189,7 +193,7 @@ function getpricePoints() {
 
 }
 
-function getBalance(){
+function getBalance() {
     it("test get balance", async function () {
         let res = await balanceService.get({
             user_id: userId
@@ -201,7 +205,7 @@ function getBalance(){
 }
 
 
-function getDeviceManagers(){
+function getDeviceManagers() {
     it("test get device managers", async function () {
         let res = await deviceManagersService.get({
             user_id: userId
@@ -214,11 +218,11 @@ function getDeviceManagers(){
 }
 
 
-function getRecoveryOwnerAddress(){
-    it("test get reconvery owners", async function () {
+function getRecoveryOwnerAddress() {
+    it("test get recovery owners", async function () {
         let res = await recoveryOwnersService.get({
             user_id: userId,
-            recovery_owner_address: "12121212"
+            recovery_owner_address: recoveryOwnerAddrs //"0x4e9314f004026F89Fc52790c3357b2D34FBA93b0"
         }).catch(function (err) {
             console.log(JSON.stringify(err));
             assert.fail('get recovery owners');
@@ -228,10 +232,9 @@ function getRecoveryOwnerAddress(){
 }
 
 
-function getRules(){
+function getRules() {
     it("test get rules", async function () {
-        let res = await rulesService.get({
-        }).catch(function (err) {
+        let res = await rulesService.get({}).catch(function (err) {
             console.log(JSON.stringify(err));
             assert.fail('get rules');
         });
@@ -239,11 +242,21 @@ function getRules(){
     });
 }
 
-function executeTransactions(){
+function executeTransactions() {
     it("test execute transaction", async function () {
-        let res = await transactionsService.execute({
-            user_id: userId
-        }).catch(function (err) {
+
+        let raw_calldata = JSON.stringify({
+            method: "directTransfers",
+            parameters: [[user2TokenHolderAddress], [1]]
+        });
+
+        let executeParams = {
+            user_id: companyUserId,
+            to: ruleAddress,
+            raw_calldata: raw_calldata
+        };
+
+        let res = await transactionsService.execute(executeParams).catch(function (err) {
             console.log(JSON.stringify(err));
             assert.fail('execute transaction');
         });
@@ -252,7 +265,7 @@ function executeTransactions(){
 }
 
 
-function transactionsList(){
+function transactionsList() {
     it("test transaction list", async function () {
         let res = await transactionsService.getList({
             user_id: userId
@@ -265,11 +278,11 @@ function transactionsList(){
 }
 
 
-function getTransaction(){
-    it("test transaction list", async function () {
+function getTransaction() {
+    it("test get transaction", async function () {
         let res = await transactionsService.get({
             user_id: userId,
-            trasaction_id: "121212121212"
+            transaction_id: transactionId
         }).catch(function (err) {
             console.log(JSON.stringify(err));
             assert.fail('list transactions');
@@ -277,11 +290,6 @@ function getTransaction(){
         assert.equal(res.success, true);
     });
 }
-
-
-
-
-
 
 
 async function generateRandomAddrs() {
@@ -293,14 +301,14 @@ async function generateRandomAddrs() {
 function testcases() {
     createUser();
     userList();
-   // getChain();
+    getChain();
     getUser();
     getTokenDetails();
     createDevice();
     getDeviceList();
     getUserSession();
     getUserSessionList();
-    //getpricePoints();
+    getpricePoints();
     getBalance();
     getDeviceManagers();
     getRecoveryOwnerAddress();
@@ -308,6 +316,9 @@ function testcases() {
     executeTransactions();
     getTransaction();
     transactionsList();
+    getDevice();
 }
 
 testcases();
+
+
