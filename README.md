@@ -5,7 +5,7 @@ The official [OST JavaScript SDK](https://dev.ost.com/).
 
 To use this node module, developers will need to:
 1. Sign-up on [https://kit.ost.com](https://kit.ost.com).
-2. Launch a branded price_points economy with the OST KIT Economy Planner.
+2. Launch a branded token economy with the OST KIT Economy Planner.
 3. Obtain an API Key and API Secret from [https://kit.ost.com/developer-api-console](https://kit.ost.com/developer-api-console).
 
 ## Documentation
