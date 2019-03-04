@@ -103,7 +103,9 @@ userService.get({id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7'}).then(function(res)
 Get list of users:
 
 ```node.js
-userService.getList({}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+userService.getList({ 
+ // limit: 10 
+}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
 
 ### Devices Module 
@@ -130,7 +132,8 @@ Get devices of an existing user:
 ```node.js
 deviceService.getList({user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7',
 // pagination_identifier: 'eyJsYXN0RXZhbHVhdGVkS2V5Ijp7InVpZCI6eyJTIjoiZDE5NGFhNzUtYWNkNS00ZjQwLWIzZmItZTczYTdjZjdjMGQ5In0sIndhIjp7IlMiOiIweDU4YjQxMDY0NzQ4OWI4ODYzNTliNThmZTIyMjYwZWIxOTYwN2IwZjYifX19',
-// addresses: ["0x5906ae461eb6283cf15b0257d3206e74d83a6bd4","0xab248ef66ee49f80e75266595aa160c8c1abdd5a"] 
+// addresses: ["0x5906ae461eb6283cf15b0257d3206e74d83a6bd4","0xab248ef66ee49f80e75266595aa160c8c1abdd5a"]
+// limit: 10 
 }).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
 
@@ -173,6 +176,7 @@ Get sessions of an existing user:
 
 ```node.js
 sessionService.getList({user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7', 
+                        // limit: 10
 }).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
 
@@ -217,22 +221,44 @@ Execute company to user transaction:
 ```node.js
 let raw_calldata = JSON.stringify({
             method: "directTransfers", 
-            parameters: [["0xa31e988eebc89d0bc3e4a9a5463545ea534593e4"],[5]]
-        })
+            parameters: [["0xa31e988eebc89d0bc3e4a9a5463545ea534593e4"],['1']]
+        });
+   meta_property = {
+      "name": "transaction_name" , //like, download
+      "type": "user_to_user", // user_to_user, company_to_user, user_to_company
+      "details" : "" // memo field to add additional info about the transaction
+    }     
+        
 
 let executeParams = {
-    user_id: companyId,
+    user_id: "ee89965c-2fdb-41b5-8b6f-94f441463c7b",
     to: "0xe37906219ad67cc1301b970539c9860f9ce8d991",
-    raw_calldata: raw_calldata
+    raw_calldata: raw_calldata,
+   //meta_property: meta_property
 };
 
-transactionsService.execute({ user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7' }).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+transactionsService.execute(executeParams).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
 
 Get transactions of an exiting user:
 
 ```node.js
-transactionsService.getList({ user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7' }).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+
+
+ var metaPropertyArray =  JSON.stringify(
+        [{
+        "name":  "transaction_name" , //like, download IMP : Max length 25 characters (numbers alphabets spaces _ - allowed)
+        "type":  "user_to_user", // user_to_user, company_to_user, user_to_company
+        "details" : "" // memo field to add additional info about the transaction .  IMP : Max length 120 characters (numbers alphabets spaces _ - allowed)
+        }
+       ]);
+
+transactionsService.getList({ 
+    user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7'
+    // status: ["CREATED", "SUBMITTED", "SUCCESS", "FAILED"],
+    // meta_property: metaPropertyArray,
+    // limit: 10
+ }).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
 
 Get transaction of an exiting user:
