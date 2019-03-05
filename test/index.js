@@ -2,9 +2,11 @@
 const rootPrefix = "..",
 
     chai = require("chai"),
+    qs = require("qs"),
     assert = chai.assert,
     RequestKlass = require(rootPrefix + "/lib/request"),
     fs = require("fs"),
+    configObj = JSON.parse(fs.readFileSync("test/config.json", 'utf8')),
     credentialObject = {
         apiKey: process.env.OST_KIT_API_KEY,
         secret: process.env.OST_KIT_API_SECRET
@@ -293,6 +295,21 @@ function getTransaction() {
 }
 
 
+function testSignature() {
+    it("Signature should match with given one", function () {
+        const requestObj = new RequestKlass({apiKey: '12121', apiSecret: 'dsdsd', apiEndpoint: "endpoint"}),
+            credentialObjectForSignatureTest = {
+                secret: configObj['api_secret_for_testing_signature']
+            },
+            testObjForSignature = configObj["testObjForSignature"],
+            queryString = requestObj.formatQueryParams(testObjForSignature);
+        var fullQueryString = requestObj.signQueryParamsTest(configObj["testResource"], queryString, credentialObjectForSignatureTest),
+            queryStringObj = qs.parse(fullQueryString);
+        assert.equal(queryStringObj.api_signature, configObj["signatureExpected"]);
+    });
+}
+
+
 async function generateRandomAddrs() {
     let buffer = await require('crypto').randomBytes(20);
     return "0x" + buffer.toString("hex");
@@ -318,6 +335,7 @@ function testcases() {
     getTransaction();
     transactionsList();
     getDevice();
+    testSignature();
 }
 
 testcases();
