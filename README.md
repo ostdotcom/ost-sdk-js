@@ -264,5 +264,5 @@ transactionsService.getList({
 Get transaction of an exiting user:
 
 ```node.js
-transactionsService.get({ user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7', trasaction_id: 'f1d6fbb2-2531-4c80-9e43-e67195bb01c7' }).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+transactionsService.get({ user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7', transaction_id: 'f1d6fbb2-2531-4c80-9e43-e67195bb01c7' }).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
