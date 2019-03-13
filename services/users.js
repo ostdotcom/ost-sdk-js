@@ -70,7 +70,7 @@ users.prototype = {
         const oThis = this;
         params = params || {};
 
-        return _requestObj.get(oThis.urlPrefix + "/" + validate.getId(params), params);
+        return _requestObj.get(oThis.urlPrefix + "/" + validate.getUserId(params), params);
     }
 
 };
