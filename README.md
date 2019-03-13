@@ -93,13 +93,14 @@ userService.create({}).then(function(res) { console.log(JSON.stringify(res)); })
 Get an existing user:
 
 ```node.js
-userService.get({id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+userService.get({user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
 
 Get list of users:
 
 ```node.js
 userService.getList({ 
+ // ids: ["c2c6fbb2-2531-4c80-9e43-e67195bb01c7", "d2c6fbb2-2531-4c80-9e43-e67195bb01c7"]
  // limit: 10 
 }).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
@@ -243,7 +244,7 @@ let transferTo = "0xa31e988eebc89d0bc3e4a9a5463545ea534593e4",
 transferAmount = '1',
 let raw_calldata = JSON.stringify({
             method: "directTransfers",  
-            parameters: [["transferTo"],['transferAmount']]
+            parameters: [[transferTo],[transferAmount]]
         });
    meta_property = {
       "name": "transaction_name" , //like, download
