@@ -407,7 +407,7 @@ To know the OST price point in USD and the last timestamp when it was updateds u
 ```node.js
 const pricePoints = ostObj.services.price_points;
 ```
-Get price points of an auxiliary chain:
+Get price points of an auxiliary chain:   
 
 ```node.js
 pricePoints.get({chain_id: 2000}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });

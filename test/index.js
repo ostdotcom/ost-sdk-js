@@ -250,7 +250,7 @@ function executeTransactions() {
 
         let raw_calldata = JSON.stringify({
             method: "directTransfers",
-            parameters: [[user2TokenHolderAddress], [1]]
+            parameters: [[user2TokenHolderAddress], ["1"]]
         });
 
         let executeParams = {
