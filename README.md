@@ -299,7 +299,7 @@ Get transactions of an exiting user:
 
 ```node.js
 
- var metaPropertyArray =  JSON.stringify(
+ var metaPropertiesArray =  JSON.stringify(
         [{
         "name":  "transaction_name" , //like, download IMP : Max length 25 characters (numbers alphabets spaces _ - allowed)
         "type":  "user_to_user", // user_to_user, company_to_user, user_to_company
@@ -309,8 +309,8 @@ Get transactions of an exiting user:
 
 transactionsService.getList({ 
     user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7'
-    // status: ["CREATED", "SUBMITTED", "SUCCESS", "FAILED"],
-    // meta_property: metaPropertyArray,
+    // statuses: ["CREATED", "SUBMITTED", "SUCCESS", "FAILED"],
+    // meta_properties: metaPropertiesArray,
     // limit: 10
  }).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
