@@ -72,7 +72,7 @@ function createUser() {
 function getUser() {
 
     it("test get user ", async function () {
-        let res = await userService.get({id: userId}).catch(function (err) {
+        let res = await userService.get({user_id: userId}).catch(function (err) {
             console.log(JSON.stringify(err));
             assert.fail('get User testcase is failed');
         });
