@@ -1,10 +1,18 @@
-[OST Javascript SDK v1.1.0](https://github.com/OpenSTFoundation/ost-sdk-js/tree/v1.1.0) July 02 2018
+[OST Javascript SDK v2.0.0](https://github.com/ostdotcom/ost-sdk-js/tree/v2.0.0)
+---
+
+* OST API V2 interaction layer implementation.
+* Removed API V0 and V1 support.
+* [README.md](README.md) has API V2 usage instructions
+
+
+[OST Javascript SDK v1.1.0](https://github.com/ostdotcom/ost-sdk-js/tree/v1.1.0)
 ---
 
 * Added balance module to v1 API
 * Added ledger module to v1 API
 
-[OST Javascript SDK v1.0.0](https://github.com/OpenSTFoundation/ost-sdk-js/tree/v1.0.0) May 17 2018
+[OST Javascript SDK v1.0.0](https://github.com/ostdotcom/ost-sdk-js/tree/v1.0.0)
 ---
 
 * Added OST API V1 support along with API V0 
@@ -12,7 +20,7 @@
 * [README.md](README.md) has API V1 usage instructions
 * [README_V0.md](README.md) has API V0 usage instructions  
 
-[OST Javascript SDK v0.9.1](https://github.com/OpenSTFoundation/ost-sdk-js/tree/v0.9.1) May 10 2018
+[OST Javascript SDK v0.9.1](https://github.com/ostdotcom/ost-sdk-js/tree/v0.9.1)
 ---
 Initial release of the official OST Javascript SDK<br />
 This release has the OST API V0 interaction layer implementation.

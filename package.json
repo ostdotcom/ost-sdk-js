@@ -1,36 +1,35 @@
 {
   "name": "@ostdotcom/ost-sdk-js",
-  "version": "1.1.0",
-  "description": "The official OST Javascript SDK",
+  "version": "2.0.0-beta.1",
+  "description": "The official OST JavaScript SDK",
   "main": "index.js",
   "scripts": {
-    "start": "index.js",
-    "make-docs": "node_modules/.bin/jsdoc -c .jsdoc.json"
+    "start": "index.js"
   },
   "keywords": [
     "OST",
     "Javascript",
     "Node.js",
     "SDK",
-    "SimpleToken"
+    "SimpleToken",
+    "OpenST"
   ],
   "homepage": "https://ost.com",
-  "author": "OST.com Ltd.",
+  "author": "OST.COM LTD.",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/OpenSTFoundation/ost-sdk-js.git"
+    "url": "https://github.com/ostdotcom/ost-sdk-js.git"
   },
   "bugs": {
-    "url": "https://github.com/OpenSTFoundation/ost-sdk-js/issues"
+    "url": "https://github.com/ostdotcom/ost-sdk-js/issues"
   },
   "dependencies": {
-    "query-string": "6.0.0"
+    "qs": "6.6.0"
   },
   "devDependencies": {
     "chai": "4.1.2",
     "ink-docstrap": "1.3.2",
-    "jsdoc": "3.5.5",
     "mocha": "5.0.0",
     "bignumber.js": "6.0.0"
   }
