@@ -308,7 +308,7 @@ Get transactions of an exiting user:
        ]);
 
 transactionsService.getList({ 
-    user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7'
+    user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7',
     // statuses: ["CREATED", "SUBMITTED", "SUCCESS", "FAILED"],
     // meta_properties: metaPropertiesArray,
     // limit: 10
