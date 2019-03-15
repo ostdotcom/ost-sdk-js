@@ -1,7 +1,7 @@
 {
   "name": "@ostdotcom/ost-sdk-js",
   "version": "2.0.0-beta.1",
-  "description": "The official OST Javascript SDK",
+  "description": "The official OST JavaScript SDK",
   "main": "index.js",
   "scripts": {
     "start": "index.js"
@@ -15,7 +15,7 @@
     "OpenST"
   ],
   "homepage": "https://ost.com",
-  "author": "OST.com Ltd.",
+  "author": "OST.COM LTD.",
   "license": "MIT",
   "repository": {
     "type": "git",

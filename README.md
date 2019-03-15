@@ -218,7 +218,7 @@ sessionsService.getList({user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7',
 
 ### Executing Transactions
 
-For executing transactions, you need to understand the 3 modules described below.
+For executing transactions, you need to understand the 4 modules described below.
 
 #### Rules Module
 
@@ -238,6 +238,20 @@ List Rules:
 
 ```node.js
 rulesService.getList({}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+```
+
+#### Price Points Module
+
+To know the OST price point in USD and when it was last updated, 
+use services provided by the Price Points module.
+
+```node.js
+const pricePoints = ostObj.services.price_points;
+```
+Get Price Points Detail:
+
+```node.js
+pricePoints.get({chain_id: 2000}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
 
 
@@ -410,19 +424,4 @@ Get Chain Detail:
 ```node.js
 chainsService.get({chain_id: 2000}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
-
-### Price Points Module
-
-To know the OST price point in USD and when it was last updated, 
-use services provided by the Price Points module.
-
-```node.js
-const pricePoints = ostObj.services.price_points;
-```
-Get Price Points Detail:
-
-```node.js
-pricePoints.get({chain_id: 2000}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
-```
-
 

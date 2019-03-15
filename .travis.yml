@@ -6,7 +6,6 @@ branches:
   - master
   - develop
   - /^release-.*/
-  - v2
 notifications:
   email:
     recipients:
