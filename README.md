@@ -2,43 +2,35 @@
 [![Build Status](https://travis-ci.org/ostdotcom/ost-sdk-js.svg?branch=master)](https://travis-ci.org/ostdotcom/ost-sdk-js)
 
 
-The official [OST JavaScript SDK](https://dev.ost.com/).
+The official [OST](https://dev.ost.com/) JavaScript SDK.
 
 ## Introduction
 
 OST is a complete technology solution enabling mainstream businesses 
-to easily launch blockchain-based economies at low risk and without 
+to easily launch blockchain-based economies without 
 requiring blockchain development.
 
 At the core of OST is the concept of OST-powered Brand Tokens (BTs). 
-BTs are white-label cryptocurrency tokens running on highly scalable 
-Ethereum-based side blockchains, backed by staking OST Tokens into smart 
-contracts on Ethereum mainnet. BTs can only be transferred to whitelisted 
-user addresses within a business's community. This ensures that they stay 
-within a specific BT community.
+BTs are white-label cryptocurrency tokens with utility representations 
+running on highly-scalable Ethereum-based side blockchains, 
+backed by OST tokens staked on Ethereum mainnet. Within a business’s 
+token economy, BTs can only be transferred to whitelisted user addresses. 
+This ensures that they stay within the token economy.
 
 The OST technology stack is designed to give businesses everything they need 
-to integrate, test, and deploy BTs.Within the OST suite of products developers 
-can use OST KIT to create, test and launch Branded Tokens backed by OST. 
+to integrate, test, and deploy BTs. Within the OST suite of products, developers 
+can use OST KIT to create, test, and launch Brand Tokens backed by OST. 
 
-OST APIs and Server Side SDKs make it simple and easy for developers to 
+OST APIs and server-side SDKs make it simple and easy for developers to 
 integrate blockchain tokens into their apps.
-
-## Advantages
-
-Using the OST SDKs provides a number of advantages
-* Simplicity: The SDKs reduce the complexity of integration by handling multiple authentication scenarios automatically. This means that the appropriate method call will be to minimize the end-user interactions.
-* Performance: Caching, key management and nonce management ensure that end-users overall experience is improved.
-* Security: Separating the Server Side API interactions from the client ensures that user's private keys are generated and stored securely on the user's device and not shared across the network.
-
 
 ## Requirements
 
-Integrating OST SDK into your application can begin as soon as you create an account, with OST KIT. It is a three step process:
-Sign-up on [https://kit.ost.com](https://kit.ost.com).
-Create your branded token in OST KIT.
-Obtain an API Key and API Secret from [https://kit.ost.com/mainnet/developer](https://kit.ost.com/mainnet/developer).
-
+Integrating an OST SDK into your application can begin as soon as you create an account 
+with OST KIT, requiring only three steps:
+1. Sign-up on [https://kit.ost.com](https://kit.ost.com).
+2. Create your Brand Token in OST KIT.
+3. Obtain an API Key and API Secret from [https://kit.ost.com/mainnet/developer](https://kit.ost.com/mainnet/developer).
 
 ## Documentation
 
@@ -52,7 +44,7 @@ Install OST JavaScript SDK
 > npm install @ostdotcom/ost-sdk-js
 ```
 
-## Example Usage
+## Getting Started
 
 Require the SDK:
 
@@ -69,37 +61,44 @@ config: {timeout: <timeout>});
 ```
 
 
+## SDK Modules
+
+If a user's private key is lost, they could lose access 
+to their tokens. To tackle this risk, OST promotes a 
+mobile-first approach and provides mobile (client) and server SDKs. 
+
+
+* The server SDKs enable you to register users with KIT.
+* The client SDKs provide the additional support required for 
+the ownership and management of Brand Tokens by users so 
+that they can create keys and control their tokens. 
+
 ### Users Module 
 
-Given that Brand Tokens are valuable to users, if their private keys are compromised it could result in the user being unable to access their tokens. 
-To tackle this OST promotes a mobile-first approach and provides mobile(client) and server SDKs. 
-* The server SDKs enable you to register users with KIT server.
-* The client SDKs provides the additional support required for the ownership and management of Brand Tokens by end users so that they can create keys and control their tokens. 
+To register users with KIT, you can use the services provided in the Users module. 
 
-To register user with KIT you can use the services provided in user module.
-
-Initialize a Users object to perform user specific actions, like creating users: 
+Initialize a Users object to perform user-specific actions, like creating users:
     
 ```node.js
-const userService = ostObj.services.users;
+const usersService = ostObj.services.users;
 ```
 
-Creating a user with KIT:
+Create a User with KIT:
 
 ```node.js
-userService.create({}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+usersService.create({}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
 
-Get an existing user:
+Get User Detail:
 
 ```node.js
-userService.get({user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+usersService.get({user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
 
-Get list of users:
+Get Users List:
 
 ```node.js
-userService.getList({ 
+usersService.getList({ 
  // ids: ["c2c6fbb2-2531-4c80-9e43-e67195bb01c7", "d2c6fbb2-2531-4c80-9e43-e67195bb01c7"]
  // limit: 10 
 }).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
@@ -108,19 +107,23 @@ userService.getList({
 
 ### Devices Module 
 
-Once a user is created via API, partner company should register user’s device with KIT.  
-Post which they can activate user’s wallet on their device. Partner company can register multiple devices per user. 
- 
-Initialize a Device object to perform device specific actions, like registering devices:
+Once a user is created via the API, you can register the 
+user’s device with KIT. Next, activate the user’s 
+wallet on the user's device. Multiple devices can be 
+registered per user. 
+
+
+Initialize a Devices object to perform device-specific actions, 
+like registering devices:
 
 ```node.js
-const deviceService = ostObj.services.devices;
+const devicesService = ostObj.services.devices;
 ```
 
-Create a new device for an existing user:
+Create a Device for User:
 
 ```node.js
-deviceService.create(
+devicesService.create(
     {
     user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7', 
     address: '0x1Ea365269A3e6c8fa492eca9A531BFaC8bA1649E',
@@ -130,10 +133,20 @@ deviceService.create(
     }).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
 
-Get devices of an existing user:
+
+Get User Device Detail:
 
 ```node.js
-deviceService.getList({user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7',
+devicesService.get({
+   user_id: "d194aa75-acd5-4f40-b3fb-e73a7cf7c0d9",
+   device_address: "0x1Ea365269A3e6c8fa492eca9A531BFaC8bA1649E"
+}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+```
+
+Get User Devices List:
+
+```node.js
+devicesService.getList({user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7',
 // pagination_identifier: 'eyJsYXN0RXZhbHVhdGVkS2V5Ijp7InVpZCI6eyJTIjoiZDE5NGFhNzUtYWNkNS00ZjQwLWIzZmItZTczYTdjZjdjMGQ5In0sIndhIjp7IlMiOiIweDU4YjQxMDY0NzQ4OWI4ODYzNTliNThmZTIyMjYwZWIxOTYwN2IwZjYifX19',
 // addresses: ["0x5906ae461eb6283cf15b0257d3206e74d83a6bd4","0xab248ef66ee49f80e75266595aa160c8c1abdd5a"]
 // limit: 10 
@@ -141,32 +154,27 @@ deviceService.getList({user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7',
 ```
 
 
-Get device of an existing user:
-
-```node.js
-deviceService.get({
-   user_id: "d194aa75-acd5-4f40-b3fb-e73a7cf7c0d9",
-   device_address: "0x1Ea365269A3e6c8fa492eca9A531BFaC8bA1649E"
-}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
-```
-
-
 ### Device Managers Module 
 
-After  user is created and their device is registered via API,  a wallet can be activated. 
-Activating a wallet involves the deployment of :
-* TokenHolder contract - each user in the economy is be represented by this smart contract on blockchain.  It holde the user's balances,
-* Device Manager (Multisig contract) - This contract is configured to control the user's TokenHolder contract, and 
-* DelayedRecoveryModule contract - that supports recovery via a 6 digit PIN.
- 
-In order to enable user to access their tokens i.e their TokenHolder contract from multiple devices without having to share private keys across devices we came up with a multi-signature contract. 
-We refer to this entity as device manager in OST APIs.  
-To get information about user’s device manager use services provided in device manager module. 
+After a user is created and their device is registered via the API, 
+their wallet can be activated. Activating a wallet involves the deployment of the following contracts:
+
+* TokenHolder - each user in the economy is represented by a TokenHolder that holds the user's token balance.
+* Device Manager (multi-signature) - this contract is configured to control the user's TokenHolder contract.
+* DelayedRecoveryModule - this contract enables recovery in the event a key is lost.
+
+In order to enable a user to access their tokens, i.e., interact 
+with their TokenHolder contract, from multiple devices without 
+having to share private keys across devices, a multi-signature 
+contract is employed. We refer to this entity as the Device 
+Manager in OST APIs.
+
+To get information about a user’s Device Manager, use services provided in the Device Managers module.
 
 ```node.js
 const deviceManagersService = ostObj.services.device_managers;
 ```
-Get device manager details of an existing user:
+Get Device Manager Detail:
 
 ```node.js
 deviceManagersService.get({
@@ -175,28 +183,32 @@ deviceManagersService.get({
 ```
 
 ### Session Module 
-In order to create a seamless user experience so that users don't have to sign a new transaction at every move in the application we came up with the concept of sessionKeys. 
-These keys are used to sign messages on user's behalf for a predetermined amount of time and with a defined maximum spending limit per-transaction. 
-These keys are created on the mobile device from where the end user participates in the economy. Each key has a corresponding public key, which in-turn has a corresponding public address. 
-User’s TokenHolder contract can have multiple sessionKeys for signing messages on user’s behalf. 
+In order to create a more seamless user experience, so that users don't have to 
+sign a new transaction at every move in the application, we use session keys. 
+These keys are authorized to sign transactions on the user's behalf 
+for a predetermined amount of time and with a defined maximum spending 
+limit per transaction.
 
-To get information about user’s session keys use services provided in session module. 
+These session keys are created in a user's wallet. A user’s TokenHolder 
+contract can have multiple authorized session keys.
+
+To get information about a user’s session keys, use services provided in the Sessions module.
 
 ```node.js
-const sessionService = ostObj.services.sessions;
+const sessionsService = ostObj.services.sessions;
 ```
 
-Get session of an existing user:
+Get User Session Detail:
 
 ```node.js
-sessionService.get({user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7', 
+sessionsService.get({user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7', 
   session_address: '0x1Ea365269A3e6c8fa492eca9A531BFaC8bA1649E'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
 
-Get sessions of an existing user:
+Get User Sessions List:
 
 ```node.js
-sessionService.getList({user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7', 
+sessionsService.getList({user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7', 
     // addresses: ["0x5906ae461eb6283cf15b0257d3206e74d83a6bd4","0xab248ef66ee49f80e75266595aa160c8c1abdd5a"],
     // pagination_identifier: 'eyJsYXN0RXZhbHVhdGVkS2V5Ijp7InVpZCI6eyJTIjoiZDE5NGFhNzUtYWNkNS00ZjQwLWIzZmItZTczYTdjZjdjMGQ5In0sIndhIjp7IlMiOiIweDU4YjQxMDY0NzQ4OWI4ODYzNTliNThmZTIyMjYwZWIxOTYwN2IwZjYifX19',
     // limit: 10 
@@ -204,40 +216,42 @@ sessionService.getList({user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7',
 ```
 
 
-## For executing transactions we need to understand 3 modules listed below
+### Executing Transactions
 
-To enable partner companies to design Rules that align with their economy goals and define the behavior of the token transfer, 
-they have the flexibility to write their custom rules contract. 
-OST has written one rule contract the [PricerRule Contract](https://github.com/OpenSTFoundation/openst-contracts/blob/develop/contracts/rules/PricerRule.sol)  for partner companies to use. 
-For executing a token transfer, end-user's TokenHolder contract interacts with Rules Contract.
+For executing transactions, you need to understand the 3 modules described below.
 
+#### Rules Module
 
-### Rules Module
+When executing a token transfer, a user's TokenHolder contract 
+interacts with a token rule contract. A token economy can have 
+multiple token rule contracts. To enable a user to execute a 
+token transfer, you need to start with fetching details of 
+registered rule contracts and understanding their methods and the 
+corresponding parameters passed in those methods.
 
-So for executing a token transfer, partner company need to start with fetching details of deployed rules contract and understand 
-the methods written within them and the corresponding parameters passed in those methods.
- To get information about rules contracts deployed use services provided in rule module.  
+To get information about deployed rule contracts, use services provided in the Rules module.
 
 ```node.js
 const rulesService = ostObj.services.rules;
 ```
-List all rules:
+List Rules:
 
 ```node.js
 rulesService.getList({}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
 
 
-### Transactions Module 
+#### Transactions Module
 
-Once you’ve fetched the rule method and rule parameters to be passed using services in rule module you can start with executing 
-the transfer using the services provided in transaction module.
+After reviewing the rules information received using services in the Rules 
+module, you will know what data is required to execute transfers 
+with a token rule using the services provided in the Transaction module.
 
 ```node.js
 const transactionsService = ostObj.services.transactions;
 ```
 
-Execute transaction directTransfers
+Execute Transaction DIRECT-TRANSFERS:
 
 ```node.js
 let transferTo = "0xa31e988eebc89d0bc3e4a9a5463545ea534593e4",
@@ -263,7 +277,7 @@ let executeParams = {
 transactionsService.execute(executeParams).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
 
-Execute transaction PAY
+Execute Transaction PAY:
 
 
 ```node.js
@@ -295,7 +309,13 @@ transactionsService.execute(executeParams).then(function(res) { console.log(JSON
 ```
 
 
-Get transactions of an exiting user:
+Get Transaction Detail:
+
+```node.js
+transactionsService.get({ user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7', transaction_id: 'f1d6fbb2-2531-4c80-9e43-e67195bb01c7' }).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+```
+
+Get User Transactions:
 
 ```node.js
 
@@ -315,24 +335,18 @@ transactionsService.getList({
  }).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
 
-Get transaction of an exiting user:
+
+#### Balances Module
+
+Balance services offer the functionality to view a user’s balances.
 
 ```node.js
-transactionsService.get({ user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7', transaction_id: 'f1d6fbb2-2531-4c80-9e43-e67195bb01c7' }).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+const balancesService = ostObj.services.balance;
 ```
-
-
-### Balance Module 
-
-Balance services offer the functionality to view user’s balances. 
+Get User Balance:
 
 ```node.js
-const balanceService = ostObj.services.balance;
-```
-Get token balance of an existing user:
-
-```node.js
-balanceService.get({
+balancesService.get({
             user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7'
         }).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
@@ -340,28 +354,22 @@ balanceService.get({
 
 ### Recovery Owners Module 
 
-End user’s brand tokens are held by a token holder contract that is controlled ("owned") by device manager; 
-the device manager is controlled ("owned") by device keys created and held by the user in their wallets; and if those keys are compromised, 
-the device manager (which is a multi-signature contract) is programmed to allow replacement of a key by a recovery key.
+A user’s Brand Tokens are held by a TokenHolder contract that is controlled ("owned") 
+by a Device Manager; the device manager is controlled ("owned") by device keys created 
+and held by the user in their wallets; and if any of those keys is lost, the Device 
+Manager (which is a multi-signature contract) is programmed to allow replacement of a 
+key by the recovery owner key for the user, via the DelayedRecoveryModule, which is deployed
+at the time of the creation of the user's initial wallet.
 
-The DelayedRecoveryModule is deployed at the time of the creation of the wallet. The recoveryOwner public-private key pair 
-is created using inputs from the Partner, OST and the user. The public addresse of the recoveryOwner is stored 
-on this DelayedRecoveryModule contract.
-
-Recovering access to tokens after the owner key becomes compromised
-
-User requests recovery from partner company application by entering their 6-digit recovery PIN. Once the request has 
-been raised user waits for defined delay which is 12 hours currently.
-
-OST wallet SDK Create the recoveryOwner private key using the inputs from the Partner, OST and the user.  This should exactly match the recoveryOwner that was made when the wallet was initially created. 
-
-To fetch the recoveryOwner address for a particular user services provided in Recovery Owner Module are used.
+To fetch the recovery owner address for a particular user, use services provided 
+in the Users module. To fetch that recovery owner's information, then services 
+provided in the Recovery Owners Module are used.
 
 
 ```node.js
 const recoveryOwnersService = ostObj.services.recovery_owners;
 ```
-Get recovery owner of an existing user:
+Get Recovery Owner Detail:
 
 ```node.js
 recoveryOwnersService.get({
@@ -371,44 +379,47 @@ recoveryOwnersService.get({
 ```
 
 
-### Token Module 
-To get information about the token created on the OST KIT interface use services provided by token module. 
-Partner company can use this service to know the chain id , the auxiliary chain on which their economy is running apart from
- other information.
+### Tokens Module
+
+To get information about the Brand Token created on the OST KIT interface, use services provided 
+by the Tokens module. You can use this service to obtain the chain ID of the auxiliary 
+chain on which the token economy is running, in addition to other information.
 
 
 ```node.js
-const tokenService = ostObj.services.tokens;
+const tokensService = ostObj.services.tokens;
 ```
 
-Get token details:
+Get Token Detail:
 
 ```node.js
-tokenService.get({}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+tokensService.get({}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
 
 
-### chains Module 
+### Chains Module 
 
-To get information about the auxiliary chain on which the token economy is running use services provided by chain module.
+To get information about the auxiliary chain on which the token economy is running, use services 
+provided by the Chains module.
 
 ```node.js
-const chainService = ostObj.services.chains;
+const chainsService = ostObj.services.chains;
 ```
-Get chain details:
+Get Chain Detail:
 
 ```node.js
-chainService.get({chain_id: 2000}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+chainsService.get({chain_id: 2000}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
 
-### Price Points Module 
+### Price Points Module
 
-To know the OST price point in USD and the last timestamp when it was updateds use  services provided by Price Point module.
+To know the OST price point in USD and when it was last updated, 
+use services provided by the Price Points module.
 
 ```node.js
 const pricePoints = ostObj.services.price_points;
 ```
-Get price points of an auxiliary chain:   
+Get Price Points Detail:
 
 ```node.js
 pricePoints.get({chain_id: 2000}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
