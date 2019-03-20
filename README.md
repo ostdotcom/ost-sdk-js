@@ -1,5 +1,5 @@
 # OST JavaScript SDK
-[![Build Status](https://travis-ci.org/ostdotcom/ost-sdk-js.svg?branch=master)](https://travis-ci.org/ostdotcom/ost-sdk-js)
+[![Build Status](https://travis-ci.org/ostdotcom/ost-sdk-js.svg?branch=develop)](https://travis-ci.org/ostdotcom/ost-sdk-js)
 
 
 The official [OST](https://dev.ost.com/) JavaScript SDK.
