@@ -110,9 +110,7 @@ function createDevice() {
                 {
                     user_id: userId,
                     address: res,
-                    api_signer_address: '0x5F860598383868e8E8Ee0ffC5ADD92369Db37455',
-                    device_uuid: '593a967f-87bd-49a6-976c-52edf46c4df4',
-                    device_name: 'Iphone S'
+                    api_signer_address: '0x5F860598383868e8E8Ee0ffC5ADD92369Db37455'
                 }).catch(function (err) {
                 console.log(JSON.stringify(err));
                 assert.fail('create device testcase is failed');

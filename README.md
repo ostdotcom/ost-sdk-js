@@ -127,9 +127,7 @@ devicesService.create(
     {
     user_id: 'c2c6fbb2-2531-4c80-9e43-e67195bb01c7', 
     address: '0x1Ea365269A3e6c8fa492eca9A531BFaC8bA1649E',
-    api_signer_address: '0x5F860598383868e8E8Ee0ffC5ADD92369Db37455',
-    device_uuid: '593a967f-87bd-49a6-976c-52edf46c4df4',
-    device_name: 'Iphone S'
+    api_signer_address: '0x5F860598383868e8E8Ee0ffC5ADD92369Db37455'
     }).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
 
