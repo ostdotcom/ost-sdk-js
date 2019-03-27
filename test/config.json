@@ -1,0 +1,17 @@
+{
+  "testObjForSignature":  {
+    "a": null,
+    "b": [],
+    "c": "",
+    "d": ["", null],
+    "e": {},
+    "k1": 125.45,
+    "k2": "Tejas",
+    "aaaaa": {"a": {"a": "L21A", "b": "L21B"}, "b": {"a": "L22A", "b": "L22B"}, "c": {"a": "L23A", "b": "L23B"}},
+    "arrayValues": ["Hello", "There", "12345"],
+    "garbage_str": "~!@#$%^&*()_+-= {}[]:\";'?/<>,. this is garbage"
+  },
+  "testResource": "/api/v2/users",
+  "signatureExpected": "28664cdbc613b66835d7bcf825dce719fb8e0621992c291ba9bd1767c1c5560d",
+  "api_secret_for_testing_signature":"a0431203671f42c079b2154066fd04ba"
+}
