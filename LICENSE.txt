@@ -1,4 +1,4 @@
-Copyright (c) 2018 OST.com Ltd.
+Copyright (c) 2019 OST.com Inc.
 
 MIT License
 
