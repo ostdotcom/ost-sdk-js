@@ -56,8 +56,7 @@ Initialize the SDK object:
 
 ```node.js
 // the latest valid API endpoint is "https://api.ost.com/mainnet/v2/"
-const ostObj = new OSTSDK({apiKey: <api_key>, apiSecret: <api_secret>, apiEndpoint: <api_endpoint>,
-config: {timeout: <timeout>});
+const ostObj = new OSTSDK({apiKey: <api_key>, apiSecret: <api_secret>, apiEndpoint: <api_endpoint>,config: {timeout: <timeout>}});
 ```
 
 
@@ -423,3 +422,18 @@ Get Chain Detail:
 chainsService.get({chain_id: 2000}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
 
+### Base Tokens Module
+
+To get information about the base tokens available on the OST Platform interface, use services
+provided by the Base Tokens module. You can use this service to obtain the base token details
+on OST Platform interface.
+
+```node.js
+const baseTokensService = ostObj.services.base_tokens;
+```
+
+Get Token Detail:
+
+```node.js
+baseTokensService.get({}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+```

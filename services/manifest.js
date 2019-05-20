@@ -19,7 +19,7 @@ const rootPrefix = ".."
   , recoveryOwnersKlass = require(rootPrefix + '/services/recovery_owners')
   , rulesKlass = require(rootPrefix + '/services/rules')
   , transactionsKlass = require(rootPrefix + '/services/transactions')
-
+  , baseTokensKlass = require(rootPrefix + '/services/base_tokens')
 ;
 
 // hide request object
@@ -48,6 +48,7 @@ const manifest = function (params) {
   oThis.recovery_owners = new recoveryOwnersKlass(_requestObj);
   oThis.rules = new rulesKlass(_requestObj);
   oThis.transactions = new transactionsKlass(_requestObj);
+  oThis.base_tokens = new baseTokensKlass(_requestObj);
 
   return oThis;
 };
@@ -76,6 +77,7 @@ manifest.prototype = {
 
   transactions: null,
 
+  base_tokens: null
 };
 
 module.exports = manifest;
