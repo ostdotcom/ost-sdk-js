@@ -32,6 +32,7 @@ const rootPrefix = "..",
     recoveryOwnersService = ostObj.services.recovery_owners,
     rulesService = ostObj.services.rules,
     transactionsService = ostObj.services.transactions,
+    baseTokensService = ostObj.services.base_tokens,
 
 
     userId = process.env.OST_KIT_USER_ID,
@@ -307,6 +308,15 @@ function testSignature() {
     });
 }
 
+function getBaseTokensDetails() {
+
+  it("test get base token details ", async function () {
+    let res = await baseTokensService.get({}).catch(function (err) {
+      assert.fail('get base token details testcase is failed');
+    });
+    assert.equal(res.success, true);
+  });
+}
 
 async function generateRandomAddrs() {
     let buffer = await require('crypto').randomBytes(20);
@@ -315,6 +325,7 @@ async function generateRandomAddrs() {
 
 
 function testcases() {
+    getBaseTokensDetails();
     createUser();
     userList();
     getChain();
