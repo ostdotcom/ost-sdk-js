@@ -239,7 +239,7 @@ rulesService.getList({}).then(function(res) { console.log(JSON.stringify(res)); 
 
 #### Price Points Module
 
-To know the OST price point in USD and when it was last updated, 
+To know the base token price point in pay currency and when it was last updated, 
 use services provided by the Price Points module.
 
 ```node.js
@@ -296,10 +296,10 @@ let transferTo = "0xa31e988eebc89d0bc3e4a9a5463545ea534593e4",
 transferAmount = '1',
 tokenHolderSender = "0xa9632350057c2226c5a10418b1c3bc9acdf7e2ee",
 payCurrencyCode = "USD",
-ostToUsd = "23757000000000000" // get price-point response
+intendedPricePoint = "23757000000000000" // get price-point response
 raw_calldata = JSON.stringify({
             method: "pay",  
-            parameters: [tokenHolderSender, [transferTo],[transferAmount], payCurrencyCode, ostToUsd]
+            parameters: [tokenHolderSender, [transferTo],[transferAmount], payCurrencyCode, intendedPricePoint]
         });
    meta_property = {
       "name": "transaction_name" , //like, download
