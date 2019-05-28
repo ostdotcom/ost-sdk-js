@@ -13,7 +13,7 @@ requiring blockchain development.
 At the core of OST is the concept of OST-powered Brand Tokens (BTs). 
 BTs are white-label cryptocurrency tokens with utility representations 
 running on highly-scalable Ethereum-based side blockchains, 
-backed by OST tokens staked on Ethereum mainnet. Within a business’s 
+backed by value token (such as OST, USDC) staked on Ethereum mainnet. Within a business’s 
 token economy, BTs can only be transferred to whitelisted user addresses. 
 This ensures that they stay within the token economy.
 
@@ -239,7 +239,7 @@ rulesService.getList({}).then(function(res) { console.log(JSON.stringify(res)); 
 
 #### Price Points Module
 
-To know the base token price point in pay currency and when it was last updated, 
+To know the value token (such as OST, USDC) price point in pay currency and when it was last updated, 
 use services provided by the Price Points module.
 
 ```node.js
@@ -424,7 +424,7 @@ chainsService.get({chain_id: 2000}).then(function(res) { console.log(JSON.string
 
 ### Base Tokens Module
 
-To get information about the base tokens available on the OST Platform interface, use services
+To get information about the value tokens (such as OST, USDC) available on the OST Platform interface, use services
 provided by the Base Tokens module. You can use this service to obtain the base token details
 on OST Platform interface.
 
