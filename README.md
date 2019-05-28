@@ -10,8 +10,7 @@ OST is a complete technology solution enabling mainstream businesses
 to easily launch blockchain-based economies without 
 requiring blockchain development.
 
-At the core of OST is the concept of OST-powered Brand Tokens (BTs). 
-BTs are white-label cryptocurrency tokens with utility representations 
+Brand Tokens (BTs) are white-label cryptocurrency tokens with utility representations 
 running on highly-scalable Ethereum-based side blockchains, 
 backed by value token (such as OST, USDC) staked on Ethereum mainnet. Within a business’s 
 token economy, BTs can only be transferred to whitelisted user addresses. 
