@@ -1,10 +1,14 @@
+[OST JAVA SDK v2.1.0](https://github.com/ostdotcom/ost-sdk-java/tree/v2.1.0)
+---
+
+* Added base tokens module to V2 API's
+
 [OST Javascript SDK v2.0.0](https://github.com/ostdotcom/ost-sdk-js/tree/v2.0.0)
 ---
 
 * OST API V2 interaction layer implementation.
 * Removed API V0 and V1 support.
 * [README.md](README.md) has API V2 usage instructions
-
 
 [OST Javascript SDK v1.1.0](https://github.com/ostdotcom/ost-sdk-js/tree/v1.1.0)
 ---
