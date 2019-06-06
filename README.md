@@ -436,3 +436,43 @@ Get Token Detail:
 ```node.js
 baseTokensService.get({}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
+
+### Webhooks Module
+
+```node.js
+webhooksService = ostObj.services.webhooks;
+```
+
+Create Webhook:
+
+```node.js
+topicParams = ['devices/authorized', 'devices/unauthorized'];
+webhooksService.create({topics: topicParams , url:"https://www.github1111.com", status:"active"}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+```
+
+Update Webhook:
+
+```node.js
+topicParams = ['transactions/create', 'devices/authorized'];
+webhooksService.update({webhook_id: 'a743ab9a-2555-409f-aae4-f30c84071c56', topics:topicParams, status:"active"}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+
+```
+
+Get Webhook:
+
+```node.js
+webhooksService.get({webhook_id:'842276e3-f520-4a70-94dc-ad409b70c481'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+```
+
+Get Webhook List:
+
+```node.js
+limit=1;
+webhooksService.getList({limit:1}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+```
+
+Delete Webhook:
+
+```node.js
+webhooksService.deleteWebhook({webhook_id:'a743ab9a-2555-409f-aae4-f30c84071c56'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+``` 

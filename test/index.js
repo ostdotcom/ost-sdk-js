@@ -19,7 +19,7 @@ const rootPrefix = "..",
         apiKey: credentialObject.apiKey,
         apiSecret: credentialObject.secret,
         apiEndpoint: apiEndpont,
-        config: {timeout: 15}
+        config: {timeout: 100000}
     }),
     userService = ostObj.services.users,
     chainService = ostObj.services.chains,
@@ -33,6 +33,7 @@ const rootPrefix = "..",
     rulesService = ostObj.services.rules,
     transactionsService = ostObj.services.transactions,
     baseTokensService = ostObj.services.base_tokens,
+    webhooksService = ostObj.services.webhooks,
 
 
     userId = process.env.OST_KIT_USER_ID,
@@ -281,16 +282,91 @@ function transactionsList() {
 
 
 function getTransaction() {
-    it("test get transaction", async function () {
+    it("Test get transaction", async function () {
         let res = await transactionsService.get({
             user_id: userId,
             transaction_id: transactionId
         }).catch(function (err) {
             console.log(JSON.stringify(err));
-            assert.fail('list transactions');
+            assert.fail('List transactions');
         });
         assert.equal(res.success, true);
     });
+}
+
+function createWebhook() {
+  it("Test create webhook.", async function () {
+
+    let webhookParams = {
+      topics:['devices/authorized','devices/unauthorized'],
+      url:"https://www.yourdomain123.com",
+      status:"active"
+    };
+
+    let res = await webhooksService.create(webhookParams).catch(function (err) {
+      console.log(JSON.stringify(err));
+      assert.fail('Create webhook.');
+    });
+    assert.equal(res.success, true);
+  });
+}
+
+function updateWebhook() {
+  it("Test update webhook.", async function () {
+
+    let webhookParams = {
+      webhook_id: 'a743ab9a-2555-409f-aae4-f30c84071c56',
+      topics: ['transactions/create','transactions/success','transactions/failure'],
+      status: "active"
+    };
+
+    let res = await webhooksService.update(webhookParams).catch(function (err) {
+      console.log(JSON.stringify(err));
+      assert.fail('Update webhook.');
+    });
+    assert.equal(res.success, true);
+  });
+}
+
+function getWebhook() {
+  it("Test get webhook.", async function () {
+
+    let webhookParams = {
+      webhook_id: 'a743ab9a-2555-409f-aae4-f30c84071c56'
+    };
+
+    let res = await webhooksService.get(webhookParams).catch(function (err) {
+      console.log(JSON.stringify(err));
+      assert.fail('Get webhook.');
+    });
+    assert.equal(res.success, true);
+  });
+}
+
+function getWebhookList() {
+  it("Test get webhook list.", async function () {
+
+    let res = await webhooksService.getList().catch(function (err) {
+      console.log(JSON.stringify(err));
+      assert.fail('Get webhook.');
+    });
+    assert.equal(res.success, true);
+  });
+}
+
+function deleteWebhook() {
+  it("Test delete webhook.", async function () {
+
+    let webhookParams = {
+      webhook_id: 'a743ab9a-2555-409f-aae4-f30c84071c56'
+    };
+
+    let res = await webhooksService.deleteWebhook(webhookParams).catch(function (err) {
+      console.log(JSON.stringify(err));
+      assert.fail('Delete webhook.');
+    });
+    assert.equal(res.success, true);
+  });
 }
 
 
@@ -345,6 +421,11 @@ function testcases() {
     transactionsList();
     getDevice();
     testSignature();
+    createWebhook();
+    updateWebhook();
+    getWebhook();
+    getWebhookList();
+    deleteWebhook();
 }
 
 testcases();
