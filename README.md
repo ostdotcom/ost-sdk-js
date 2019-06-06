@@ -439,6 +439,9 @@ baseTokensService.get({}).then(function(res) { console.log(JSON.stringify(res));
 
 ### Webhooks Module
 
+To manage webhooks on the OST Platform Interface, use services provided by the Chains module. You can
+use this service to create new webhooks and manage existing webhooks.
+
 ```node.js
 webhooksService = ostObj.services.webhooks;
 ```
