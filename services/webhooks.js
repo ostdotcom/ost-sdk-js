@@ -5,6 +5,7 @@
  *
  * @module services/webhooks
  */
+const crypto = require('crypto');
 
 const rootPrefix = ".."
   , validate = require(rootPrefix + '/lib/validate')
@@ -13,16 +14,22 @@ const rootPrefix = ".."
 // Hide request object.
 let _requestObj = null;
 
+// Hide webhook secret
+let _webhookSecret = null;
+
 /**
  * Webhooks service constructor.
  *
  * @constructor
  */
-const webhooks = function (requestObj) {
+const webhooks = function (requestObj, webhookSecret) {
   const oThis = this;
 
   // Assign request object.
   _requestObj = requestObj;
+
+  // Assign webhook secret.
+  _webhookSecret = webhookSecret;
 
   // Define the url prefix
   oThis.urlPrefix = '/webhooks';
@@ -95,6 +102,28 @@ webhooks.prototype = {
     const oThis = this;
     var params = params || {};
     return _requestObj.deleteRequest(oThis.urlPrefix + "/" + validate.getWebhookId(params), params);
+  },
+
+  /**
+   * Verify signature
+   *
+   * @param version
+   * @param stringifiedData
+   * @param requestTimestamp
+   * @param signature
+   * @return {boolean}
+   */
+  verifySignature: function (version, stringifiedData, requestTimestamp, signature) {
+    if(typeof stringifiedData !== 'string') stringifiedData = JSON.stringify(stringifiedData);
+
+    const buff = new Buffer.from(_webhookSecret, 'utf8')
+      , hmac = crypto.createHmac('sha256', buff);
+
+    hmac.update(`${requestTimestamp}.${version}.${stringifiedData}`);
+
+    let computedSignature = hmac.digest('hex');
+
+    return signature.indexOf(computedSignature) >= 0;
   }
 
 };
