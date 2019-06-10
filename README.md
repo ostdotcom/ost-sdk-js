@@ -449,14 +449,14 @@ webhooksService = ostObj.services.webhooks;
 Create Webhook:
 
 ```node.js
-topicParams = ['devices/authorized', 'devices/unauthorized'];
-webhooksService.create({topics: topicParams , url:"https://www.github1111.com", status:"active"}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+topicParams = ['transactions/initiate','transactions/success'];
+webhooksService.create({topics: topicParams , url:"https://www.testingWebhooks.com", status:"active"}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
 
 Update Webhook:
 
 ```node.js
-topicParams = ['transactions/create', 'devices/authorized'];
+topicParams = ['transactions/initiate','transactions/success','transactions/failure'];
 webhooksService.update({webhook_id: 'a743ab9a-2555-409f-aae4-f30c84071c56', topics:topicParams, status:"active"}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 
 ```
@@ -479,3 +479,16 @@ Delete Webhook:
 ```node.js
 webhooksService.deleteWebhook({webhook_id:'a743ab9a-2555-409f-aae4-f30c84071c56'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ``` 
+
+Verify webhook request signature:
+
+```node.js
+version = "2";
+requestTimestamp = '1559902637';
+signature = '2c56c143550c603a6ff47054803f03ee4755c9c707986ae27f7ca1dd1c92a824';
+stringifiedData = JSON.stringify({hello: "hello"});
+webhookSecret = 'mySecret';
+
+let resp = webhooksService.verifySignature(version, stringifiedData,requestTimestamp, signature, webhookSecret);
+console.log(resp);
+```
