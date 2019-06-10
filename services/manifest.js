@@ -50,7 +50,7 @@ const manifest = function (params) {
   oThis.rules = new rulesKlass(_requestObj);
   oThis.transactions = new transactionsKlass(_requestObj);
   oThis.base_tokens = new baseTokensKlass(_requestObj);
-  oThis.webhooks = new webhooksKlass(_requestObj, params.webhookSecret);
+  oThis.webhooks = new webhooksKlass(_requestObj);
 
   return oThis;
 };

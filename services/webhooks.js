@@ -14,9 +14,6 @@ const rootPrefix = ".."
 // Hide request object.
 let _requestObj = null;
 
-// Hide webhook secret
-let _webhookSecret = null;
-
 /**
  * Webhooks service constructor.
  *
@@ -27,9 +24,6 @@ const webhooks = function (requestObj, webhookSecret) {
 
   // Assign request object.
   _requestObj = requestObj;
-
-  // Assign webhook secret.
-  _webhookSecret = webhookSecret;
 
   // Define the url prefix
   oThis.urlPrefix = '/webhooks';
@@ -111,12 +105,13 @@ webhooks.prototype = {
    * @param stringifiedData
    * @param requestTimestamp
    * @param signature
+   * @param webhookSecret
    * @return {boolean}
    */
-  verifySignature: function (version, stringifiedData, requestTimestamp, signature) {
+  verifySignature: function (version, stringifiedData, requestTimestamp, signature, webhookSecret) {
     if(typeof stringifiedData !== 'string') stringifiedData = JSON.stringify(stringifiedData);
 
-    const buff = new Buffer.from(_webhookSecret, 'utf8')
+    const buff = new Buffer.from(webhookSecret, 'utf8')
       , hmac = crypto.createHmac('sha256', buff);
 
     hmac.update(`${requestTimestamp}.${version}.${stringifiedData}`);
