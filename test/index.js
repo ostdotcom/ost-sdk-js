@@ -47,6 +47,8 @@ const rootPrefix = "..",
     recoveryOwnerAddrs = process.env.OST_KIT_RECOVERY_OWNER_ADDRESS
 ;
 
+let webhookId = null;
+
 
 function userList() {
     it("test user list", async function () {
@@ -298,8 +300,8 @@ function createWebhook() {
   it("Test create webhook.", async function () {
 
     let webhookParams = {
-      topics:['devices/authorized','devices/unauthorized'],
-      url:"https://www.yourdomain123.com",
+      topics:['transactions/initiate','transactions/success'],
+      url:`${"https://www.testingWebhooks.com"}/${Date.now()}/${process.version}`,
       status:"active"
     };
 
@@ -308,6 +310,8 @@ function createWebhook() {
       assert.fail('Create webhook.');
     });
     assert.equal(res.success, true);
+
+    webhookId = res.data[[res.data.result_type]].id;
   });
 }
 
@@ -315,8 +319,8 @@ function updateWebhook() {
   it("Test update webhook.", async function () {
 
     let webhookParams = {
-      webhook_id: 'a743ab9a-2555-409f-aae4-f30c84071c56',
-      topics: ['transactions/create','transactions/success','transactions/failure'],
+      webhook_id: webhookId,
+      topics: ['transactions/initiate','transactions/success','transactions/failure'],
       status: "active"
     };
 
@@ -332,7 +336,7 @@ function getWebhook() {
   it("Test get webhook.", async function () {
 
     let webhookParams = {
-      webhook_id: 'a743ab9a-2555-409f-aae4-f30c84071c56'
+      webhook_id: webhookId
     };
 
     let res = await webhooksService.get(webhookParams).catch(function (err) {
@@ -348,7 +352,7 @@ function getWebhookList() {
 
     let res = await webhooksService.getList().catch(function (err) {
       console.log(JSON.stringify(err));
-      assert.fail('Get webhook.');
+      assert.fail('Get webhook list.');
     });
     assert.equal(res.success, true);
   });
@@ -358,7 +362,7 @@ function deleteWebhook() {
   it("Test delete webhook.", async function () {
 
     let webhookParams = {
-      webhook_id: 'a743ab9a-2555-409f-aae4-f30c84071c56'
+      webhook_id: webhookId
     };
 
     let res = await webhooksService.deleteWebhook(webhookParams).catch(function (err) {
@@ -367,6 +371,19 @@ function deleteWebhook() {
     });
     assert.equal(res.success, true);
   });
+}
+
+function testWebhookRequestSignature() {
+  it ("Tests webhook request signature.", async function () {
+    let version = "2",
+      requestTimestamp = '1559902637',
+      signature = '2c56c143550c603a6ff47054803f03ee4755c9c707986ae27f7ca1dd1c92a824',
+      stringifiedData = JSON.stringify({hello: "hello"}),
+      webhookSecret = 'mySecret';
+
+    let res = webhooksService.verifySignature(version, stringifiedData,requestTimestamp, signature, webhookSecret);
+    assert.equal(res, true);
+  })
 }
 
 
@@ -400,32 +417,33 @@ async function generateRandomAddrs() {
 }
 
 
-function testcases() {
-    getBaseTokensDetails();
-    createUser();
-    userList();
-    getChain();
-    getUser();
-    getTokenDetails();
-    createDevice();
-    getDeviceList();
-    getUserSession();
-    getUserSessionList();
-    getpricePoints();
-    getBalance();
-    getDeviceManagers();
-    getRecoveryOwnerAddress();
-    getRules();
-    executeTransactions();
-    getTransaction();
-    transactionsList();
-    getDevice();
-    testSignature();
-    createWebhook();
-    updateWebhook();
-    getWebhook();
-    getWebhookList();
-    deleteWebhook();
+async function testcases() {
+    // getBaseTokensDetails();
+    // createUser();
+    // userList();
+    // getChain();
+    // getUser();
+    // getTokenDetails();
+    // createDevice();
+    // getDeviceList();
+    // getUserSession();
+    // getUserSessionList();
+    // getpricePoints();
+    // getBalance();
+    // getDeviceManagers();
+    // getRecoveryOwnerAddress();
+    // getRules();
+    // executeTransactions();
+    // getTransaction();
+    // transactionsList();
+    // getDevice();
+    // testSignature();
+    await createWebhook();
+    await getWebhookList();
+    await getWebhook();
+    await updateWebhook();
+    await deleteWebhook();
+    testWebhookRequestSignature();
 }
 
 testcases();
