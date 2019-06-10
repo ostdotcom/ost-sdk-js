@@ -418,26 +418,26 @@ async function generateRandomAddrs() {
 
 
 async function testcases() {
-    // getBaseTokensDetails();
-    // createUser();
-    // userList();
-    // getChain();
-    // getUser();
-    // getTokenDetails();
-    // createDevice();
-    // getDeviceList();
-    // getUserSession();
-    // getUserSessionList();
-    // getpricePoints();
-    // getBalance();
-    // getDeviceManagers();
-    // getRecoveryOwnerAddress();
-    // getRules();
-    // executeTransactions();
-    // getTransaction();
-    // transactionsList();
-    // getDevice();
-    // testSignature();
+    getBaseTokensDetails();
+    createUser();
+    userList();
+    getChain();
+    getUser();
+    getTokenDetails();
+    createDevice();
+    getDeviceList();
+    getUserSession();
+    getUserSessionList();
+    getpricePoints();
+    getBalance();
+    getDeviceManagers();
+    getRecoveryOwnerAddress();
+    getRules();
+    executeTransactions();
+    getTransaction();
+    transactionsList();
+    getDevice();
+    testSignature();
     await createWebhook();
     await getWebhookList();
     await getWebhook();
