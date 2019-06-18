@@ -436,3 +436,68 @@ Get Token Detail:
 ```node.js
 baseTokensService.get({}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
 ```
+
+### Webhooks Module
+
+To manage webhooks on the OST Platform Interface, use services provided by the Webhooks module. You can
+use this service to create new webhooks and manage existing webhooks.
+
+```node.js
+webhooksService = ostObj.services.webhooks;
+```
+
+Create Webhook:
+
+```node.js
+topicParams = ['transactions/initiate','transactions/success'];
+webhooksService.create({topics: topicParams , url:"https://www.testingWebhooks.com", status:"active"}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+```
+
+Update Webhook:
+
+```node.js
+topicParams = ['transactions/initiate','transactions/success','transactions/failure'];
+webhooksService.update({webhook_id: 'a743ab9a-2555-409f-aae4-f30c84071c56', topics:topicParams, status:"active"}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+
+```
+
+Get Webhook:
+
+```node.js
+webhooksService.get({webhook_id:'842276e3-f520-4a70-94dc-ad409b70c481'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+```
+
+Get Webhook List:
+
+```node.js
+webhooksService.getList({
+//limit:1,
+//pagination_identifier:"eyJwYWdlIjoyLCJsaW1pdCI6MX0="})
+.then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+```
+
+Delete Webhook:
+
+```node.js
+webhooksService.deleteWebhook({webhook_id:'a743ab9a-2555-409f-aae4-f30c84071c56'}).then(function(res) { console.log(JSON.stringify(res)); }).catch(function(err) { console.log(JSON.stringify(err)); });
+``` 
+
+Verify webhook request signature:
+
+```node.js
+webhookEventData = JSON.stringify({"id":"54e3cd1c-afd7-4dcf-9c78-137c56a53582","topic":"transactions/success","created_at":1560838772,"webhook_id":"0823a4ea-5d87-44cf-8ca8-1e5a31bf8e46","version":"v2","data":{"result_type":"transaction","transaction":{"id":"ddebe817-b94f-4b51-9227-f543fae4715a","transaction_hash":"0x7ee737db22b58dc4da3f4ea4830ca709b388d84f31e77106cb79ee09fc6448f9","from":"0x69a581096dbddf6d1e0fff7ebc1254bb7a2647c6","to":"0xc2f0dde92f6f3a3cb13bfff43e2bd136f7dcfe47","nonce":3,"value":"0","gas_price":"1000000000","gas_used":120558,"transaction_fee":"120558000000000","block_confirmation":24,"status":"SUCCESS","updated_timestamp":1560838699,"block_timestamp":1560838698,"block_number":1554246,"rule_name":"Pricer","meta_property":{},"transfers":[{"from":"0xc2f0dde92f6f3a3cb13bfff43e2bd136f7dcfe47","from_user_id":"acfdea7d-278e-4ffc-aacb-4a21398a280c","to":"0x0a754aaab96d634337aac6556312de396a0ca46a","to_user_id":"7bc8e0bd-6761-4604-8f8e-e33f86f81309","amount":"112325386","kind":"transfer"}]}}});
+
+// Get webhoook version from webhook events data.
+version = "v2";
+
+// Get ost-timestamp from the response received in event.
+requestTimestamp = '1559902637';
+
+// Get signature from the response received in event.
+signature = '2c56c143550c603a6ff47054803f03ee4755c9c707986ae27f7ca1dd1c92a824';
+
+stringifiedData = webhookEventData;
+webhookSecret = 'mySecret';
+let resp = webhooksService.verifySignature(version, stringifiedData,requestTimestamp, signature, webhookSecret);
+console.log(resp);
+```
