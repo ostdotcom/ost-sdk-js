@@ -19,7 +19,7 @@ const rootPrefix = "..",
         apiKey: credentialObject.apiKey,
         apiSecret: credentialObject.secret,
         apiEndpoint: apiEndpont,
-        config: {timeout: 15}
+        config: {timeout: 100000}
     }),
     userService = ostObj.services.users,
     chainService = ostObj.services.chains,
@@ -33,6 +33,7 @@ const rootPrefix = "..",
     rulesService = ostObj.services.rules,
     transactionsService = ostObj.services.transactions,
     baseTokensService = ostObj.services.base_tokens,
+    webhooksService = ostObj.services.webhooks,
 
 
     userId = process.env.OST_KIT_USER_ID,
@@ -45,6 +46,8 @@ const rootPrefix = "..",
     user2TokenHolderAddress = process.env.OST_KIT_USER2_TOKEN_HOLDER_ADDRESS,
     recoveryOwnerAddrs = process.env.OST_KIT_RECOVERY_OWNER_ADDRESS
 ;
+
+let webhookId = null;
 
 
 function userList() {
@@ -281,16 +284,106 @@ function transactionsList() {
 
 
 function getTransaction() {
-    it("test get transaction", async function () {
+    it("Test get transaction", async function () {
         let res = await transactionsService.get({
             user_id: userId,
             transaction_id: transactionId
         }).catch(function (err) {
             console.log(JSON.stringify(err));
-            assert.fail('list transactions');
+            assert.fail('List transactions');
         });
         assert.equal(res.success, true);
     });
+}
+
+function createWebhook() {
+  it("Test create webhook.", async function () {
+
+    let webhookParams = {
+      topics:['transactions/initiate','transactions/success'],
+      url:`${"https://www.testingWebhooks.com"}/${Date.now()}/${process.version}`,
+      status:"active"
+    };
+
+    let res = await webhooksService.create(webhookParams).catch(function (err) {
+      console.log(JSON.stringify(err));
+      assert.fail('Create webhook.');
+    });
+    assert.equal(res.success, true);
+
+    webhookId = res.data[[res.data.result_type]].id;
+  });
+}
+
+function updateWebhook() {
+  it("Test update webhook.", async function () {
+
+    let webhookParams = {
+      webhook_id: webhookId,
+      topics: ['transactions/initiate','transactions/success','transactions/failure'],
+      status: "active"
+    };
+
+    let res = await webhooksService.update(webhookParams).catch(function (err) {
+      console.log(JSON.stringify(err));
+      assert.fail('Update webhook.');
+    });
+    assert.equal(res.success, true);
+  });
+}
+
+function getWebhook() {
+  it("Test get webhook.", async function () {
+
+    let webhookParams = {
+      webhook_id: webhookId
+    };
+
+    let res = await webhooksService.get(webhookParams).catch(function (err) {
+      console.log(JSON.stringify(err));
+      assert.fail('Get webhook.');
+    });
+    assert.equal(res.success, true);
+  });
+}
+
+function getWebhookList() {
+  it("Test get webhook list.", async function () {
+
+    let res = await webhooksService.getList().catch(function (err) {
+      console.log(JSON.stringify(err));
+      assert.fail('Get webhook list.');
+    });
+    assert.equal(res.success, true);
+  });
+}
+
+function deleteWebhook() {
+  it("Test delete webhook.", async function () {
+
+    let webhookParams = {
+      webhook_id: webhookId
+    };
+
+    let res = await webhooksService.deleteWebhook(webhookParams).catch(function (err) {
+      console.log(JSON.stringify(err));
+      assert.fail('Delete webhook.');
+    });
+    assert.equal(res.success, true);
+  });
+}
+
+function testWebhookRequestSignature() {
+  it ("Tests webhook request signature.", async function () {
+    let version = "2",
+      requestTimestamp = '1559902637',
+      signature = '2c56c143550c603a6ff47054803f03ee4755c9c707986ae27f7ca1dd1c92a824',
+      stringifiedData = JSON.stringify({hello: "hello"}),
+      webhookSecret = 'mySecret';
+
+    let res = webhooksService.verifySignature(version, stringifiedData,requestTimestamp, signature, webhookSecret);
+    assert.equal(res, true);
+  })
 }
 
 
@@ -324,7 +417,7 @@ async function generateRandomAddrs() {
 }
 
 
-function testcases() {
+async function testcases() {
     getBaseTokensDetails();
     createUser();
     userList();
@@ -345,6 +438,12 @@ function testcases() {
     transactionsList();
     getDevice();
     testSignature();
+    await createWebhook();
+    await getWebhookList();
+    await getWebhook();
+    await updateWebhook();
+    await deleteWebhook();
+    testWebhookRequestSignature();
 }
 
 testcases();
