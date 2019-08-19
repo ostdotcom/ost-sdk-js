@@ -73,7 +73,7 @@ The preferred way to install the OST JavaScript SDK is to use the npm package ma
 
 ### Users Module 
 
-* Initialize Users service object to perform user-specific actions.
+* Initialize Users service object to perform user specific actions.
 
     ```js
     const usersService = ostObj.services.users;
@@ -87,7 +87,7 @@ The preferred way to install the OST JavaScript SDK is to use the npm package ma
        .catch(function(err) { console.log(JSON.stringify(err)); });
     ```
 
-* Get User Detail using the user id obtained in user create.
+* Get User Detail using the userId obtained in user create.
 
     ```js
     /* Mandatory API parameters */
@@ -124,7 +124,7 @@ The preferred way to install the OST JavaScript SDK is to use the npm package ma
 
 ### Devices Module 
 
-* Initialize Devices service object to perform device-specific actions.
+* Initialize Devices service object to perform device specific actions.
     ```js
     const devicesService = ostObj.services.devices;
     ```
@@ -200,7 +200,7 @@ The preferred way to install the OST JavaScript SDK is to use the npm package ma
 
 ### Device Managers Module
 
-* Initialize Device Manager service object to perform device manager-specific actions.
+* Initialize Device Manager service object to perform device manager specific actions.
 
     ```js
     const deviceManagersService = ostObj.services.device_managers;
@@ -221,7 +221,7 @@ The preferred way to install the OST JavaScript SDK is to use the npm package ma
 
 ### Sessions Module
 
-* Initialize Sessions service object to perform session-specific actions.
+* Initialize Sessions service object to perform session specific actions.
 
     ```js
     const sessionsService = ostObj.services.sessions;
@@ -280,7 +280,7 @@ For executing transactions, you need to understand the 4 modules described below
 
 #### Rules Module
 
-* Initialize Rules service object to perform rules-specific actions.
+* Initialize Rules service object to perform rules specific actions.
 
     ```js
     const rulesService = ostObj.services.rules;
@@ -318,7 +318,7 @@ For executing transactions, you need to understand the 4 modules described below
 
 #### Transactions Module
 
-* Initialize Transactions service object to perform transaction-specific actions.
+* Initialize Transactions service object to perform transaction specific actions.
 
     ```js
     const transactionsService = ostObj.services.transactions;
@@ -386,11 +386,11 @@ For executing transactions, you need to understand the 4 modules described below
     // Token holder address of receiver.
     let transferToAddress = '0xa31__';
   
-    // Amount of Fiat in atto units to be transferred. If 1 USD needs to be transfered, use 10^18, i.e. in atto units.
+    // Amount of Fiat in atto units to be transferred. If 1 USD needs to be transferred, use 10^18, i.e. in atto units.
     let transferAmountInAtto = '1000000000000000000';
                                
     // Token holder address of sender.
-    let tokenHolderSenderAddress = '0xa963___';
+    let senderTokenHolderAddress = '0xa963___';
   
     // Pay currency code. Supported currency codes are 'USD', 'EUR' and 'GBP'.
     let payCurrencyCode = 'USD';
@@ -405,13 +405,14 @@ For executing transactions, you need to understand the 4 modules described below
     // Parameters required for rule execution.
     let rawCalldata = JSON.stringify({
         method: 'pay',  // Rule name which needs to be passed as-is.
-        parameters: [tokenHolderSenderAddress, [transferToAddress],[transferAmountInAtto], payCurrencyCode, intendedPricePoint]
+        parameters: [senderTokenHolderAddress, [transferToAddress],[transferAmountInAtto], payCurrencyCode, intendedPricePoint]
     });
   
     // Sender userId. It should be company userId in case of 'company_to_user' transactions.
     let senderUserId = 'ee8___';
     
     // Address of Pay rule. Use list rules API to get the address of rules.
+    // In the rules array which you will get in response, use the address having name "Pricer".
     let payRuleAddress = '0xe37___';
   
     /* Optional API parameters: */
@@ -510,7 +511,7 @@ For executing transactions, you need to understand the 4 modules described below
 
 #### Balances Module
 
-* Initialize Balances service object to perform balances-specific actions.
+* Initialize Balances service object to perform balances specific actions.
 
     ```js
     const balancesService = ostObj.services.balance;
@@ -543,7 +544,7 @@ For executing transactions, you need to understand the 4 modules described below
   ```js
     /* Mandatory API parameters: */
     
-    // UserId for whom balance needs to be fetched.
+    // UserId for whom recovery details needs to be fetched.
     let userId = 'c2c___';
     
     // Recovery address of user.
@@ -559,7 +560,7 @@ For executing transactions, you need to understand the 4 modules described below
 
 ### Tokens Module
 
-* Initialize Tokens service object to perform tokens-specific actions.
+* Initialize Tokens service object to perform tokens specific actions.
 
     ```js
     const tokensService = ostObj.services.tokens;
@@ -575,7 +576,7 @@ For executing transactions, you need to understand the 4 modules described below
 
 ### Chains Module 
 
-* Initialize Chains service object to perform chains-specific actions.
+* Initialize Chains service object to perform chains specific actions.
 
     ```js
     const chainsService = ostObj.services.chains;
@@ -596,7 +597,7 @@ For executing transactions, you need to understand the 4 modules described below
 
 ### Base Tokens Module
 
-* Initialize Base Tokens service object to perform base tokens-specific actions.
+* Initialize Base Tokens service object to perform base tokens specific actions.
 
     ```js
     const baseTokensService = ostObj.services.base_tokens;
@@ -612,7 +613,7 @@ For executing transactions, you need to understand the 4 modules described below
 
 ### Webhooks Module
 
-* Initialize Webhooks service object to perform webhooks-specific actions.
+* Initialize Webhooks service object to perform webhooks specific actions.
 
     ```js
     const webhooksService = ostObj.services.webhooks;
@@ -628,6 +629,8 @@ For executing transactions, you need to understand the 4 modules described below
   
     // URL where you want to receive the event notifications.
     let url = 'https://www.testingWebhooks.com';
+  
+    /* Optional API parameters: */
   
     // Status of a webhook. Possible values are 'active' and 'inactive'.
     let status = 'active';
