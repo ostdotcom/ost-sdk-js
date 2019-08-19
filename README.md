@@ -286,7 +286,7 @@ For executing transactions, you need to understand the 4 modules described below
     const rulesService = ostObj.services.rules;
     ```
 
-* List Rules:
+* List Rules.
 
     ```js
     rulesService.getList({})
