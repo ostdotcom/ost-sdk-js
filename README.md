@@ -7,7 +7,7 @@
 ## Introduction
 
 OST is a complete technology solution enabling mainstream businesses 
-to easily launch blockchain-based economies without requiring blockchain development.
+to easily launch blockchain based economies without requiring blockchain development.
 
 Brand Tokens (BTs) are white-label cryptocurrency tokens with utility representations 
 running on highly-scalable Ethereum-based utility blockchains, 
@@ -35,7 +35,7 @@ For documentation, visit [https://dev.ost.com/](https://dev.ost.com/)
 The preferred way to install the OST JavaScript SDK is to use the npm package manager for Node.js. Simply type the following into a terminal window:
 
 ```bash
-npm install @ostdotcom/ost-sdk-js
+ npm install @ostdotcom/ost-sdk-js
 ```
 
 ## Usage
@@ -79,7 +79,7 @@ npm install @ostdotcom/ost-sdk-js
     const usersService = ostObj.services.users;
     ```
 
-* Create a User. This creates a unique identifier for each user.
+* Create User. This creates a unique identifier for each user.
 
     ```js
     usersService.create({})
@@ -296,13 +296,13 @@ For executing transactions, you need to understand the 4 modules described below
 
 #### Price Points Module
 
-* Initialize Price Points service object to perform price points-specific actions.
+* Initialize Price Points service object to perform price points specific actions.
 
     ```js
     const pricePoints = ostObj.services.price_points;
     ```
 
-* Get Price Points Detail:
+* Get Price Points Detail.
 
     ```js
     /* Mandatory API parameters */
@@ -324,7 +324,7 @@ For executing transactions, you need to understand the 4 modules described below
     const transactionsService = ostObj.services.transactions;
     ```
 
-* DIRECT-TRANSFERS execute transaction should be used to transfer tokens to your end-users.
+* DIRECT-TRANSFERS execute transaction should be used to transfer BTs to your end-users.
 
     ```js
     /* Mandatory API parameters */
@@ -333,7 +333,7 @@ For executing transactions, you need to understand the 4 modules described below
     let transferToAddress = '0xa3___';
     
     // Amount of tokens in weis to be transferred.
-    let transferAmount = '1';
+    let transferAmount = '1000000000000000000';
     
     // Parameters required for rule execution.
     let rawCalldata = JSON.stringify({
@@ -345,7 +345,6 @@ For executing transactions, you need to understand the 4 modules described below
     let senderUserId = 'ee89___';
     
     // Address of DirectTransfer rule. Use list rules API of Rules module to get the address of rules.
-    // This directTransfer rule address can be obtained using list rules API of Rules module of the SDK. 
     // In the rules array which you will get in response, use the address having name "Direct Transfer".
     let directTransferRuleAddress = '0xe379___';
     
@@ -379,27 +378,25 @@ For executing transactions, you need to understand the 4 modules described below
     .catch(function(err) { console.log(JSON.stringify(err)); });
     ```
 
-* PAY Execute Transaction should be used when transactions need to be made in fiat. The input amount for this method 
-  will be in pay currency (fiat currency like USD) which will then be converted into tokens. The transfer happens in tokens.
+* PAY Execute Transaction should be used when transactions of BTs equivalent to some fiat amount need to be executed.
 
     ```js
     /* Mandatory API parameters */
   
     // Token holder address of receiver.
-    let transferToAddress = '0xa31e988eebc89d0bc3e4a9a5463545ea534593e4';
+    let transferToAddress = '0xa31__';
   
-    // Amount of tokens in weis to be transferred.
+    // Amount of Fiat in atto units to be transferred. If 1 USD needs to be transfered, use 10^18, i.e. in atto units.
     let transferAmountInAtto = '1000000000000000000';
                                
     // Token holder address of sender.
-    let tokenHolderSenderAddress = '0xa9632350057c2226c5a10418b1c3bc9acdf7e2ee';
+    let tokenHolderSenderAddress = '0xa963___';
   
     // Pay currency code. Supported currency codes are 'USD', 'EUR' and 'GBP'.
     let payCurrencyCode = 'USD';
   
     // In pay transaction, the transfer amounts are in pay currency (fiat currency like USD) which then are converted 
-    // into tokens. So there is a conversion of pay currency to token during the execution of this transaction.
-    // Use get price point detail API of Price Points module to get this value.
+    // into tokens. Use get price point detail API of Price Points module to get this value.
     let pricePoint = 0.020606673;
   
     // Price point needs to be passed in atto. Also, this value should be a string.
@@ -535,7 +532,7 @@ For executing transactions, you need to understand the 4 modules described below
 
 ### Recovery Owners Module 
 
-* Initialize Balances service object to perform balances-specific actions.
+* Initialize Recovery Owners service object to perform recovery owners specific actions.
 
     ```js
     const recoveryOwnersService = ostObj.services.recovery_owners;
@@ -568,7 +565,7 @@ For executing transactions, you need to understand the 4 modules described below
     const tokensService = ostObj.services.tokens;
     ```
 
-* Get Token Detail:
+* Get Token Detail.
 
     ```js
     tokensService.get({})
@@ -706,9 +703,10 @@ For executing transactions, you need to understand the 4 modules described below
         .catch(function(err) { console.log(JSON.stringify(err)); });
     ``` 
 
-* Verify webhook request signature.
+* Verify webhook request signature. This can be used to validate if the webhook received at your end from OST platform is correctly signed.
 
     ```js
+    // Webhook data obtained.
     webhookEventData = JSON.stringify({"id":"54e3cd1c-afd7-4dcf-9c78-137c56a53582","topic":"transactions/success","created_at":1560838772,"webhook_id":"0823a4ea-5d87-44cf-8ca8-1e5a31bf8e46","version":"v2","data":{"result_type":"transaction","transaction":{"id":"ddebe817-b94f-4b51-9227-f543fae4715a","transaction_hash":"0x7ee737db22b58dc4da3f4ea4830ca709b388d84f31e77106cb79ee09fc6448f9","from":"0x69a581096dbddf6d1e0fff7ebc1254bb7a2647c6","to":"0xc2f0dde92f6f3a3cb13bfff43e2bd136f7dcfe47","nonce":3,"value":"0","gas_price":"1000000000","gas_used":120558,"transaction_fee":"120558000000000","block_confirmation":24,"status":"SUCCESS","updated_timestamp":1560838699,"block_timestamp":1560838698,"block_number":1554246,"rule_name":"Pricer","meta_property":{},"transfers":[{"from":"0xc2f0dde92f6f3a3cb13bfff43e2bd136f7dcfe47","from_user_id":"acfdea7d-278e-4ffc-aacb-4a21398a280c","to":"0x0a754aaab96d634337aac6556312de396a0ca46a","to_user_id":"7bc8e0bd-6761-4604-8f8e-e33f86f81309","amount":"112325386","kind":"transfer"}]}}});
     
     // Get webhoook version from webhook events data.
