@@ -114,7 +114,7 @@ The preferred way to install the OST JavaScript SDK is to use the npm package ma
     // Pagination identifier from the previous API call response. Not needed for page one.
     let paginationIdentifier = 'e77y___';
   
-    // Limit. Limit is ignored when user ids are passed.
+    // Limit.
     let limit = 10;
    
     usersService.getList({ ids: userIdsArray, limit: limit, pagination_identifier: paginationIdentifier })
@@ -185,7 +185,7 @@ The preferred way to install the OST JavaScript SDK is to use the npm package ma
     // Array of device addresses of end user.
     let deviceAddressesArray = ['0x59___','0xab___'];
     
-    // Limit. Limit is ignored when device addresses are passed.
+    // Limit.
     let limit = 10; 
     
     devicesService.getList({
@@ -260,7 +260,7 @@ The preferred way to install the OST JavaScript SDK is to use the npm package ma
     // Array of session addresses of end user.
     let sessionAddressesArray = ["0x59___","0xab___"];
     
-    // Limit. Limit is ignored when session addresses are passed.
+    // Limit.
     let limit = 10; 
     
     sessionsService.getList({
@@ -340,7 +340,7 @@ For executing transactions, you need to understand the 4 modules described below
         parameters: [[transferToAddress],[transferAmount]]
     });
     
-    // Sender userId. It should be company userId in case of 'company_to_user' transactions.
+    // Company userId.
     let senderUserId = 'ee89___';
     
     // Address of DirectTransfer rule. Use list rules API of Rules module to get the address of rules.
@@ -353,14 +353,15 @@ For executing transactions, you need to understand the 4 modules described below
     // NOTE: Max length 25 characters (Allowed characters: [A-Za-z0-9_/s])
     let transactionName = 'like';
     
-    // Transaction type. Eg. 'company_to_user', 'user_to_user', 'user_to_company'.
+    // Transaction type. Possible values: 'company_to_user', 'user_to_user', 'user_to_company'.
     let transactionType = 'company_to_user';
     
     // Some extra information about transaction.
     // NOTE: Max length 125 characters (Allowed characters: [A-Za-z0-9_/s])
     let details = 'lorem_ipsum';
     
-    // All the fields of metaProperty are compulsory but metaProperty as a parameter is optional.        
+    // Additional transaction information. There is no dependency between any of the metaProperty keys. 
+    // However, if a key is present, its value cannot be null or undefined.       
     let metaProperty = {
         "name": transactionName,
         "type": transactionType,
@@ -388,8 +389,8 @@ For executing transactions, you need to understand the 4 modules described below
     // Amount of Fiat in atto units to be transferred. If 1 USD needs to be transferred, use 10^18, i.e. in atto units.
     let transferAmountInAtto = '1000000000000000000';
                                
-    // Token holder address of sender.
-    let senderTokenHolderAddress = '0xa963___';
+    // Company token holder address.
+    let companyTokenHolderAddress = '0xa963___';
   
     // Pay currency code. Supported currency codes are 'USD', 'EUR' and 'GBP'.
     let payCurrencyCode = 'USD';
@@ -404,10 +405,10 @@ For executing transactions, you need to understand the 4 modules described below
     // Parameters required for rule execution.
     let rawCalldata = JSON.stringify({
         method: 'pay',  // Rule name which needs to be passed as-is.
-        parameters: [senderTokenHolderAddress, [transferToAddress],[transferAmountInAtto], payCurrencyCode, intendedPricePoint]
+        parameters: [companyTokenHolderAddress, [transferToAddress],[transferAmountInAtto], payCurrencyCode, intendedPricePoint]
     });
   
-    // Sender userId. It should be company userId in case of 'company_to_user' transactions.
+    // Company userId.
     let senderUserId = 'ee8___';
     
     // Address of Pay rule. Use list rules API to get the address of rules.
@@ -420,14 +421,15 @@ For executing transactions, you need to understand the 4 modules described below
     // NOTE: Max length 25 characters (Allowed characters: [A-Za-z0-9_/s])
     let transactionName = 'like';
     
-    // Transaction type. Eg. 'company_to_user', 'user_to_user', 'user_to_company'.
+    // Transaction type. Possible values: 'company_to_user', 'user_to_user', 'user_to_company'.
     let transactionType = 'company_to_user';
     
     // Some extra information about transaction.
     // NOTE: Max length 125 characters (Allowed characters: [A-Za-z0-9_/s])
     let details = 'lorem_ipsum';
     
-    // All the fields of metaProperty are compulsory but metaProperty as a parameter is optional.     
+    // Additional transaction information. There is no dependency between any of the metaProperty keys. 
+    // However, if a key is present, its value cannot be null or undefined.      
     let metaProperty = {
         "name": transactionName,
         "type": transactionType,
@@ -448,7 +450,7 @@ For executing transactions, you need to understand the 4 modules described below
     ```js
     /* Mandatory API parameters: */
   
-    // UserId of the sender.
+    // UserId of end-user.
     let userId = 'ee8___';
   
     // Unique identifier of the transaction to be retrieved.
@@ -464,7 +466,7 @@ For executing transactions, you need to understand the 4 modules described below
     ```js
     /* Mandatory API parameters: */
   
-    // UserId of the sender.
+    // UserId of end-user.
     let userId = 'ee89___';
   
     /* Optional API parameters: */
@@ -476,13 +478,14 @@ For executing transactions, you need to understand the 4 modules described below
     // NOTE: Max length 25 characters (Allowed characters: [A-Za-z0-9_/s])
     let transactionName = 'like';
     
-    // Transaction type. Eg. 'company_to_user', 'user_to_user', 'user_to_company'.
+    // Transaction type. Possible values: 'company_to_user', 'user_to_user', 'user_to_company'.
     let transactionType = 'company_to_user';
     
     // NOTE: Max length 125 characters (Allowed characters: [A-Za-z0-9_/s])
     let details = 'lorem_ipsum';
   
-    // Extra information about the transfer.
+    // Additional transaction information. There is no dependency between any of the metaProperty keys. 
+    // However, if a key is present, its value cannot be null or undefined. 
     let metaPropertiesArray =  JSON.stringify([
         {
             "name":  transactionName, 
@@ -586,8 +589,8 @@ For executing transactions, you need to understand the 4 modules described below
     ```js
     /* Mandatory API parameters: */
     
+    // ChainId for which details needs to be fetched. Only origin chainId and OST-specific auxiliary chainIds are allowed.
     let chainId = '2000';
-    // ChainId for which details needs to be fetched.
   
     chainsService.get({ chain_id: chainId })
         .then(function(res) { console.log(JSON.stringify(res)); })
