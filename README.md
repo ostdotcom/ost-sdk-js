@@ -330,8 +330,8 @@ For executing transactions, you need to understand the 4 modules described below
     // Token holder address of receiver.
     let transferToAddress = '0xa3___';
     
-    // Amount of tokens in weis to be transferred.
-    let transferAmount = '1000000000000000000';
+    // Amount of tokens to be transferred.
+    let transferAmount = '1';
     
     // Parameters required for rule execution.
     let rawCalldata = JSON.stringify({
