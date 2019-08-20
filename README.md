@@ -63,10 +63,11 @@ The preferred way to install the OST JavaScript SDK is to use the npm package ma
   
     // Optional API parameters
   
-    // Connection timeout in seconds.
+    // This is the timeout in seconds for which the socket connection will remain open.
     let timeoutInSeconds = '60';
     let options = { timeout: timeoutInSeconds };
   
+    // OST server side sdk object.
     const ostObj = new OSTSDK({apiKey: apiKey, apiSecret: apiSecret, apiEndpoint: apiEndpoint,config: options});
     ```
 
@@ -405,7 +406,7 @@ For executing transactions, you need to understand the 4 modules described below
     let decimalPlaces = 18;
   
     // Transfer amount in wei. Multiply the fiat transfer amount with 10^decimalPlaces. 
-    let fiatTransferAmountInWei = (transferAmountInFiat * 10**decimalPlaces);
+    let fiatTransferAmountInWei = String(transferAmountInFiat * 10**decimalPlaces);
   
     // Parameters required for rule execution.
     let rawCalldata = JSON.stringify({
