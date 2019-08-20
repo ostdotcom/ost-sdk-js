@@ -340,7 +340,7 @@ For executing transactions, you need to understand the 4 modules described below
     });
     
     // Company userId.
-    let senderUserId = 'ee89___';
+    let companyUserId = 'ee89___';
     
     // Address of DirectTransfer rule. Use list rules API of Rules module to get the address of rules.
     // In the rules array which you will get in response, use the address having name "Direct Transfer".
@@ -368,7 +368,7 @@ For executing transactions, you need to understand the 4 modules described below
     };
     
     transactionsService.execute({
-        user_id: senderUserId,
+        user_id: companyUserId,
         to: directTransferRuleAddress,
         raw_calldata: rawCalldata,
         meta_property: metaProperty
@@ -408,7 +408,7 @@ For executing transactions, you need to understand the 4 modules described below
     });
   
     // Company userId.
-    let senderUserId = 'ee8___';
+    let companyUserId = 'ee8___';
     
     // Address of Pay rule. Use list rules API to get the address of rules.
     // In the rules array which you will get in response, use the address having name "Pricer".
@@ -436,7 +436,7 @@ For executing transactions, you need to understand the 4 modules described below
     };
     
     transactionsService.execute({
-        user_id: senderUserId,
+        user_id: companyUserId,
         to: payRuleAddress,
         raw_calldata: rawCalldata,
         meta_property: metaProperty
