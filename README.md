@@ -49,7 +49,7 @@ The preferred way to install the OST JavaScript SDK is to use the npm package ma
     ```js
     // Declare connection parameters.
   
-    /* Mandatory API parameters */
+    // Mandatory API parameters
     let apiKey = '__abc'; // OBTAINED FROM DEVELOPER PAGE
   
     let apiSecret = '_xyz';  // OBTAINED FROM DEVELOPER PAGE
@@ -61,7 +61,7 @@ The preferred way to install the OST JavaScript SDK is to use the npm package ma
     */
     let apiEndpoint = 'https://api.ost.com/testnet/v2/';
   
-    /* Optional API parameters */
+    // Optional API parameters
   
     // Connection timeout in seconds.
     let timeoutInSeconds = '60';
@@ -89,7 +89,7 @@ The preferred way to install the OST JavaScript SDK is to use the npm package ma
 * Get User Detail using the userId obtained in user create.
 
     ```js
-    /* Mandatory API parameters */
+    // Mandatory API parameters
   
     // UserId of user for whom user details needs to be fetched.
     let userId = 'c2c__';
@@ -102,10 +102,10 @@ The preferred way to install the OST JavaScript SDK is to use the npm package ma
 * Get Users List. Pagination is supported by this API.
 
     ```js
-    /* Mandatory API parameters */
+    // Mandatory API parameters
     // No mandatory parameters.
   
-    /* Optional API parameters */    
+    // Optional API parameters   
   
     // Array of userIds for which data needs to be fetched.
     let userIdsArray = ["c2c__", "d2c__"];
@@ -131,7 +131,7 @@ The preferred way to install the OST JavaScript SDK is to use the npm package ma
 * Create a Device for User.
 
     ```js
-    /* Mandatory API parameters */
+    // Mandatory API parameters
     
     // UserId of user for whom device needs to be created.
     let userId = 'c2c___';
@@ -153,7 +153,7 @@ The preferred way to install the OST JavaScript SDK is to use the npm package ma
 * Get User Device Detail using userId and deviceAddress.
 
     ```js
-    /* Mandatory API parameters */
+    // Mandatory API parameters
     
     // UserId of user for whom device details needs to be fetched.
     let userId = 'c2c___';
@@ -171,12 +171,12 @@ The preferred way to install the OST JavaScript SDK is to use the npm package ma
 * Get User Devices List. Pagination is supported by this API.
 
     ```js
-    /* Mandatory API parameters */
+    // Mandatory API parameters
     
     // UserId of user for whom device details needs to be fetched.
     let userId = 'c2c6___';
     
-    /* Optional API parameters */
+    // Optional API parameters
     
     // Pagination identifier from the previous API call response. Not needed for page one.
     let paginationIdentifier = 'eyJ___';
@@ -207,7 +207,7 @@ The preferred way to install the OST JavaScript SDK is to use the npm package ma
 * Get Device Manager Detail using userId.
 
     ```js
-    /* Mandatory API parameters */
+    // Mandatory API parameters
     
     // UserId of user for whom device manager details needs to be fetched.
     let userId = 'c2c___';
@@ -228,7 +228,7 @@ The preferred way to install the OST JavaScript SDK is to use the npm package ma
 * Get User Session Detail using userId and session address.
 
     ```js
-    /* Mandatory API parameters */
+    // Mandatory API parameters
     
     // UserId of user for whom session details needs to be fetched.
     let userId = 'c2c___';
@@ -246,12 +246,12 @@ The preferred way to install the OST JavaScript SDK is to use the npm package ma
 * Get User Sessions List using userId. Pagination is supported by this API.
 
     ```js
-    /* Mandatory API parameters */
+    // Mandatory API parameters
     
     // UserId of user for whom session details needs to be fetched.
     let userId = 'c2c___';
     
-    /* Optional API parameters: */
+    // Optional API parameters
     
     // Pagination identifier from the previous API call response. Not needed for page one.
     let paginationIdentifier = 'eyJs___';
@@ -303,7 +303,7 @@ For executing transactions, you need to understand the 4 modules described below
 * Get Price Points Detail.
 
     ```js
-    /* Mandatory API parameters */
+    // Mandatory API parameters
     
     // ChainId of your brand token economy.
     let chainId = 2000;
@@ -325,7 +325,7 @@ For executing transactions, you need to understand the 4 modules described below
 * DIRECT-TRANSFERS execute transaction should be used to transfer BTs to your end-users.
 
     ```js
-    /* Mandatory API parameters */
+    // Mandatory API parameters
     
     // Token holder address of receiver.
     let transferToAddress = '0xa3___';
@@ -346,7 +346,7 @@ For executing transactions, you need to understand the 4 modules described below
     // In the rules array which you will get in response, use the address having name "Direct Transfer".
     let directTransferRuleAddress = '0xe379___';
     
-    /* Optional API parameters: */
+    // Optional API parameters
     
     // Name of the transaction. Eg. 'like', 'download', etc.
     // NOTE: Max length 25 characters (Allowed characters: [A-Za-z0-9_/s])
@@ -380,7 +380,7 @@ For executing transactions, you need to understand the 4 modules described below
 * PAY Execute Transaction should be used when transactions of BTs equivalent to some fiat amount need to be executed.
 
     ```js
-    /* Mandatory API parameters */
+    // Mandatory API parameters
   
     // Token holder address of receiver.
     let transferToAddress = '0xa31__';
@@ -414,7 +414,7 @@ For executing transactions, you need to understand the 4 modules described below
     // In the rules array which you will get in response, use the address having name "Pricer".
     let payRuleAddress = '0xe37___';
   
-    /* Optional API parameters: */
+    // Optional API parameters
         
     // Name of the transaction. Eg. 'like', 'download', etc.
     // NOTE: Max length 25 characters (Allowed characters: [A-Za-z0-9_/s])
@@ -447,7 +447,7 @@ For executing transactions, you need to understand the 4 modules described below
 * Get Transaction Detail using userId and transactionId.
 
     ```js
-    /* Mandatory API parameters: */
+    // Mandatory API parameters
   
     // UserId of end-user.
     let userId = 'ee8___';
@@ -463,12 +463,12 @@ For executing transactions, you need to understand the 4 modules described below
 * Get User Transactions using userId. Pagination is supported by this API.
 
     ```js
-    /* Mandatory API parameters: */
+    // Mandatory API parameters
   
     // UserId of end-user.
     let userId = 'ee89___';
   
-    /* Optional API parameters: */
+    // Optional API parameters
   
     // Array of status values.
     let statusesArray = ['CREATED', 'SUBMITTED', 'SUCCESS', 'FAILED'];
@@ -521,7 +521,7 @@ For executing transactions, you need to understand the 4 modules described below
 * Get User Balance using userId.
 
     ```js
-    /* Mandatory API parameters: */
+    // Mandatory API parameters
   
     // UserId for whom balance needs to be fetched.
     let userId = 'c2c6___';
@@ -543,7 +543,7 @@ For executing transactions, you need to understand the 4 modules described below
 * Get Recovery Owner Detail using userId and recovery owner address.
     
   ```js
-    /* Mandatory API parameters: */
+    // Mandatory API parameters
     
     // UserId for whom recovery details needs to be fetched.
     let userId = 'c2c___';
@@ -586,7 +586,7 @@ For executing transactions, you need to understand the 4 modules described below
 * Get Chain Detail using chainId.
 
     ```js
-    /* Mandatory API parameters: */
+    // Mandatory API parameters
     
     // ChainId for which details needs to be fetched. Only origin chainId and OST-specific auxiliary chainIds are allowed.
     let chainId = '2000';
@@ -623,7 +623,7 @@ For executing transactions, you need to understand the 4 modules described below
 * Create Webhook using the topics and the subscription url.
 
     ```js
-    /* Mandatory API parameters: */
+    // Mandatory API parameters
   
     // Array of topics.
     let topicParams = ['transactions/initiate','transactions/success'];
@@ -631,7 +631,7 @@ For executing transactions, you need to understand the 4 modules described below
     // URL where you want to receive the event notifications.
     let url = 'https://www.testingWebhooks.com';
   
-    /* Optional API parameters: */
+    // Optional API parameters
   
     // Status of a webhook. Possible values are 'active' and 'inactive'.
     let status = 'active';
@@ -644,7 +644,7 @@ For executing transactions, you need to understand the 4 modules described below
 * Update existing Webhook using a webhookId and an array of topics.
 
     ```js
-    /* Mandatory API parameters: */
+    // Mandatory API parameters
   
     // Array of topics.
     let topicParams = ['transactions/initiate','transactions/success'];
@@ -652,7 +652,7 @@ For executing transactions, you need to understand the 4 modules described below
     // Unique identifier for a webhook.
     let webhookId = 'a743___';
   
-    /* Optional API parameters: */
+    // Optional API parameters
   
     // Status of a webhook. Possible values are 'active' and 'inactive'.
     let status = 'active';
@@ -665,7 +665,7 @@ For executing transactions, you need to understand the 4 modules described below
 * Get Webhook using webhookId.
 
     ```js
-    /* Mandatory API parameters: */
+    // Mandatory API parameters
   
     let webhookId = 'a743___';
     // Unique identifier for a webhook.
@@ -678,10 +678,10 @@ For executing transactions, you need to understand the 4 modules described below
 * Get Webhook List. Pagination is supported by this API.
 
     ```js
-    /* Mandatory API parameters: */
+    // Mandatory API parameters
     // No mandatory parameters.
   
-    /* Optional API parameters: */
+    // Optional API parameters
   
     // Limit.
     let limit = 10;
@@ -697,7 +697,7 @@ For executing transactions, you need to understand the 4 modules described below
 * Delete Webhook using webhookId.
 
     ```js
-    /* Mandatory API parameters: */
+    // Mandatory API parameters
   
     // Unique identifier for a webhook.
     let webhookId = 'a743___';
