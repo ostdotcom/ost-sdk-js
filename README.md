@@ -1,7 +1,6 @@
 # OST Server-Side JavaScript SDK
 [![Build Status](https://travis-ci.org/ostdotcom/ost-sdk-js.svg?branch=develop)](https://travis-ci.org/ostdotcom/ost-sdk-js)
 
-
 [OST](https://dev.ost.com/) Platform SDK for JavaScript.
 
 ## Introduction
@@ -100,7 +99,7 @@ The preferred way to install the OST JavaScript SDK is to use the npm package ma
         .catch(function(err) { console.log(JSON.stringify(err)); });
     ```
 
-* Get Users List. Pagination is supported in this API.
+* Get Users List. Pagination is supported by this API.
 
     ```js
     /* Mandatory API parameters */
@@ -169,7 +168,7 @@ The preferred way to install the OST JavaScript SDK is to use the npm package ma
       .catch(function(err) { console.log(JSON.stringify(err)); });
     ```
 
-* Get User Devices List. Pagination is supported.
+* Get User Devices List. Pagination is supported by this API.
 
     ```js
     /* Mandatory API parameters */
@@ -244,7 +243,7 @@ The preferred way to install the OST JavaScript SDK is to use the npm package ma
       .catch(function(err) { console.log(JSON.stringify(err)); });
     ```
 
-* Get User Sessions List using userId. Pagination is supported in this API.
+* Get User Sessions List using userId. Pagination is supported by this API.
 
     ```js
     /* Mandatory API parameters */
@@ -461,7 +460,7 @@ For executing transactions, you need to understand the 4 modules described below
         .catch(function(err) { console.log(JSON.stringify(err)); });
     ```
 
-* Get User Transactions using userId. Pagination is supported in this API.
+* Get User Transactions using userId. Pagination is supported by this API.
 
     ```js
     /* Mandatory API parameters: */
