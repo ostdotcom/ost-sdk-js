@@ -396,16 +396,16 @@ For executing transactions, you need to understand the 4 modules described below
     let pricePoint = 0.020606673;
   
     // Price point needs to be passed in atto. Also, this value should be a string.
-    let intendedPricePoint = String(pricePoint * 10^18);
+    let intendedPricePoint = String(pricePoint * 10**18);
   
     // Amount of Fiat to be transferred.
     let transferAmountInFiat = 0.1;
   
     // Decimal places obtained from the get price points API of Price Points module. Possible values: 6 and 18.
-    let decimalPlaces = 6;
+    let decimalPlaces = 18;
   
     // Transfer amount in wei. Multiply the fiat transfer amount with 10^decimalPlaces. 
-    let fiatTransferAmountInWei = (transferAmountInFiat * 10^decimalPlaces);
+    let fiatTransferAmountInWei = (transferAmountInFiat * 10**decimalPlaces);
   
     // Parameters required for rule execution.
     let rawCalldata = JSON.stringify({
