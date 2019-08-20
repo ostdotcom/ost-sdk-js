@@ -1,4 +1,4 @@
-# OST JavaScript SDK
+# OST Server-Side JavaScript SDK
 [![Build Status](https://travis-ci.org/ostdotcom/ost-sdk-js.svg?branch=develop)](https://travis-ci.org/ostdotcom/ost-sdk-js)
 
 
