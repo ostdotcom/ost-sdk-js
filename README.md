@@ -39,13 +39,13 @@ The preferred way to install the OST JavaScript SDK is to use the npm package ma
 ```
 
 ## Usage
-* Require the OST JavaScript SDK
+* Require the OST JavaScript SDK.
 
     ```js
     const OSTSDK = require('@ostdotcom/ost-sdk-js');
     ```
 
-* Initialize the SDK object
+* Initialize the SDK object.
 
     ```js
     // Declare connection parameters.
@@ -197,7 +197,6 @@ The preferred way to install the OST JavaScript SDK is to use the npm package ma
       .catch(function(err) { console.log(JSON.stringify(err)); });
     ```
 
-
 ### Device Managers Module
 
 * Initialize Device Manager service object to perform device manager specific actions.
@@ -255,7 +254,7 @@ The preferred way to install the OST JavaScript SDK is to use the npm package ma
     
     /* Optional API parameters: */
     
-    // Pagination identifier from the previous API call response.  Not needed for page one.
+    // Pagination identifier from the previous API call response. Not needed for page one.
     let paginationIdentifier = 'eyJs___';
     
     // Array of session addresses of end user.
