@@ -396,13 +396,13 @@ For executing transactions, you need to understand the 4 modules described below
     // into tokens. Use get price point detail API of Price Points module to get this value.
     let pricePoint = 0.020606673;
   
-    // Price point needs to be passed in atto. Also, this value should be a string. Multiply the price point with 10^18.
+    // Price point needs to be passed in atto. Multiply the price point with 10^18. Also, this value should be a string.
     let intendedPricePointInAtto = String(pricePoint * 10**18);
   
     // Amount of Fiat to be transferred.
     let transferAmountInFiat = 0.1;
   
-    // Transfer amount in wei needs to be passed in atto. Multiply the fiat transfer amount with 10^18. 
+    // Transfer amount in wei needs to be passed in atto. Multiply the fiat transfer amount with 10^18. Also, this value should be a string. 
     let fiatTransferAmountInAtto = String(transferAmountInFiat * 10**18);
   
     // Parameters required for rule execution.
