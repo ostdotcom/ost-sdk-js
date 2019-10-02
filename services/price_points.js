@@ -1,5 +1,3 @@
-"use strict";
-
 /**
  * Price Points Service
  *

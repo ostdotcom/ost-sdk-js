@@ -1,5 +1,3 @@
-"use strict";
-
 /**
  * Webhooks service.
  *

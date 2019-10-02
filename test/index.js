@@ -1,4 +1,3 @@
-"use strict";
 const rootPrefix = "..",
 
     chai = require("chai"),
