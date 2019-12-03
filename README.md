@@ -477,7 +477,7 @@ For executing transactions, you need to understand the 4 modules described below
     // Array of status values.
     let statusesArray = ['CREATED', 'SUBMITTED', 'SUCCESS', 'FAILED'];
     
-    // To get transactions between some specific time, add start time and end time. 
+    // To get transactions between a specific time interval, add start timestamp and end timestamp. 
     let startTime = 1563260786;
     let endTime = 1563280786;
   
