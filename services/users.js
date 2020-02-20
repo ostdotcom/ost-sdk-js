@@ -72,38 +72,7 @@ users.prototype = {
         params = params || {};
 
         return _requestObj.get(oThis.urlPrefix + "/" + validate.getUserId(params), params);
-    },
-
-    /**
-     * Get user redemptions list.
-     *
-     * @param {object} params
-     *
-     * @returns {*}
-     */
-    getRedemptions: function(params) {
-        const oThis = this;
-
-        params = params || {};
-
-        return _requestObj.get(oThis.urlPrefix + "/" + validate.getUserId(params) + "/" + oThis.redemptionsUrlPrefix, params);
-    },
-
-    /**
-     * Get user redemption by redemption id.
-     *
-     * @param {object} params
-     *
-     * @returns {*}
-     */
-    getUserRedemption: function(params) {
-        const oThis = this;
-
-        params = params || {};
-
-        return _requestObj.get(oThis.urlPrefix + "/" + validate.getUserId(params) + "/" + oThis.redemptionsUrlPrefix + validate.getRedemptionId(params), params);
     }
-
 };
 
 module.exports = users;
