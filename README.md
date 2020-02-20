@@ -100,6 +100,21 @@ The preferred way to install the OST JavaScript SDK is to use the npm package ma
         .catch(function(err) { console.log(JSON.stringify(err)); });
     ```
 
+* Get User redemption detail using the userId and redemptionId.
+
+    ```js
+    // Mandatory API parameters
+  
+    // UserId of user for whom user details needs to be fetched.
+    let userId = 'c2c__';
+    // RedemptionId of user for whom redemption details needs to be fetched.
+    let redemptionId = 'c2c__';
+    
+    usersService.getUserRedemption({ user_id: userId, redemption_id: redemptionId })
+        .then(function(res) { console.log(JSON.stringify(res)); })
+        .catch(function(err) { console.log(JSON.stringify(err)); });
+    ```
+
 * Get Users List. Pagination is supported by this API.
 
     ```js
@@ -118,6 +133,30 @@ The preferred way to install the OST JavaScript SDK is to use the npm package ma
     let limit = 10;
    
     usersService.getList({ ids: userIdsArray, limit: limit, pagination_identifier: paginationIdentifier })
+        .then(function(res) { console.log(JSON.stringify(res)); })
+        .catch(function(err) { console.log(JSON.stringify(err)); });
+    ```
+  
+* Get Users Redemptions List. Pagination is supported by this API.
+
+    ```js
+    // Mandatory API parameters
+
+    // UserId of user for whom redemption details needs to be fetched.
+    let userId = 'c2c__';
+  
+    // Optional API parameters   
+
+    // Pagination identifier from the previous API call response. Not needed for page one.
+    let paginationIdentifier = 'e77y___';
+  
+    // Limit.
+    let limit = 10;
+  
+    // Status of redemption.
+    let status = 'FULFILLED';
+   
+    usersService.getRedemptions({ user_id: userId, limit: limit, pagination_identifier: paginationIdentifier, status: status })
         .then(function(res) { console.log(JSON.stringify(res)); })
         .catch(function(err) { console.log(JSON.stringify(err)); });
     ```
