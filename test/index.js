@@ -395,8 +395,7 @@ function getRedemption() {
 function listRedemptions() {
   it("Test list user redemptions", async function () {
     let res = await redemptionsService.getList({
-      user_id: userId,
-      redemption_id: redemptionId
+      user_id: userId
     }).catch(function (err) {
       console.log(JSON.stringify(err));
       assert.fail('List user redemptions.');
