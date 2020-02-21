@@ -751,9 +751,9 @@ For executing transactions, you need to understand the 4 modules described below
     ```js
     // Mandatory API parameters
   
-    // UserId of user for whom user details needs to be fetched.
+    // UserId of user for whom redemption details needs to be fetched.
     let userId = 'c2c__';
-    // RedemptionId of user for whom redemption details needs to be fetched.
+    // RedemptionId of user.
     let redemptionId = 'c2c__';
     
     redemptionsService.get({ user_id: userId, redemption_id: redemptionId })
@@ -761,7 +761,7 @@ For executing transactions, you need to understand the 4 modules described below
         .catch(function(err) { console.log(JSON.stringify(err)); });
     ```
 
-* Get Users Redemptions List. Pagination is supported by this API.
+* Get User Redemptions List. Pagination is supported by this API.
 
     ```js
     // Mandatory API parameters
@@ -811,6 +811,8 @@ For executing transactions, you need to understand the 4 modules described below
 
     ```js
     // Mandatory API parameters 
+    // No mandatory parameters.
+    
     // Optional API parameters   
 
     // Pagination identifier from the previous API call response. Not needed for page one.
