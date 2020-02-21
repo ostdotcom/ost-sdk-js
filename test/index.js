@@ -47,7 +47,7 @@ const rootPrefix = "..",
     ruleAddress = process.env.OST_KIT_RULE_ADDRESS,
     user2TokenHolderAddress = process.env.OST_KIT_USER2_TOKEN_HOLDER_ADDRESS,
     recoveryOwnerAddress = process.env.OST_KIT_RECOVERY_OWNER_ADDRESS,
-    redemptionId = process.env.OST_KIT_USER_REDEMPTION_ID,
+    redemptionId = process.env.OST_KIT_REDEMPTION_ID,
     redeemableSkuId = process.env.OST_KIT_REDEEMABLE_SKU_ID
 ;
 

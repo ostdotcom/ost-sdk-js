@@ -1,6 +1,6 @@
 {
   "name": "@ostdotcom/ost-sdk-js",
-  "version": "2.2.2",
+  "version": "2.2.3",
   "description": "OST Platform SDK for JavaScript.",
   "main": "index.js",
   "scripts": {
