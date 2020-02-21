@@ -44,7 +44,7 @@ redemptions.prototype = {
 
         params = params || {};
 
-        return _requestObj.get(oThis.urlPrefix + "/" + validate.getUserId(params) + "/" + oThis.redemptionsUrlPrefix, params);
+        return _requestObj.get(oThis.urlPrefix + "/" + validate.getUserId(params) + oThis.redemptionsUrlPrefix, params);
     },
 
     /**
@@ -59,7 +59,7 @@ redemptions.prototype = {
 
         params = params || {};
 
-        return _requestObj.get(oThis.urlPrefix + "/" + validate.getUserId(params) + "/" + oThis.redemptionsUrlPrefix + validate.getRedemptionId(params), params);
+        return _requestObj.get(oThis.urlPrefix + "/" + validate.getUserId(params) + oThis.redemptionsUrlPrefix + validate.getRedemptionId(params), params);
     }
 
 };
