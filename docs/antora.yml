@@ -1,0 +1,5 @@
+name: ost_wallet_sdk_ios
+title: Ost Wallet SDK iOS
+version: '1.0'
+nav:
+- modules/ROOT/nav.adoc
