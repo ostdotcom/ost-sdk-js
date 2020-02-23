@@ -1,5 +1,5 @@
-name: ost_wallet_sdk_ios
-title: Ost Wallet SDK iOS
+name: server-sdk-javascript
+title: Ost Server SDK JavaScript
 version: '1.0'
 nav:
 - modules/ROOT/nav.adoc

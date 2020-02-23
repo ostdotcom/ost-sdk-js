@@ -1,0 +1,3 @@
+This is the index.adoc page for OST-SDK-JS
+
+This is a test :)
