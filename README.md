@@ -753,6 +753,7 @@ For executing transactions, you need to understand the 4 modules described below
   
     // UserId of user for whom redemption details needs to be fetched.
     let userId = 'c2c__';
+
     // RedemptionId of user.
     let redemptionId = 'c2c__';
     
