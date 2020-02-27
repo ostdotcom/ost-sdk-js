@@ -829,3 +829,95 @@ For executing transactions, you need to understand the 4 modules described below
         .then(function(res) { console.log(JSON.stringify(res)); })
         .catch(function(err) { console.log(JSON.stringify(err)); });
     ```
+
+### Redemption Modules
+
+Two modules of redemption, "Redeemable SKUs" and "User Redemptions", are described below.
+
+#### Redeemable SKUs Module
+
+* Initialize Redeemable SKUs service object to perform redeemable skus specific actions.
+
+    ```js
+    const redeemableSkusService = ostObj.services.redeemable_skus;
+    ```
+* Get Redeemable SKU detail using the redeemable sku id.
+
+    ```js
+    // Mandatory API parameters
+  
+    // Fetch details of following redeemable sku.
+    let redeemableSkuId = 'c2c__';
+    
+    redeemableSkusService.get({ redeemable_sku_id: redeemableSkuId })
+        .then(function(res) { console.log(JSON.stringify(res)); })
+        .catch(function(err) { console.log(JSON.stringify(err)); });
+    ```
+
+* Get Redeemable SKUs List. Pagination is supported by this API.
+
+    ```js
+    // Mandatory API parameters
+    // NOTE: No mandatory parameters.
+  
+    // Optional API parameters
+  
+    // Limit.
+    let limit = 10;
+  
+    // Array of redeemable SKU ids.
+    let redeemableSkuIds = ['1001', '1002'];
+  
+    // Pagination identifier from the previous API call response.  Not needed for page one.
+    let paginationIdentifier = 'e77y___';
+  
+    redeemableSkusService.getList({limit: limit, pagination_identifier: paginationIdentifier, redeemable_sku_ids: redeemableSkuIds })
+        .then(function(res) { console.log(JSON.stringify(res)); })
+        .catch(function(err) { console.log(JSON.stringify(err)); });
+    ```
+  
+#### User Redemptions Module
+
+* Initialize Redemptions service object to perform user redemption specific actions.
+
+    ```js
+    const redemptionsService = ostObj.services.redemptions;
+    ```
+
+* Get User redemption details using the userId and redemptionId.
+
+    ```js
+    // Mandatory API parameters
+  
+    // UserId of user for whom redemption details needs to be fetched.
+    let userId = 'c2c__';
+  
+    // Unique identifier of the redemption of user.
+    let redemptionId = 'c2c__';
+        
+    redemptionsService.get({ user_id: userId, redemption_id: redemptionId })
+        .then(function(res) { console.log(JSON.stringify(res)); })
+        .catch(function(err) { console.log(JSON.stringify(err)); });
+    ```
+
+* Get User Redemptions List. Pagination is supported by this API.
+
+    ```js
+    // Mandatory API parameters
+    let userId = 'c2c__';
+    
+    // Optional API parameters
+    
+    // Limit.
+    let limit = 10;
+  
+    // Array of user redemption uuids.
+    let redemptionIds = ['a743___', 'a743___']
+    
+    // Pagination identifier from the previous API call response.  Not needed for page one.
+    let paginationIdentifier = 'e77y___';
+       
+    redemptionsService.getList({ user_id: userId, limit: limit, pagination_identifier: paginationIdentifier, redemption_ids: redemptionIds })
+        .then(function(res) { console.log(JSON.stringify(res)); })
+        .catch(function(err) { console.log(JSON.stringify(err)); });
+    ```
