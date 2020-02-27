@@ -737,98 +737,6 @@ For executing transactions, you need to understand the 4 modules described below
     let resp = webhooksService.verifySignature(version, stringifiedData,requestTimestamp, signature, webhookSecret);
     console.log(resp);
     ```
-  
-### Redemptions Module 
-
-* Initialize Redemptions service object to perform user redemption specific actions.
-
-    ```js
-    const redemptionsService = ostObj.services.redemptions;
-    ```
-
-* Get User redemption detail using the userId and redemptionId.
-
-    ```js
-    // Mandatory API parameters
-  
-    // UserId of user for whom redemption details needs to be fetched.
-    let userId = 'c2c__';
-
-    // RedemptionId of user.
-    let redemptionId = 'c2c__';
-    
-    redemptionsService.get({ user_id: userId, redemption_id: redemptionId })
-        .then(function(res) { console.log(JSON.stringify(res)); })
-        .catch(function(err) { console.log(JSON.stringify(err)); });
-    ```
-
-* Get User Redemptions List. Pagination is supported by this API.
-
-    ```js
-    // Mandatory API parameters
-
-    // UserId of user for whom redemption details needs to be fetched.
-    let userId = 'c2c__';
-  
-    // Optional API parameters   
-
-    // Pagination identifier from the previous API call response. Not needed for page one.
-    let paginationIdentifier = 'e77y___';
-  
-    // Limit.
-    let limit = 10;
-  
-    // Array of user redemption uuids.
-    let userRedemptionUuids = ['13518427-e6d1-46f7-9e3e-dd726ad37a69'];
-   
-    redemptionsService.getList({ user_id: userId, limit: limit, pagination_identifier: paginationIdentifier, user_redemption_uuids: userRedemptionUuids })
-        .then(function(res) { console.log(JSON.stringify(res)); })
-        .catch(function(err) { console.log(JSON.stringify(err)); });
-    ```
-
-
-### Redeemable SKUs Module 
-
-* Initialize Redeemable Skus service object to perform user redemption specific actions.
-
-    ```js
-    const redeemableSkusService = ostObj.services.redeemable_skus;
-    ```
-
-* Get Redeemable SKU detail using the redeemable SKU id.
-
-    ```js
-    // Mandatory API parameters
-
-    // RedeemableSkuId of product for whom details needs to be fetched.
-    let redeemableSkuId = 'c2c__';
-    
-    redeemableSkusService.get({ redeemable_sku_id: redeemableSkuId })
-        .then(function(res) { console.log(JSON.stringify(res)); })
-        .catch(function(err) { console.log(JSON.stringify(err)); });
-    ```
-
-* Get Redeemable SKUs List. Pagination is supported by this API.
-
-    ```js
-    // Mandatory API parameters 
-    // No mandatory parameters.
-    
-    // Optional API parameters   
-
-    // Pagination identifier from the previous API call response. Not needed for page one.
-    let paginationIdentifier = 'e77y___';
-  
-    // Limit.
-    let limit = 10;
-  
-    // Array of redeemable SKU ids.
-    let ids = ['1', '2'];
-   
-    redeemableSkusService.getList({limit: limit, pagination_identifier: paginationIdentifier, ids: ids })
-        .then(function(res) { console.log(JSON.stringify(res)); })
-        .catch(function(err) { console.log(JSON.stringify(err)); });
-    ```
 
 ### Redemption Modules
 
@@ -912,7 +820,7 @@ Two modules of redemption, "Redeemable SKUs" and "User Redemptions", are describ
     let limit = 10;
   
     // Array of user redemption uuids.
-    let redemptionIds = ['a743___', 'a743___']
+    let redemptionIds = ['a743___', 'a743___'];
     
     // Pagination identifier from the previous API call response.  Not needed for page one.
     let paginationIdentifier = 'e77y___';
