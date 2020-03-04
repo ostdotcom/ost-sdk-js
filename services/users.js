@@ -26,6 +26,7 @@ const users = function (requestObj) {
 
     // Define the url prefix
     oThis.urlPrefix = '/users';
+    oThis.redemptionsUrlPrefix = '/redemptions';
 
     return oThis;
 };
@@ -72,7 +73,6 @@ users.prototype = {
 
         return _requestObj.get(oThis.urlPrefix + "/" + validate.getUserId(params), params);
     }
-
 };
 
 module.exports = users;
