@@ -21,6 +21,8 @@ const rootPrefix = ".."
   , transactionsKlass = require(rootPrefix + '/services/transactions')
   , baseTokensKlass = require(rootPrefix + '/services/base_tokens')
   , webhooksKlass = require(rootPrefix + '/services/webhooks')
+  , redemptionsKlass = require(rootPrefix + '/services/redemptions')
+  , redeemableSkusKlass = require(rootPrefix + '/services/redeemable_skus')
 ;
 
 // hide request object
@@ -51,6 +53,8 @@ const manifest = function (params) {
   oThis.transactions = new transactionsKlass(_requestObj);
   oThis.base_tokens = new baseTokensKlass(_requestObj);
   oThis.webhooks = new webhooksKlass(_requestObj);
+  oThis.redemptions = new redemptionsKlass(_requestObj);
+  oThis.redeemable_skus = new redeemableSkusKlass(_requestObj);
 
   return oThis;
 };
@@ -81,7 +85,11 @@ manifest.prototype = {
 
   base_tokens: null,
 
-  webhooks: null
+  webhooks: null,
+
+  redemptions: null,
+
+  redeemable_skus: null,
 };
 
 module.exports = manifest;
