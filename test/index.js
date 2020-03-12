@@ -34,6 +34,8 @@ const rootPrefix = "..",
     transactionsService = ostObj.services.transactions,
     baseTokensService = ostObj.services.base_tokens,
     webhooksService = ostObj.services.webhooks,
+    redemptionsService = ostObj.services.redemptions,
+    redeemableSkusService = ostObj.services.redeemable_skus,
 
 
     userId = process.env.OST_KIT_USER_ID,
@@ -44,7 +46,9 @@ const rootPrefix = "..",
     sessionAddrs = process.env.OST_KIT_SESSION_ADDRESS,
     ruleAddress = process.env.OST_KIT_RULE_ADDRESS,
     user2TokenHolderAddress = process.env.OST_KIT_USER2_TOKEN_HOLDER_ADDRESS,
-    recoveryOwnerAddrs = process.env.OST_KIT_RECOVERY_OWNER_ADDRESS
+    recoveryOwnerAddress = process.env.OST_KIT_RECOVERY_OWNER_ADDRESS,
+    redemptionId = process.env.OST_KIT_REDEMPTION_ID,
+    redeemableSkuId = process.env.OST_KIT_REDEEMABLE_SKU_ID
 ;
 
 let webhookId = null;
@@ -227,7 +231,7 @@ function getRecoveryOwnerAddress() {
     it("test get recovery owners", async function () {
         let res = await recoveryOwnersService.get({
             user_id: userId,
-            recovery_owner_address: recoveryOwnerAddrs //"0x4e9314f004026F89Fc52790c3357b2D34FBA93b0"
+            recovery_owner_address: recoveryOwnerAddress //"0x4e9314f004026F89Fc52790c3357b2D34FBA93b0"
         }).catch(function (err) {
             console.log(JSON.stringify(err));
             assert.fail('get recovery owners');
@@ -373,6 +377,56 @@ function deleteWebhook() {
   });
 }
 
+
+function getRedemption() {
+  it("Test get user redemption", async function () {
+    let res = await redemptionsService.get({
+      user_id: userId,
+      redemption_id: redemptionId
+    }).catch(function (err) {
+      console.log(JSON.stringify(err));
+      assert.fail('Get user redemption.');
+    });
+    assert.equal(res.success, true);
+  });
+}
+
+
+function listRedemptions() {
+  it("Test list user redemptions", async function () {
+    let res = await redemptionsService.getList({
+      user_id: userId
+    }).catch(function (err) {
+      console.log(JSON.stringify(err));
+      assert.fail('List user redemptions.');
+    });
+    assert.equal(res.success, true);
+  });
+}
+
+function getRedeemableSku() {
+  it("Test get redeemable SKU by id", async function () {
+    let res = await redeemableSkusService.get({
+      redeemable_sku_id: redeemableSkuId
+    }).catch(function (err) {
+      console.log(JSON.stringify(err));
+      assert.fail('Get redeemable SKU.');
+    });
+    assert.equal(res.success, true);
+  });
+}
+
+function listRedeemableSkus() {
+  it("Test list redeemable SKUs", async function () {
+    let res = await redeemableSkusService.getList({}).catch(function (err) {
+      console.log(JSON.stringify(err));
+      assert.fail('List redeemable SKUs.');
+    });
+    assert.equal(res.success, true);
+  });
+}
+
+
 function testWebhookRequestSignature() {
   it ("Tests webhook request signature.", async function () {
     let version = "2",
@@ -444,6 +498,10 @@ async function testcases() {
     await updateWebhook();
     await deleteWebhook();
     testWebhookRequestSignature();
+    getRedemption();
+    listRedemptions();
+    getRedeemableSku();
+    listRedeemableSkus()
 }
 
 testcases();

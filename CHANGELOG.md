@@ -1,3 +1,9 @@
+[OST Javascript SDK v2.2.3](https://github.com/ostdotcom/ost-sdk-js/tree/v2.2.3)
+---
+
+* Added redemptions module to call user redemptions management OST APIs.
+* Added redeemable SKUs module to call redeemable SKUs OST APIs.
+
 [OST Javascript SDK v2.2.2](https://github.com/ostdotcom/ost-sdk-js/tree/v2.2.2)
 ---
 
