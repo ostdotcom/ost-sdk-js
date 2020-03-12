@@ -1,0 +1,5 @@
+name: server-sdk-javascript
+title: Ost Server SDK JavaScript
+version: '1.0'
+nav:
+- modules/ROOT/nav.adoc

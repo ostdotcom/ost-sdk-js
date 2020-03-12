@@ -1,0 +1,40 @@
+== https://github.com/ostdotcom/ost-sdk-js/tree/v2.2.3[OST Javascript SDK v2.2.3]
+
+* Added redemptions module to call user redemptions management OST APIs.
+* Added redeemable SKUs module to call redeemable SKUs OST APIs.
+
+== https://github.com/ostdotcom/ost-sdk-js/tree/v2.2.2[OST Javascript SDK v2.2.2]
+
+* Readme changes for documenting new parameters in transactions module.
+These parameters can help to  get data between specific time interval.
+
+== https://github.com/ostdotcom/ost-sdk-js/tree/v2.2.0[OST Javascript SDK v2.2.0]
+
+* Added webhooks module to call webhook management OST APIs.
+* Support for verify webhook signature.
+
+== https://github.com/ostdotcom/ost-sdk-js/tree/v2.1.0[OST Javascript SDK v2.1.0]
+
+* Added base tokens module to V2 API's
+
+== https://github.com/ostdotcom/ost-sdk-js/tree/v2.0.0[OST Javascript SDK v2.0.0]
+
+* OST API V2 interaction layer implementation.
+* Removed API V0 and V1 support.
+* xref:README.adoc[README.adoc] has API V2 usage instructions
+
+== https://github.com/ostdotcom/ost-sdk-js/tree/v1.1.0[OST Javascript SDK v1.1.0]
+
+* Added balance module to v1 API
+* Added ledger module to v1 API
+
+== https://github.com/ostdotcom/ost-sdk-js/tree/v1.0.0[OST Javascript SDK v1.0.0]
+
+* Added OST API V1 support along with API V0
+* Test cases for for both V0 and V1 APIs
+* xref:README.adoc[README.adoc] has API V1 usage instructions
+* xref:README.adoc[README_V0.adoc] has API V0 usage instructions
+
+== https://github.com/ostdotcom/ost-sdk-js/tree/v0.9.1[OST Javascript SDK v0.9.1]
+
+Initial release of the official OST Javascript SDK + This release has the OST API V0 interaction layer implementation.
